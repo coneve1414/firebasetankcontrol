@@ -148,7 +148,7 @@
             console.log('starting user create');
                       var email2 = document.getElementById('email').value;
                       var password2 = document.getElementById('password').value;
-                      var verificationCode = document.getElementById('verificationCode').value;
+                      //var verificationCode = document.getElementById('verificationCode').value;
                       if (email2.length < 4) {
                         alert('Please enter an email address.');
                         return;
@@ -157,7 +157,7 @@
                         alert('Please enter a longer password.');
                         return;
                       }
-                      getOrgCode(verificationCode);
+                      getOrgCode(document.getElementById('verificationCode').value);
                       //if (document.getElementById('verificationCode').value = "927809" ) {
                       //firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
                       // Handle Errors here.
