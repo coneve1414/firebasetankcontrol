@@ -116,6 +116,7 @@
               </div>
               <button class="btn btn-block btn-primary" type="button" onclick="createUser()" id="createAccount">Create Account</button>
             </div>
+            <script src='/firebase/orgVerificationCode.js'></script>
             <script type=text/javascript>
               function initApp() {
       firebase.auth().onAuthStateChanged(function(user) {
@@ -152,22 +153,23 @@
                         alert('Please enter a longer password.');
                         return;
                       }
-                      if (document.getElementById('verificationCode').value = "927809" ) {
-                      firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
+                      getOrgCode();
+                      //if (document.getElementById('verificationCode').value = "927809" ) {
+                      //firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
                       // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
+                      //  var errorCode = error.code;
+                      //  var errorMessage = error.message;
                         
                         //if (!errorCode) {
                          // alert("Success!");
                         //}
 
-                        if (errorCode === 'auth/wrong-password') {
-                          alert('Wrong password.');
-                        } else {
-                          alert(errorMessage);
-                        }
-                      });
+                        //if (errorCode === 'auth/wrong-password') {
+                         // alert('Wrong password.');
+                        //} else {
+                        //  alert(errorMessage);
+                        //}
+                      };//);
                       alert('Success! Redirecting You to Login Page!');
                       redirectadmin();
                     } else {
