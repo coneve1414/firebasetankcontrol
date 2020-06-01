@@ -1,10 +1,13 @@
-function getOrgCode(orgCode) {
+function getOrgCode() {
+var orgVerificationCode = document.getElementById('verificationCode').value;
+getOrgCode2(orgVerificationCode);
+function getOrgCode2(orgCode) {
     var ref = firebase.database().ref("orgCodes");
 ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
-  if (orgCodeCheck != " null") {
-    var orgVerificationCode = document.getElementById('verificationCode').value;
+  if (orgCodeCheck != " namf") {
+    //
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
     firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
@@ -29,3 +32,4 @@ ref.on("value", function(snapshot) {
 });
 
 }
+};
