@@ -14,10 +14,10 @@ userRef.once("value", function(userSnapshot) {
       var orgid = userSnapshot.child(userid).val(); // "Lovelace"
       //var orgIdTest = userSnapshot.child(userid).val();
       //var version = snapshot.child("namf").child("version").val();
-      if (orgid == null) {
-        var orgid = "namf";
-      }
-      console.log(orgid);
+      //if (orgid == null) {
+      //  var orgid = "namf";
+      //}
+      //console.log(orgid);
       //var orgid2 = " " + orgid
       //document.getElementById("version").innerHTML= version;
       //var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
