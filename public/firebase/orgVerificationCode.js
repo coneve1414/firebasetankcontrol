@@ -1,7 +1,7 @@
 //function getOrgCode() {
 //var orgVerificationCode = document.getElementById('verificationCode').value;
 //getOrgCode2(orgVerificationCode);
-function getOrgCode(orgCode) {
+function getOrgCode(orgCode, uid) {
     var ref = firebase.database().ref("orgCodes");
 ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
@@ -9,6 +9,12 @@ ref.on("value", function(snapshot) {
   if (orgCodeCheck != " null") {
     if (orgCodeValid = "namf") {
     //
+    function writeOrgData(userId, orgCodeSet) {
+      firebase.database().ref('user').set({
+        userId":" orgCodeSet,
+      });
+    }
+    
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
     firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
@@ -26,6 +32,7 @@ ref.on("value", function(snapshot) {
             alert(errorMessage);
           }
         });
+        writeOrgData(uid, orgCodeValid);
         redirectAdmin();
       };
   } else {
