@@ -6,7 +6,8 @@ function getOrgCode(orgCode) {
 ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
-  if (orgCodeCheck = " namf") {
+  if (orgCodeCheck != " null") {
+    if (orgCodeValid = "namf") {
     //
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
@@ -26,6 +27,7 @@ ref.on("value", function(snapshot) {
           }
         });
         redirectAdmin();
+      };
   } else {
       alert('Please enter a valid code');
       return
