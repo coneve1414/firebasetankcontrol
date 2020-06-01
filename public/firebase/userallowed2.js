@@ -55,15 +55,14 @@ usersRef.once("value", function(debugInfo) {
     
     } else {
         if (useruid2 == " null") {
-            //hideTemps();
-            //window.alert("Access Denied! Code: A1003")
-            //var orgid = "namf"
-            document.getElementById("role").innerHTML = "Standard User";
-            document.getElementById("org").innerHTML = "New Age Metal Fabrication";
-            var version = debugInfo.child(orgid).child("version").val();
-            document.getElementById("version").innerHTML= version;
+            hideTemps();
+            window.alert("Access Denied! Code: A1003")
+    //        document.getElementById("role").innerHTML = "Standard User";
+    //        document.getElementById("org").innerHTML = "New Age Metal Fabrication";
+    //        var version = debugInfo.child(orgid).child("version").val();
+    //        document.getElementById("version").innerHTML= version;
             //console.log(orgid);
-            getTanks(orgid);
+    //        getTanks(orgid);
         } else { 
             if(useruid2 == " admin") {
                 document.getElementById("role").innerHTML = "Administrator";
