@@ -1,6 +1,6 @@
-function getOrgCode() {
-var orgVerificationCode = document.getElementById('verificationCode').value;
-getOrgCode2(orgVerificationCode);
+//function getOrgCode() {
+//var orgVerificationCode = document.getElementById('verificationCode').value;
+//getOrgCode2(orgVerificationCode);
 function getOrgCode2(orgCode) {
     var ref = firebase.database().ref("orgCodes");
 ref.on("value", function(snapshot) {
@@ -33,4 +33,4 @@ ref.on("value", function(snapshot) {
 });
 
 }
-};
+//};
