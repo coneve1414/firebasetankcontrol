@@ -10,9 +10,8 @@ ref.on("value", function(snapshot) {
     if (orgCodeValid = "namf") {
     //
     function writeOrgData(userId, orgCodeSet) {
-      firebase.database().ref('user').set({
-        userId":" orgCodeSet,
-      });
+      firebase.database().ref('user').child(userId).set(
+        orgCodeSet);
     }
     
     var email2 = document.getElementById('email').value;
