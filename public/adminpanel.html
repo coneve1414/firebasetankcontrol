@@ -1,0 +1,64 @@
+<button type="button" id="b1">Disable Dev Mode</button>
+<br>
+
+<button type="button" id="b2">Enable Dev Mode</button>
+
+<script>
+
+$(document).ready(function(){
+
+$("#b1").click(function(){
+
+$.ajax({
+
+method: "GET",
+
+url: "/admin/scripts/cloudflare/dev_mode_off.py",
+
+data: {"place" : value},
+
+dataType: "text",
+
+success: function(result){
+
+var data=JSON.parse(result);
+
+console.log(result);
+
+}
+
+});
+
+});
+
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+$("#b2").click(function(){
+
+$.ajax({
+
+method: "GET",
+
+url: "/admin/scripts/cloudflare/dev_mode_on.py",
+
+data: {"place" : value},
+
+dataType: "text",
+
+success: function(result){
+
+var data=JSON.parse(result);
+
+console.log(result);
+
+}
+
+});
+
+});
+
+</script>

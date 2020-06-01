@@ -1,0 +1,64 @@
+<input type="file" id="fileButton">
+<button onclick="potato()">Click me</button>
+<br>
+<button onclick="manualUpdate()">Click me2 </button>
+
+
+
+
+<script> 
+function manualUpdate(){
+firebase.auth().currentUser.updateProfile({
+  displayName: 'Time to Hack',
+  photoURL: 'https://time2hack.com/favicon.png'
+});}
+</script>
+<script> 
+//Upload Profile Picture 
+//Altered code from: Firebase Youtube Channel. 
+function potato(){
+      //Get Elements
+      var uploader = document.getElementById('uploader');
+      var fileButton = document.getElementById('fileButton');
+
+      //Listen for file 
+      fileButton.addEventListener('change', function(e){
+
+         //Get File
+         var file = e.target.files[0];
+
+// Get current username
+var user = firebase.auth().currentUser;
+
+// Create a Storage Ref w/ username
+var storageRef = firebase.storage().ref(user + '/profilePicture/' + file.name);
+
+// Upload file
+var task = storageRef.put(file);
+
+         var user = firebase.auth().currentUser;        
+
+                 
+    })};
+
+
+//Display Profile Picture   
+
+function showUserDetails(){
+
+   var user = firebase.auth().currentUser;
+   var name, photoUrl;
+
+   if (user != null) {
+      name = user.displayName;
+      photoUrl = user.photoURL;
+
+      document.getElementById('dp').innerHTML=photoURL;
+      document.getElementById('username').innerHTML=name;  
+}}
+
+
+
+
+
+</script>

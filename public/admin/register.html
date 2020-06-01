@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Tank Status Control">
+    <meta name="author" content="Conner Everett">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>Admin - Register</title>
+    <!-- Icons-->
+    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-remote-config.js"></script>
+
+    <script src="/firebase/config.js"></script>
+    <!--<script>
+      // Your web app's Firebase configuration
+          var config = {
+            apiKey: "AIzaSyBopsZUr4sbj8_hPupcE50tm_REwrj_ivs",
+            authDomain: "tankstatuscontrol-ce.firebaseapp.com",
+            databaseURL: "https://tankstatuscontrol-ce.firebaseio.com",
+            projectId: "tankstatuscontrol-ce",
+            storageBucket: "tankstatuscontrol-ce.appspot.com",
+            messagingSenderId: "399552103120",
+            appId: "1:399552103120:web:1f9d2740e78799845314d5"
+          };
+      // Initialize Firebase
+          firebase.initializeApp(config);
+    
+          var database = firebase.database();
+    
+        </script>-->
+        
+  <script src="/__/firebase/5.0.0/firebase-app.js"></script>
+  <script src="/__/firebase/5.0.0/firebase-auth.js"></script>
+
+  <script src="/__/firebase/init.js"></script>
+  <!--<script src="/firebase/remoteConfig.js"></script>
+  <script src="/firebase/remoteConfig.js"></script>-->
+  
+  <!----<script src="https://github.com/MCRobotics2018/website-backend/raw/master/develop.js"></script>
+  -->
+  <!--<script src="/firebase/login.js"></script>-->
+
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script>
+  </head>
+  <body class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <h1>Register</h1>
+              <p class="text-muted">Create your account</p>
+              <!--<div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="icon-user"></i>
+                  </span>
+                </div>
+                <input class="form-control" type="text" placeholder="Username">
+              </div>-->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input class="form-control" type="text" placeholder="Email" id="email">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="icon-lock"></i>
+                  </span>
+                </div>
+                <input class="form-control" type="password" placeholder="Password" id="password">
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="icon-lock"></i>
+                  </span>
+                </div>
+                <input class="form-control" type="password" placeholder="Verification Code" id="verificationCode">
+              </div>
+              <button class="btn btn-block btn-primary" type="button" onclick="createUser()" id="createAccount">Create Account</button>
+            </div>
+            <script type=text/javascript>
+              function initApp() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        //document.getElementById('quickstart-verify-email').disabled = true;
+        //getRemoteConfig();
+		
+		//if (user) {
+			//setTimeout(redirectadmin, 10)
+	//	}
+		
+		  function redirectadmin() {
+			window.location = "/admin/dashboard.html";
+		  }
+		
+        if (user) {
+      //      redirectadmin
+          //firebase.auth().signOut();
+          setTimeout(redirectadmin, 10)    
+        } else {
+          // User is signed out.
+          // [START_EXCLUDE]
+          //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+          //document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+          //document.getElementById('quickstart-account-details').textContent = ' ';
+          function createUser() {
+            console.log('starting user create');
+                      var email2 = document.getElementById('email').value;
+                      var password2 = document.getElementById('password').value;
+                      if (email2.length < 4) {
+                        alert('Please enter an email address.');
+                        return;
+                      }
+                      if (password2.length < 4) {
+                        alert('Please enter a longer password.');
+                        return;
+                      }
+                      if (document.getElementById('verificationCode').value = "927809" ) {
+                      firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
+                      // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        
+                        //if (!errorCode) {
+                         // alert("Success!");
+                        //}
+
+                        if (errorCode === 'auth/wrong-password') {
+                          alert('Wrong password.');
+                        } else {
+                          alert(errorMessage);
+                        }
+                      });
+                      alert('Success! Redirecting You to Login Page!');
+                      redirectadmin();
+                    } else {
+                      alert('Please enter correct code from organization.');
+                      return
+                    }
+                  }
+                  document.getElementById('createAccount').addEventListener('click', createUser, false);
+
+
+                    
+          // [END_EXCLUDE]
+        }
+        // [START_EXCLUDE silent]
+        //document.getElementById('quickstart-sign-in').disabled = false;
+        // [END_EXCLUDE]
+      } )}
+      window.onload = function() {
+        //firebase.auth().signOut();
+      initApp();
+      //getRemoteConfig2();
+    };
+      // [END authstatelistener]
+      //document.getElementById('createAccount').addEventListener('click', createUser, false);
+      //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+      //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+      //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    
+      
+
+            </script>
+            <!--<div class="card-footer p-4">
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-block btn-facebook" type="button">
+                    <span>facebook</span>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-block btn-twitter" type="button">
+                    <span>twitter</span>
+                  </button>
+                </div>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/pace-progress/pace.min.js"></script>
+    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+  </body>
+</html>

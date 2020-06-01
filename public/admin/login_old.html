@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Morris Catholic Robotics">
+    <meta name="author" content="Conner Everett">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>Admin - Login</title>
+    <!-- Icons-->
+    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-remote-config.js"></script>
+
+    <script src="/firebase/config.js"></script>
+    <!--<script>
+      // Your web app's Firebase configuration
+          var config = {
+            apiKey: "AIzaSyBopsZUr4sbj8_hPupcE50tm_REwrj_ivs",
+            authDomain: "tankstatuscontrol-ce.firebaseapp.com",
+            databaseURL: "https://tankstatuscontrol-ce.firebaseio.com",
+            projectId: "tankstatuscontrol-ce",
+            storageBucket: "tankstatuscontrol-ce.appspot.com",
+            messagingSenderId: "399552103120",
+            appId: "1:399552103120:web:1f9d2740e78799845314d5"
+          };
+      // Initialize Firebase
+          firebase.initializeApp(config);
+    
+          var database = firebase.database();
+    
+        </script>-->
+        
+  <script src="/__/firebase/5.0.0/firebase-app.js"></script>
+  <script src="/__/firebase/5.0.0/firebase-auth.js"></script>
+
+  <script src="/__/firebase/init.js"></script>
+  <!--<script src="/firebase/remoteConfig.js"></script>
+  <script src="/firebase/remoteConfig.js"></script>-->
+  
+  <!----<script src="https://github.com/MCRobotics2018/website-backend/raw/master/develop.js"></script>
+  -->
+  <!--<script src="/firebase/login.js"></script>-->
+
+  <script type="text/javascript">
+  //var database = firebase.database();
+    function toggleSignIn() {
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      } else {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        if (email.length < 4) {
+          alert('Please enter an email address.');
+          return;
+        }
+        if (password.length < 4) {
+          alert('Please enter a password.');
+          return;
+        }
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+          document.getElementById('quickstart-sign-in').disabled = false;
+        });
+      }
+      document.getElementById('quickstart-sign-in').disabled = true;
+    }
+    function handleSignUp() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+    }
+    function sendEmailVerification() {
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        alert('Email Verification Sent!');
+      });
+    }
+    function sendPasswordReset() {
+      var email = document.getElementById('email').value;
+      firebase.auth().sendPasswordResetEmail(email).then(function() {
+        alert('Password Reset Email Sent!');
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/invalid-email') {
+          alert(errorMessage);
+          //alert("ERROR! Code: A1006")
+        } else if (errorCode == 'auth/user-not-found') {
+          alert(errorMessage);
+          //alert("ERROR! Code: A1006")
+        }
+        console.log(error);
+      });
+    }
+    function initApp() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        document.getElementById('quickstart-verify-email').disabled = true;
+        //getRemoteConfig();
+		
+		if (user) {
+			setTimeout(redirectadmin, 10)
+		}
+		
+		function redirectadmin() {
+			window.location = "/admin/dashboard.html";
+		}
+		
+        if (user) {
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+          //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+          if (!emailVerified) {
+            document.getElementById('quickstart-verify-email').disabled = false;
+          }
+        } else {
+          // User is signed out.
+          // [START_EXCLUDE]
+          //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+          document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+          //document.getElementById('quickstart-account-details').textContent = ' ';
+          // [END_EXCLUDE]
+        }
+        // [START_EXCLUDE silent]
+        document.getElementById('quickstart-sign-in').disabled = false;
+        // [END_EXCLUDE]
+      });
+      // [END authstatelistener]
+      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+      //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    }
+    window.onload = function() {
+      initApp();
+      //getRemoteConfig2();
+    };
+  </script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script>
+  </head>
+  <body class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <h1>Login</h1>
+                <p class="text-muted">Sign In to your account</p>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-user"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" type="text" id="email" placeholder="Email">
+                </div>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-lock"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" type="password" id="password" placeholder="Password">
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <a id="LoginButtonEnable">
+                    <button class="btn btn-primary px-4" type="button" id="quickstart-sign-in">Login</button>
+                    </a>
+                </div>
+                
+                  <div class="col-6 text-right">
+                    <button class="btn btn-link px-0" type="button" id="quickstart-password-reset">Forgot password?</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>Sign up</h2>
+                  <p>Signups are currently Disabled. Sorry for the inconience</p>
+                  <button disabled class="btn btn-primary active mt-3" type="button" id="quickstart-verify-email">Register Now!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/pace-progress/pace.min.js"></script>
+    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+  </body>
+</html>

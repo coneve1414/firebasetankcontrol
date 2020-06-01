@@ -1,0 +1,49 @@
+<img src="" id="imgex">
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+  var config = {
+    apiKey: "AIzaSyAVDkpKJEZ1UviUTAgBTcoRsx-7Ku2o8EQ",
+    authDomain: "mchsrobotics-4b671.firebaseapp.com",
+    databaseURL: "https://mchsrobotics-4b671.firebaseio.com",
+    projectId: "mchsrobotics-4b671",
+    storageBucket: "mchsrobotics-4b671.appspot.com",
+    messagingSenderId: "50376662557",
+    appId: "1:50376662557:web:7762938babb88379"
+  };
+  firebase.initializeApp(config);
+</script>
+  <script src="__/firebase/5.0.0/firebase-app.js"></script>
+  <script src="__/firebase/5.0.0/firebase-auth.js"></script>
+  <script src="__/firebase/init.js"></script>
+<script>
+    firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var user = firebase.auth().currentUser;
+var name, email, photoUrl, uid, emailVerified;
+
+if (user != null) {
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+
+    document.getElementById("imgex").src = photoUrl
+}
+  } else {
+      setTimeout(redirectadmin, 0)
+      
+      function redirectadmin() {
+        window.location.href("/admin/src/login");
+    }
+    
+    // No user is signed in.
+  }
+});
+    
+    
+    
+</script>
