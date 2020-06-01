@@ -25,6 +25,7 @@ ref.on("value", function(snapshot) {
             alert(errorMessage);
           }
         });
+        redirectAdmin();
   } else {
       alert('Please enter a valid code');
       return
