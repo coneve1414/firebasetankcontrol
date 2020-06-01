@@ -26,6 +26,14 @@ userRef.once("value", function(userSnapshot) {
     
     var usersRef = firebase.database().ref("users");
 firebase.auth().onAuthStateChanged((user) => {
+    function hideTemps() {
+      var x = document.getElementById("temps");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+  }
     if (user) {
       // User logged in already or has just logged in.
       console.log(user.uid);
@@ -231,14 +239,7 @@ ref.on("value", function(snapshot11) {
   //var age = snapshot.child("age").val(); // null
   });
 
-  function hideTemps() {
-    var x = document.getElementById("temps");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+  
 
 
 }}); 
