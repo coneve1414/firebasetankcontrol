@@ -1,18 +1,10 @@
-//function getOrgCode() {
-//var orgVerificationCode = document.getElementById('verificationCode').value;
-//getOrgCode2(orgVerificationCode);
 function getOrgCode(orgCode, uid) {
-    var ref = firebase.database().ref("orgCodes");
-ref.on("value", function(snapshot) {
+  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
+  ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
-  if (orgCodeCheck != " null") {
-    if (orgCodeValid = "namf") {
-    //
-    function writeOrgData(userId, orgCodeSet) {
-      firebase.database().ref('user').child(userId).set(
-        orgCodeSet);
-    }
+  if (orgCodeCheck != " null") { //if a verification code exists
+    if (orgCodeValid = "namf") { //checking for return value of database
     
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
@@ -20,25 +12,18 @@ ref.on("value", function(snapshot) {
         // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
-          
-          //if (!errorCode) {
-           // alert("Success!");
-          //}
-
-          if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
+          if (errorCode === 'auth/user-exists') {
+            alert('The User already exists');
           } else {
             alert(errorMessage);
           }
         });
-        writeOrgData(uid, orgCodeValid);
-        redirectAdmin();
+        redirectAdmin(); //redirects to dashboard
       };
   } else {
-      alert('Please enter a valid code');
+      alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
       return
   }
 });
 
 }
-//};
