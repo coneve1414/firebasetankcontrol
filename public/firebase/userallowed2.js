@@ -59,7 +59,7 @@ usersRef.once("value", function(debugInfo) {
     //var age = snapshot.child("age").val(); // null
     if (useruid == false) {
         getTanks.hideTemps();
-        window.alert("Access Denied! Code: A1004");
+        window.alert("Access Denied! User not assigned to an organization! Code: A1004");
     
     } else {
         if (useruid2 == " null") {
