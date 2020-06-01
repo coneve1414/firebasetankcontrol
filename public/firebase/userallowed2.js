@@ -59,12 +59,12 @@ usersRef.once("value", function(debugInfo) {
     //var age = snapshot.child("age").val(); // null
     if (useruid == false) {
         getTanks.hideTemps();
-        window.alert("Access Denied! User not assigned to an organization! Code: A1004");
+        window.alert("Access Denied! User removed from an organization! Code: A1004");
     
     } else {
         if (useruid2 == " null") {
             hideTemps();
-            window.alert("Access Denied! Code: A1003")
+            window.alert("Access Denied! User not assigned to an organization! Code: A1003")
     //        document.getElementById("role").innerHTML = "Standard User";
     //        document.getElementById("org").innerHTML = "New Age Metal Fabrication";
     //        var version = debugInfo.child(orgid).child("version").val();
