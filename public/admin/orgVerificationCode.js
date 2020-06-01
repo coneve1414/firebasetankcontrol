@@ -1,5 +1,5 @@
 function getOrgCode(orgCode) {
-    var ref = firebase.database().ref("orgcodes");
+    var ref = firebase.database().ref("orgCodes");
 ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
