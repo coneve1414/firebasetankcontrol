@@ -51,8 +51,11 @@
     
         </script>-->
         
-  <script src="/__/firebase/5.0.0/firebase-app.js"></script>
-  <script src="/__/firebase/5.0.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-remote-config.js"></script>
 
   <script src="/__/firebase/init.js"></script>
   <!--<script src="/firebase/remoteConfig.js"></script>
@@ -114,7 +117,7 @@
                 </div>
                 <input class="form-control" type="password" placeholder="Verification Code" id="verificationCode">
               </div>
-              <button class="btn btn-block btn-primary" type="button" onclick="createUser()" id="createAccount">Create Account</button>
+              <button class="btn btn-block btn-primary" type="button" id="createAccount">Create Account</button>
             </div>
             <script src='/firebase/orgVerificationCode.js'></script>
             <script type=text/javascript>
@@ -145,6 +148,8 @@
             console.log('starting user create');
                       var email2 = document.getElementById('email').value;
                       var password2 = document.getElementById('password').value;
+                      //var uid = user.uid;
+                      //var verificationCode = document.getElementById('verificationCode').value;
                       if (email2.length < 4) {
                         alert('Please enter an email address.');
                         return;
@@ -153,29 +158,7 @@
                         alert('Please enter a longer password.');
                         return;
                       }
-                      getOrgCode();
-                      //if (document.getElementById('verificationCode').value = "927809" ) {
-                      //firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
-                      // Handle Errors here.
-                      //  var errorCode = error.code;
-                      //  var errorMessage = error.message;
-                        
-                        //if (!errorCode) {
-                         // alert("Success!");
-                        //}
-
-                        //if (errorCode === 'auth/wrong-password') {
-                         // alert('Wrong password.');
-                        //} else {
-                        //  alert(errorMessage);
-                        //}
-                      //};//);
-                     // alert('Success! Redirecting You to Login Page!');
-                     // redirectadmin();
-                   // } else {
-                   //   alert('Please enter correct code from organization.');
-                   //   return
-                   // }
+                      getOrgCode(document.getElementById('verificationCode').value); //sending data to orgVerificationCode.js
                   }
                   document.getElementById('createAccount').addEventListener('click', createUser, false);
 

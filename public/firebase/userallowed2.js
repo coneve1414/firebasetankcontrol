@@ -14,10 +14,10 @@ userRef.once("value", function(userSnapshot) {
       var orgid = userSnapshot.child(userid).val(); // "Lovelace"
       //var orgIdTest = userSnapshot.child(userid).val();
       //var version = snapshot.child("namf").child("version").val();
-      if (orgid == null) {
-        var orgid = "namf";
-      }
-      console.log(orgid);
+      //if (orgid == null) {
+      //  var orgid = "namf";
+      //}
+      //console.log(orgid);
       //var orgid2 = " " + orgid
       //document.getElementById("version").innerHTML= version;
       //var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
@@ -26,6 +26,14 @@ userRef.once("value", function(userSnapshot) {
     
     var usersRef = firebase.database().ref("users");
 firebase.auth().onAuthStateChanged((user) => {
+    function hideTemps() {
+      var x = document.getElementById("temps");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+  }
     if (user) {
       // User logged in already or has just logged in.
       console.log(user.uid);
@@ -51,19 +59,18 @@ usersRef.once("value", function(debugInfo) {
     //var age = snapshot.child("age").val(); // null
     if (useruid == false) {
         getTanks.hideTemps();
-        window.alert("Access Denied! Code: A1004");
+        window.alert("Access Denied! User removed from an organization! Code: A1004");
     
     } else {
         if (useruid2 == " null") {
-            //hideTemps();
-            //window.alert("Access Denied! Code: A1003")
-            //var orgid = "namf"
-            document.getElementById("role").innerHTML = "Standard User";
-            document.getElementById("org").innerHTML = "New Age Metal Fabrication";
-            var version = debugInfo.child(orgid).child("version").val();
-            document.getElementById("version").innerHTML= version;
+            hideTemps();
+            window.alert("Access Denied! User not assigned to an organization! Code: A1003")
+    //        document.getElementById("role").innerHTML = "Standard User";
+    //        document.getElementById("org").innerHTML = "New Age Metal Fabrication";
+    //        var version = debugInfo.child(orgid).child("version").val();
+    //        document.getElementById("version").innerHTML= version;
             //console.log(orgid);
-            getTanks(orgid);
+    //        getTanks(orgid);
         } else { 
             if(useruid2 == " admin") {
                 document.getElementById("role").innerHTML = "Administrator";
@@ -232,14 +239,7 @@ ref.on("value", function(snapshot11) {
   //var age = snapshot.child("age").val(); // null
   });
 
-  function hideTemps() {
-    var x = document.getElementById("temps");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+  
 
 
 }}); 
