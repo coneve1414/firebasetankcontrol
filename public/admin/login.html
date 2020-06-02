@@ -123,7 +123,11 @@
 		function redirectadmin() {
 			window.location = "/admin/dashboard.html";
 		}
-		
+    function redirectRegister() {
+			window.location = "/admin/dashboard.html";
+		}
+
+    
         if (user) {
           var displayName = user.displayName;
           var email = user.email;
@@ -155,6 +159,7 @@
       //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
       //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
       document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+      document.getElementById('quickstart-password-reset').addEventListener('click', redirectRegister, false);
     }
     window.onload = function() {
       initApp();
