@@ -18,9 +18,6 @@ function getOrgCode(orgCode, uid) {
             alert(errorMessage);
           }
         });
-        //var uid = firebase.auth().currentUser().uid;
-        //alert('User UID is now:', uid);
-        //redirectAdmin(); //redirects to dashboard
       };
   } else {
       alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
@@ -28,4 +25,9 @@ function getOrgCode(orgCode, uid) {
   }
 });
 
+}
+function writeUserData(userId, orgId) {
+  firebase.database().ref('user/' + userId).set({
+    userId':' orgId,
+  });
 }
