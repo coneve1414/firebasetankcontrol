@@ -18,6 +18,8 @@ function getOrgCode(orgCode, uid) {
             alert(errorMessage);
           }
         });
+        var uid = firebase.auth().currentUser().uid;
+        alert('User UID is now:', uid);
         redirectAdmin(); //redirects to dashboard
       };
   } else {
