@@ -13,13 +13,3 @@ function resetPasswordText() {
     )
   }
 }
-
-
-
-
-
-function logOutRedirect() {
-window.location = "/admin/login.html";
-}
-
-

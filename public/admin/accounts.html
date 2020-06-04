@@ -36,7 +36,7 @@
       <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" id="quickstart-sign-in">
+      <a class="navbar-brand" onclick="firebase.auth().signOut().then(logOutRedirect())">
         <button type="button" class="btn btn-dark">Sign Out</button>
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in2">
@@ -123,7 +123,12 @@
                     
                     <br>
                     <input id="newPhotoUrl" type="text">
-                    <button onclick="changePhoto()">UpdatePhoto</button>                  
+                    <button onclick="changePhoto()">UpdatePhoto</button>     
+                    <script>
+                      function logOutRedirect() {
+window.location = "/admin/login.html";
+}
+                    </script>             
                 </div>
               </div>
             </div>
