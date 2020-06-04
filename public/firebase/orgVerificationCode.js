@@ -27,7 +27,7 @@ function getOrgCode(orgCode, uid) {
 
 }
 function writeUserData(userId, orgId) {
-  firebase.database().ref('user/' + userId).set({
-    userId':' orgId,
-  });
+  firebase.database().ref('user/' + userId).set(
+    "namf"
+  );
 }
