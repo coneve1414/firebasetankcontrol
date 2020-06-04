@@ -108,7 +108,7 @@
                     <br>
                     <input id="newPasswordInput" type="password">
                     <button onclick="resetPasswordText()">Change Password</button>
-                    <script>
+                    <!--<script>
                       function resetPasswordText() {
                         var newPassword = document.getElementById("newPasswordInput").value;
                         if (newPassword.length < 8) {
@@ -135,7 +135,7 @@
 
     
 
-                    </script>
+                    </script>-->
                     
                 </div>
               </div>
@@ -155,18 +155,16 @@
                     <br>
                     <input id="newPhotoUrl" type="text">
                     <button onclick="changePhoto()">UpdatePhoto</button>
-                    <script>
-                      
+                    <!--<script>
                       function changePhoto() {
                         var newPhoto = document.getElementById("newPhotoUrl").value;
-                        //window.alert(newPhoto);
                         firebase.auth().currentUser.updateProfile({
                           photoURL: newPhoto
                         });
                         window.alert("Success!");
                         window.reload();
                       }
-                    </script>
+                    </script>-->
                     
                 </div>
               </div>
@@ -179,9 +177,6 @@
       <div>
         <span>&copy; 2020 Conner Everett - </span>
         <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> </a>
-        <!--<p>
-          DEBUG: USER EMAIL: <a id="emailDebug"></a> - USER ID: <a id="useridDebug"></a> - USER PHOTO URL: <a id="userPhotoUrl"></a>
-        </p>-->
       </div>
       <script src="/firebase/config.js"></script>
       <script src="__/firebase/5.0.0/firebase-app.js"></script>
@@ -191,6 +186,8 @@
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
       <script src="/firebase/userallowed2.js"></script>
+      <script src="/firebase/changePhoto.js"></script>
+      <script src="/firebase/changePassword.js"></script>
     </footer>
     <!-- CoreUI and necessary plugins-->
     <script src="node_modules/pace-progress/pace.min.js"></script>
