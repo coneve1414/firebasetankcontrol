@@ -64,7 +64,7 @@
                 <input class="form-control" type="password" placeholder="Verification Code" id="verificationCode">
               </div>
               <button class="btn btn-block btn-primary" type="button" id="createAccount">Create Account</button>
-              <button class="btn btn-block btn-warning" type="button" href="/admin/login.html">Back to Login Page</button>
+              <button class="btn btn-block btn-warning" type="button" id="redirectLogin">Back to Login Page</button>
             </div>
             <script src='/firebase/orgVerificationCode.js'></script>
             <script type=text/javascript>
@@ -72,6 +72,9 @@
       firebase.auth().onAuthStateChanged(function(user) {		
 		  function redirectadmin() {
 			window.location = "/admin/dashboard.html";
+      }
+      function redirectLogin() {
+			window.location = "/admin/login.html";
 		  }
         if (user) {
           setTimeout(redirectadmin, 10)    
@@ -91,6 +94,7 @@
                       getOrgCode(document.getElementById('verificationCode').value); //sending data to orgVerificationCode.js
                   }
                   document.getElementById('createAccount').addEventListener('click', createUser, false);
+                  document.getElementById('redirectLogin').addEventListener('click', redirectLogin, false);
         }
       } )}
       window.onload = function() {
