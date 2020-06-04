@@ -85,6 +85,9 @@
       }//}
       //document.getElementById('quickstart-sign-in').disabled = true;
     }
+    function redirectregister() {
+			window.location = "/admin/register.html";
+		};
     function sendPasswordReset() {
       var email = document.getElementById('email').value;
       firebase.auth().sendPasswordResetEmail(email).then(function() {
@@ -114,10 +117,7 @@
 		function redirectadmin() {
 			window.location = "/admin/dashboard.html";
     };
-    function redirectregister() {
-      alert("test");
-			window.location = "/admin/register.html";
-		};
+    
     
 
     
@@ -152,7 +152,7 @@
       //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
       //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
       document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
-      document.getElementById('registerButton').addEventListener('click', redirectregister(), false);
+      document.getElementById('registerButton').addEventListener('click', redirectregister, false);
     }
     window.onload = function() {
       initApp();
