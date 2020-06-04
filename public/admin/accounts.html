@@ -37,7 +37,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand">
-        <button type="button" class="btn btn-dark" onclick="firebase.auth().signOut().then(redirectadmin())" href"dashboard">Sign Out</button>
+        <button type="button" class="btn btn-dark" onclick="firebase.auth().signOut().then(logOutRedirect())" href"dashboard">Sign Out</button>
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in2">
         <span class="navbar-toggler-icon"></span>
@@ -123,18 +123,7 @@
                     
                     <br>
                     <input id="newPhotoUrl" type="text">
-                    <button onclick="changePhoto()">UpdatePhoto</button>
-                    <!--<script>
-                      function changePhoto() {
-                        var newPhoto = document.getElementById("newPhotoUrl").value;
-                        firebase.auth().currentUser.updateProfile({
-                          photoURL: newPhoto
-                        });
-                        window.alert("Success!");
-                        window.reload();
-                      }
-                    </script>-->
-                    
+                    <button onclick="changePhoto()">UpdatePhoto</button>                  
                 </div>
               </div>
             </div>
