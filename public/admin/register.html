@@ -68,7 +68,7 @@
             </div>
             <script src='/firebase/orgVerificationCode.js'></script>
             <script type=text/javascript>
-              function initApp() {
+              function initApp2() {
       firebase.auth().onAuthStateChanged(function(user) {		
 		  function redirectadmin() {
 			window.location = "/admin/dashboard.html";
@@ -98,7 +98,7 @@
         }
       } )}
       window.onload = function() {
-      initApp();
+      initApp2();
     };
             </script>
           </div>

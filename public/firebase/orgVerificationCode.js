@@ -20,7 +20,7 @@ function getOrgCode(orgCode, uid) {
         });
         var uid = firebase.auth().currentUser().uid;
         alert('User UID is now:', uid);
-        redirectAdmin(); //redirects to dashboard
+        //redirectAdmin(); //redirects to dashboard
       };
   } else {
       alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
