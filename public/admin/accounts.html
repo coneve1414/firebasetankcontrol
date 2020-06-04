@@ -26,7 +26,15 @@
     <!-- Main styles for this application-->
     <link href="css/style.css" rel="stylesheet">
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168596542-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-168596542-1');
+</script>
 
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -39,7 +47,7 @@
   <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#available-libraries -->
   
-       <script>
+       <!--<script>
         // Your web app's Firebase configuration
             var config = {
               apiKey: "AIzaSyBopsZUr4sbj8_hPupcE50tm_REwrj_ivs",
@@ -55,7 +63,7 @@
       
             var database = firebase.database();
       
-          </script>
+          </script>-->
           
       <!--<script> 
       function get_gravatar(email2) {
@@ -343,8 +351,8 @@
         </p>-->
       </div>
       
-      <!--<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-      <script src="/admin/firebase/config.js"></script>-->
+      <!--<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>-->
+      <script src="/firebase/config.js"></script>
       <script src="__/firebase/5.0.0/firebase-app.js"></script>
       <script src="__/firebase/5.0.0/firebase-auth.js"></script>
       <script src="__/firebase/init.js"></script>
