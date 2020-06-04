@@ -77,6 +77,47 @@
           <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <img src="" alt="" id="imgex" class="img-avatar">
           </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-header text-center">
+              <strong>Account</strong>
+            </div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-bell-o"></i> Updates
+              <span class="badge badge-info">42</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-envelope-o"></i> Messages
+              <span class="badge badge-success">42</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-tasks"></i> Tasks
+              <span class="badge badge-danger">42</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-comments"></i> Comments
+              <span class="badge badge-warning">42</span>
+            </a>
+            <div class="dropdown-header text-center">
+              <strong>Settings</strong>
+            </div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-user"></i> Profile</a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-wrench"></i> Settings</a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-usd"></i> Payments
+              <span class="badge badge-secondary">42</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-file"></i> Projects
+              <span class="badge badge-primary">42</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-shield"></i> Lock Account</a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-lock"></i> Logout</a>
+          </div>
         </li>
       </ul>
     </header>
@@ -137,226 +178,128 @@
               <div class="col-sm-6 col-lg-3">
           <div class="card text-white bg-primary">
               <div class="card-body pb-0">
-                <div class="btn-group float-right">
-                  <!----><button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-settings"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div><!---->
-
-                  
+                <div class="btn-group float-right">                
                 </div>
                 <div class="text-value" id="tank01">
                   Loading...
                 </div>
                 <div>Tank 1</div>
-                <!--<div id="tank01time">Loading...</div>-->
-                
-      
-
-
-        
-        
-      
               </div>
-              
               <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                 <canvas class="chart" id="card-chart1" height="70"></canvas>
               </div>
-              
             </div>
-            
           </div>
           <!-- /.col-->
           <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-success">
               <div class="card-body pb-0">
-                <!--<button class="btn btn-transparent p-0 float-right" type="button">
-                  <i class="icon-location-pin"></i>
-                </button>-->
                 <div class="text-value" id="tank02">Loading...</div>
                 <div>Tank 2</div>
-                <!--<div id="tank02time">Loading...</div>-->
               </div>
               <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                 <canvas class="chart" id="card-chart2" height="70"></canvas>
               </div>
             </div>
-          
-          <!-- /.row-->
         </div>
         <div class="col-sm-6 col-lg-3">
           <div class="card text-white bg-danger">
             <div class="card-body pb-0">
-              <!--<button class="btn btn-transparent p-0 float-right" type="button">
-                <i class="icon-location-pin"></i>
-              </button>-->
               <div class="text-value" id="tank03">Loading...</div>
               <div>Tank 3</div>
-              <!--<div id="tank03time">Loading...</div>
-              --></div>
+              </div>
             <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
               <canvas class="chart" id="card-chart2" height="70"></canvas>
             </div>
           </div>
-        
-        <!-- /.row-->
       </div>
       <div class="col-sm-6 col-lg-3">
         <div class="card text-white bg-warning">
           <div class="card-body pb-0">
-            <!--<button class="btn btn-transparent p-0 float-right" type="button">
-              <i class="icon-location-pin"></i>
-            </button>-->
             <div class="text-value" id="tank04">Loading...</div>
             <div>Tank 4</div>
-            <!--<div id="tank03time">Loading...</div>
-            --></div>
+          </div>
           <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
             <canvas class="chart" id="card-chart2" height="70"></canvas>
           </div>
         </div>
-      
-      <!-- /.row-->
     </div>
     <div class="col-sm-6 col-lg-3">
       <div class="card text-white bg-primary">
         <div class="card-body pb-0">
-          <!--<button class="btn btn-transparent p-0 float-right" type="button">
-            <i class="icon-location-pin"></i>
-          </button>-->
           <div class="text-value" id="tank05">Loading...</div>
           <div>Tank 5</div>
-          <!--<div id="tank03time">Loading...</div>
-          --></div>
+        </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas class="chart" id="card-chart2" height="70"></canvas>
         </div>
       </div>
-      <script>
-        function requestTank05() {
-          var request = new XMLHttpRequest();
-          request.open('GET', 'http://blynk-cloud.com/yqS_jzCIlQnlUko2DOj9fRBkX5e2D6Eo/get/v5');
-          request.onreadystatechange = function () {
-            if (this.readyState === 4) {
-              console.log('Status:', this.status);
-              console.log('Headers:', this.getAllResponseHeaders());
-              console.log('Body:', this.responseText);
-              document.getElementById('tank05Blynk').innerHTML = this.responseText;
-    }
-  };
-  request.send();
-}
-
-
-      </script>
-    
-    <!-- /.row-->
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card text-white bg-success">
       <div class="card-body pb-0">
-        <!--<button class="btn btn-transparent p-0 float-right" type="button">
-          <i class="icon-location-pin"></i>
-        </button>-->
         <div class="text-value" id="tank06">Loading...</div>
         <div>Tank 6</div>
-        <!--<div id="tank03time">Loading...</div>
-        --></div>
+      </div>
       <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
         <canvas class="chart" id="card-chart2" height="70"></canvas>
       </div>
     </div>
-  
-  <!-- /.row-->
 </div>
 <div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-danger">
     <div class="card-body pb-0">
-      <!--<button class="btn btn-transparent p-0 float-right" type="button">
-        <i class="icon-location-pin"></i>
-      </button>-->
       <div class="text-value" id="tank07">Loading...</div>
       <div>Tank 7</div>
-      <!--<div id="tank03time">Loading...</div>
-      --></div>
+    </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
-
-<!-- /.row-->
 </div>
 <div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-warning">
     <div class="card-body pb-0">
-      <!--<button class="btn btn-transparent p-0 float-right" type="button">
-        <i class="icon-location-pin"></i>
-      </button>-->
       <div class="text-value" id="tank08">Loading...</div>
       <div>Tank 8</div>
-      <!--<div id="tank03time">Loading...</div>
-      --></div>
+    </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
-
-<!-- /.row-->
 </div>
 <div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-primary">
     <div class="card-body pb-0">
-      <!--<button class="btn btn-transparent p-0 float-right" type="button">
-        <i class="icon-location-pin"></i>
-      </button>-->
       <div class="text-value" id="tank09">Loading...</div>
       <div>Tank 9</div>
-      <!--<div id="tank03time">Loading...</div>
-      --></div>
+    </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
-
-<!-- /.row-->
 </div>
 <div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-success">
     <div class="card-body pb-0">
-      <!--<button class="btn btn-transparent p-0 float-right" type="button">
-        <i class="icon-location-pin"></i>
-      </button>-->
       <div class="text-value" id="tank10">Loading...</div>
       <div>Tank 10</div>
-      <!--<div id="tank03time">Loading...</div>
-      --></div>
+    </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
-
-<!-- /.row-->
 </div>
 <div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-danger">
     <div class="card-body pb-0">
-      <!--<button class="btn btn-transparent p-0 float-right" type="button">
-        <i class="icon-location-pin"></i>
-      </button>-->
       <div class="text-value" id="tank11">Loading...</div>
       <div>Tank 11</div>
-      <!--<div id="tank03time">Loading...</div>
-      --></div>
+    </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
-
-<!-- /.row-->
 </div>
 <!--<div class="col-sm-6 col-lg-3">
   <div class="card text-white bg-warning">
@@ -371,11 +314,11 @@
 
 
 </div>-->
-      </div> <!--Temps End-->
+      </div> <!--Temperatures End-->
       </main>
       <aside class="aside-menu">
         
-        <!--<ul class="nav nav-tabs" role="tablist">
+        <!----><ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
               <i class="icon-list"></i>
@@ -391,7 +334,7 @@
               <i class="icon-settings"></i>
             </a>
           </li>
-        </ul>-->
+        </ul><!---->
         <!-- Tab panes-->
       </aside>
     </div>
