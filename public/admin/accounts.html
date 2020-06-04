@@ -37,7 +37,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand">
-        <button type="button" class="btn btn-dark" onclick="firebase.auth().signOut().then(redirectadmin())">Sign Out</button>
+        <button type="button" class="btn btn-dark" onclick="firebase.auth().signOut().then(redirectadmin())" href"dashboard">Sign Out</button>
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in2">
         <span class="navbar-toggler-icon"></span>
@@ -99,44 +99,13 @@
               </div>
               <div class="card-body">
                 <div>
-                    
                     <h4>NOTICE:</h4>
                     <br>
                     <h6>Currently, this is password reset only.</h6>
                     <img src="" id="imgex" class="img-avatar">
-                    
                     <br>
                     <input id="newPasswordInput" type="password">
-                    <button onclick="resetPasswordText()">Change Password</button>
-                    <!--<script>
-                      function resetPasswordText() {
-                        var newPassword = document.getElementById("newPasswordInput").value;
-                        if (newPassword.length < 8) {
-                          alert("Error! Please make the password atleast 8 charachers!");
-                        } else {
-                        firebase.auth().currentUser.updatePassword(newPassword).then(function () {
-                          alert('Success! Password Reset!');
-                          //firebase.auth().signOut();
-                          console.log('About to run signout');
-                          setTimeout(redirectadmin, 0);
-                          console.log('Running Signout Command');
-                        }
-                        )
-                      }
-                    }
-
-                    
-        
-      
-    
-                    function logOutRedirect() {
-			window.location = "/admin/login.html";
-		}
-
-    
-
-                    </script>-->
-                    
+                    <button onclick="resetPasswordText()">Change Password</button>                   
                 </div>
               </div>
             </div>
