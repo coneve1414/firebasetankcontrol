@@ -7,7 +7,7 @@ function initApp2() {
   window.location = "/admin/login.html";
   }
     if (user) {
-      writeUserData(user.uid)
+      //writeUserData(user.uid)
       //redirectadmin(); 
     } else {
       function createUser() {
