@@ -3,11 +3,14 @@ function initApp2() {
   function redirectadmin() {
   window.location = "/admin/dashboard.html";
   }
+  function writeUser(inA, inB) {
+    getOrgCode(inA, inB)
+  }
   function redirectLogin() {
   window.location = "/admin/login.html";
   }
     if (user) {
-      writeUserData(user.uid)
+      writeUser("true", user.uid)
       //redirectadmin(); 
     } else {
       function createUser() {
@@ -23,7 +26,7 @@ function initApp2() {
                     return;
                   }
                   console.log('verifying org code');
-                  getOrgCode(document.getElementById('verificationCode').value); //sending data to orgVerificationCode.js
+                  getOrgCode("false", document.getElementById('verificationCode').value); //sending data to orgVerificationCode.js
               }
               document.getElementById('createAccount').addEventListener('click', createUser, false);
               document.getElementById('redirectLogin').addEventListener('click', redirectLogin, false);

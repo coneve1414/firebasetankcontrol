@@ -1,7 +1,26 @@
-function getOrgCode(orgCode, uid) {
+function getOrgCode(writeData, orgCode) {
   var ref = firebase.database().ref("orgCodes"); //checking the code against the database
   ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
+  if (writeData == "true"){
+    writeUserData2(orgCode)
+    function writeUserData(userId) {
+      function redirectAdmin() {
+        window.location = "/admin/login.html";
+      }
+      
+      firebase.database().ref("user").once("value", function(snapshot) {
+      firebase.database().ref('user/' + userId).set(
+        orgCodeValid
+      );
+      firebase.database().ref('users/' + snapshot.child(userId).val() + "/" + userId).set(
+        "true"
+      );
+      redirectAdmin();
+    });
+      
+    }
+  } else {
   var orgCodeCheck = " " + orgCodeValid;
   if (orgCodeCheck != " null") { //if a verification code exists
     console.log('orgcode exists');
@@ -24,20 +43,9 @@ function getOrgCode(orgCode, uid) {
       alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
       return
   }
-});
+  
+};
+
 
 }
-function writeUserData(userId) {
-  var ref = firebase.database().ref("user");
-  ref.on("value", function(snapshot) {
-  var orgIdInput = snapshot.child(userId).val();
-  firebase.database().ref('user/' + userId).set(
-    orgIdinput
-  );
-  firebase.database().ref('users/' + orgIdInput + userId).set(
-    "true"
-  );
-  redirectAdmin();
-});
-  
-}
+  )}
