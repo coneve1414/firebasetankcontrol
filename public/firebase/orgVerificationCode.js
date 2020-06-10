@@ -1,26 +1,44 @@
 function getOrgCode(writeData, orgCode) {
-  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
-  ref.on("value", function(snapshot) {
-  var orgCodeValid = snapshot.child(orgCode).val();
+  var ref = firebase.database().ref("user");
+  //ref.once("value")
+  ref.once("value", function(snapshot2) {
+  //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
+  //var firstName = snapshot.child("name/first").val(); // "Ada"
+  var orgCodeValid2 = snapshot2.child(orgCode).val(); // "Lovelace"
+
   if (writeData == "true"){
-    writeUserData2(orgCode)
-    function writeUserData(userId) {
+    writeUserData(orgCode)
+    function writeUserData(orgCode2) {
+      if (orgCode2 == null) {
+        alert('null2');
+      } else{
+        if (orgCodeValid2 == null) {
+          alert('nullest');
+        } else {
+          return
+        }
+      }
       function redirectAdmin() {
         window.location = "/admin/login.html";
       }
       
-      firebase.database().ref("user").once("value", function(snapshot) {
-      firebase.database().ref('user/' + userId).set(
-        orgCodeValid
+      
+        console.log('setting user root');
+      firebase.database().ref('user/' + orgCode2).set(
+        orgCodeValid2
       );
-      firebase.database().ref('users/' + snapshot.child(userId).val() + "/" + userId).set(
+      console.log('setting users root');
+      firebase.database().ref('users/' + orgCodeValid2 + "/" + orgCode2).set(
         "true"
       );
       redirectAdmin();
-    });
+    
       
     }
   } else {
+  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
+  ref.on("value", function(snapshot) {
+  var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
   if (orgCodeCheck != " null") { //if a verification code exists
     console.log('orgcode exists');
@@ -44,8 +62,10 @@ function getOrgCode(writeData, orgCode) {
       return
   }
   
-};
+});
+
 
 
 }
-  )}
+});
+  }
