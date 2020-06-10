@@ -75,15 +75,18 @@ usersRef.once("value", function(debugInfo) {
             if(useruid2 == " admin") {
                 document.getElementById("role").innerHTML = "Administrator";
                 document.getElementById("org").innerHTML = orgname;
+                getLogo(orgid);
                 getTanks(orgid);
             } else{
                 if (useruid2 == " superadmin") {
                     document.getElementById("role").innerHTML = "Super Administrator";
                     document.getElementById("org").innerHTML = orgname;
+                    getLogo(orgid);
                     getTanks(orgid);
                 } else {
             document.getElementById("org").innerHTML = orgname;
             document.getElementById("role").innerHTML = "Standard User";
+            getLogo(orgid);
             getTanks(orgid);
             return
         }
@@ -93,6 +96,16 @@ usersRef.once("value", function(debugInfo) {
     }
   });
     };
+
+function getLogo(orgLogo) {
+  if (orgLogo == "namf"){
+    document.getElementById("brandFull").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
+    document.getElementById("brandMini").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
+  } else {
+    return
+  }
+}
+
 function getTanks(orgid3) {
     var ref = firebase.database().ref(orgid3);
 //ref.once("value")

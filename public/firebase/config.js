@@ -13,3 +13,4 @@ var config = {
   firebase.analytics();
   var database = firebase.database();
   var analytics = firebase.analytics();
+  var storage = firebase.storage();
