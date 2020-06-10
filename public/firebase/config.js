@@ -12,3 +12,4 @@ var config = {
   firebase.initializeApp(config);
   firebase.analytics();
   var database = firebase.database();
+  var analytics = firebase.analytics();

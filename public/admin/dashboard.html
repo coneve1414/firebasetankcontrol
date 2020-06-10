@@ -73,36 +73,19 @@
       <ul class="nav navbar-nav ml-auto">
         <div><a id="userEmail"></a></div>
         <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <!--<div class="c-avatar">--><img class="img-avatar" id="imgex" src="" alt=""><!--</div>-->
+          <img class="img-avatar" id="imgex" src="" alt="">
         </a>
-        <div class="dropdown-menu dropdown-menu-right pt-0">
-          <div class="dropdown-header bg-light py-2">
-            <strong>General</strong>
-          </div>
-          <a class="dropdown-item" href="dashboard.html">Home</a>
-          <a class="dropdown-item" href="accounts.html">Settings</a>
-          <a class="dropdown-item" onclick="firebase.auth().signOut()">Sign Out
-            <span class="badge badge-danger ml-auto">New!</span>
-          </a>
-        </div>
-      </li>
-
-
-        <!--<li class="nav-item dropdown">
-          <a class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">
-            <img src="" alt="" id="imgex" class="img-avatar">
-          </a>
           <div class="dropdown-menu dropdown-menu-right pt-0">
             <div class="dropdown-header bg-light py-2">
-              <strong>Settings</strong>
+              <strong>General</strong>
             </div>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Payments
-              <span class="badge badge-secondary ml-auto">42</span>
+            <a class="dropdown-item" href="dashboard.html">Home</a>
+            <a class="dropdown-item" href="accounts.html">Settings</a>
+            <a class="dropdown-item" onclick="firebase.auth().signOut()">Sign Out
+              <span class="badge badge-danger ml-auto">New!</span>
             </a>
           </div>
-        </li>-->
+        </li>
       </ul>
     </header>
     <div class="app-body">
