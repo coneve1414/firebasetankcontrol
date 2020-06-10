@@ -9,7 +9,7 @@ function getOrgCode(orgCode, uid) {
     
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
-    firebase.auth().createUserWithEmailAndPassword(email2, password2).then(writeUserData(firebase.auth().currentUser.userid, orgCodeValid)).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
         // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -27,11 +27,17 @@ function getOrgCode(orgCode, uid) {
 });
 
 }
-function writeUserData(userId, orgIdInput) {
+function writeUserData(userId) {
+  var ref = firebase.database().ref("user");
+  ref.on("value", function(snapshot) {
+  var orgIdInput = snapshot.child(userId).val();
   firebase.database().ref('user/' + userId).set(
     orgIdinput
   );
   firebase.database().ref('users/' + orgIdInput + userId).set(
     "true"
   );
+  redirectAdmin();
+});
+  
 }
