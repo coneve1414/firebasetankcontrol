@@ -8,7 +8,7 @@ function initApp2() {
   }
     if (user) {
       writeUserData(user.uid)
-      redirectadmin(); 
+      //redirectadmin(); 
     } else {
       function createUser() {
         console.log('starting user create');
