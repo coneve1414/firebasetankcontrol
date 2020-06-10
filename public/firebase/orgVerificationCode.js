@@ -4,6 +4,7 @@ function getOrgCode(orgCode, uid) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
   if (orgCodeCheck != " null") { //if a verification code exists
+    console.log('orgcode exists');
     if (orgCodeValid = "namf") { //checking for return value of database
     
     var email2 = document.getElementById('email').value;
