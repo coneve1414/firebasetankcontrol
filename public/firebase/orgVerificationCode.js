@@ -1,41 +1,7 @@
-function getOrgCode(writeData, orgCode) {
-  var ref = firebase.database().ref("user");
-  //ref.once("value")
-  ref.once("value", function(snapshot2) {
-  //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
-  //var firstName = snapshot.child("name/first").val(); // "Ada"
-  var orgCodeValid2 = snapshot2.child(orgCode).val(); // "Lovelace"
-
-  if (writeData == "true"){
-    writeUserData(orgCode)
-    function writeUserData(orgCode2) {
-      if (orgCode2 == null) {
-        alert('null2');
-      } else{
-        if (orgCodeValid2 == null) {
-          alert('nullest');
-        } else {
-          return
-        }
-      }
-      function redirectAdmin() {
-        window.location = "/admin/login.html";
-      }
-      
-      
-        console.log('setting user root');
-      firebase.database().ref('user/' + orgCode2).set(
-        orgCodeValid2
-      );
-      console.log('setting users root');
-      firebase.database().ref('users/' + orgCodeValid2 + "/" + orgCode2).set(
-        "true"
-      );
-      redirectAdmin();
-    
-      
-    }
-  } else {
+function redirectAdmin() {
+  window.location = "/admin/dashboard.html";
+}
+function getOrgCode(orgCode, uid) {
   var ref = firebase.database().ref("orgCodes"); //checking the code against the database
   ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
@@ -61,11 +27,17 @@ function getOrgCode(writeData, orgCode) {
       alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
       return
   }
-  
 });
 
+};
 
-
+function writeUserData(userId, orgCode2) {
+  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
+  ref.on("value", function(snapshot) {
+  var orgCodeValid2 = snapshot.child(orgCode2).val();
+  var orgCodeCheck2 = "/" + orgCodeValid2;
+  firebase.database().ref('user/' + userId).set(orgCodeValid2);
+  firebase.database().ref('users/' + orgCodeCheck2 + "/" + userId).set("true");
+  redirectAdmin();
+})
 }
-});
-  }

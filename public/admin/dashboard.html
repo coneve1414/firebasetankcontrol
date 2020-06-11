@@ -59,19 +59,22 @@
       </button>
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
-        <li class="nav-item px-3">
+        <!--removing top nav bar-->
+        <!--<li class="nav-item px-3">
           <a class="nav-link" href="dashboard.html">Home</a>
-        </li>
-        <!--Currently, I am in the process of creating a "Users page where you can assign someone to an organization.-->
+        </li>-->
+        <!-- Currently Creating A User Page -->
         <!--<li class="nav-item px-3">
           <a class="nav-link" href="#">Users</a>
         </li>-->
-        <li class="nav-item px-3">
+        <!--Removing Top Tav Bar-->
+        <!--<li class="nav-item px-3">
           <a class="nav-link" href="accounts.html">Settings</a>
         </li>
+      </ul>-->
       </ul>
       <ul class="nav navbar-nav ml-auto">
-        <div><a id="userEmail"></a></div>
+        <div><!--<a id="userEmail"></a>--></div>
         <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <img class="img-avatar" id="imgex" src="" alt="">
         </a>
@@ -79,6 +82,7 @@
             <div class="dropdown-header bg-light py-2">
               <strong>General</strong>
             </div>
+            <a class="dropdown-item" id="userEmail"></a>
             <a class="dropdown-item" href="dashboard.html">Home</a>
             <a class="dropdown-item" href="accounts.html">Settings</a>
             <a class="dropdown-item" onclick="firebase.auth().signOut()">Sign Out
