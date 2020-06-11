@@ -50,8 +50,8 @@
       </button>
       <a class="navbar-brand">
         <!--Adding Organization Images-->
-        <img class="navbar-brand-full" src="img/brand/namf.png" width="89" height="25" alt="Logo">
-        <img class="navbar-brand-minimized" src="img/brand/namf.png" width="30" height="30" alt="Logo">
+        <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
+        <img class="navbar-brand-minimized" id="brandMini" src="/admin/img/brand/logo.png" width="30" height="30" alt="">
       </a>
       <!--this button is required for spacing-->
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
@@ -59,50 +59,37 @@
       </button>
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
-        <li class="nav-item px-3">
+        <!--removing top nav bar-->
+        <!--<li class="nav-item px-3">
           <a class="nav-link" href="dashboard.html">Home</a>
-        </li>
-        <!--Currently, I am in the process of creating a "Users page where you can assign someone to an organization.-->
+        </li>-->
+        <!-- Currently Creating A User Page -->
         <!--<li class="nav-item px-3">
           <a class="nav-link" href="#">Users</a>
         </li>-->
-        <li class="nav-item px-3">
+        <!--Removing Top Tav Bar-->
+        <!--<li class="nav-item px-3">
           <a class="nav-link" href="accounts.html">Settings</a>
         </li>
+      </ul>-->
       </ul>
       <ul class="nav navbar-nav ml-auto">
-        <div><a id="userEmail"></a></div>
+        <div><!--<a id="userEmail"></a>--></div>
         <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <!--<div class="c-avatar">--><img class="img-avatar" id="imgex" src="" alt=""><!--</div>-->
+          <img class="img-avatar" id="imgex" src="" alt="">
         </a>
-        <div class="dropdown-menu dropdown-menu-right pt-0">
-          <div class="dropdown-header bg-light py-2">
-            <strong>General</strong>
-          </div>
-          <a class="dropdown-item" href="dashboard.html">Home</a>
-          <a class="dropdown-item" href="accounts.html">Settings</a>
-          <a class="dropdown-item" onclick="firebase.auth().signOut()">Sign Out
-            <span class="badge badge-danger ml-auto">New!</span>
-          </a>
-        </div>
-      </li>
-
-
-        <!--<li class="nav-item dropdown">
-          <a class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">
-            <img src="" alt="" id="imgex" class="img-avatar">
-          </a>
           <div class="dropdown-menu dropdown-menu-right pt-0">
             <div class="dropdown-header bg-light py-2">
-              <strong>Settings</strong>
+              <strong>General</strong>
             </div>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Payments
-              <span class="badge badge-secondary ml-auto">42</span>
+            <a class="dropdown-item" id="userEmail"></a>
+            <a class="dropdown-item" href="dashboard.html">Home</a>
+            <a class="dropdown-item" href="accounts.html">Settings</a>
+            <a class="dropdown-item" onclick="firebase.auth().signOut()">Sign Out
+              <span class="badge badge-danger ml-auto">New!</span>
             </a>
           </div>
-        </li>-->
+        </li>
       </ul>
     </header>
     <div class="app-body">
@@ -301,9 +288,5 @@
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <!--<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/browse/@coreui/coreui@2.1.16/dist/js/coreui.min.js"></script>-->
   </body>
 </html>

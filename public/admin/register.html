@@ -23,6 +23,7 @@
     <!-- Main styles for this application-->
     <link href="css/style.css" rel="stylesheet">
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <!--Firebase Required Libraries-->
     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
@@ -74,7 +75,8 @@
               <button class="btn btn-block btn-warning" type="button" id="redirectLogin">Back to Login Page</button>
             </div>
             <script src='/firebase/orgVerificationCode.js'></script>
-            <script type=text/javascript>
+            <script src='/firebase/registerPage.js'></script>
+            <!--<script type=text/javascript>
               function initApp2() {
       firebase.auth().onAuthStateChanged(function(user) {		
 		  function redirectadmin() {
@@ -84,7 +86,8 @@
 			window.location = "/admin/login.html";
 		  }
         if (user) {
-          writeUserData(user.uid) 
+          writeUserData(user.uid)
+          redirectadmin(); 
         } else {
           function createUser() {
             console.log('starting user create');
@@ -98,6 +101,7 @@
                         alert('Please enter a longer password.');
                         return;
                       }
+                      console.log('verifying org code');
                       getOrgCode(document.getElementById('verificationCode').value); //sending data to orgVerificationCode.js
                   }
                   document.getElementById('createAccount').addEventListener('click', createUser, false);
@@ -107,7 +111,7 @@
       window.onload = function() {
       initApp2();
     };
-            </script>
+            </script>-->
           </div>
         </div>
       </div>

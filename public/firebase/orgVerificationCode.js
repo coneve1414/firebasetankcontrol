@@ -1,9 +1,13 @@
+function redirectAdmin() {
+  window.location = "/admin/dashboard.html";
+}
 function getOrgCode(orgCode, uid) {
   var ref = firebase.database().ref("orgCodes"); //checking the code against the database
   ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
   var orgCodeCheck = " " + orgCodeValid;
   if (orgCodeCheck != " null") { //if a verification code exists
+    console.log('orgcode exists');
     if (orgCodeValid = "namf") { //checking for return value of database
     
     var email2 = document.getElementById('email').value;
@@ -25,9 +29,15 @@ function getOrgCode(orgCode, uid) {
   }
 });
 
-}
-function writeUserData(userId, orgId) {
-  firebase.database().ref('user/' + userId).set(
-    "namf"
-  );
+};
+
+function writeUserData(userId, orgCode2) {
+  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
+  ref.on("value", function(snapshot) {
+  var orgCodeValid2 = snapshot.child(orgCode2).val();
+  var orgCodeCheck2 = "/" + orgCodeValid2;
+  firebase.database().ref('user/' + userId).set(orgCodeValid2);
+  firebase.database().ref('users/' + orgCodeCheck2 + "/" + userId).set("true");
+  redirectAdmin();
+})
 }
