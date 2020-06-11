@@ -49,10 +49,11 @@
         <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
         <img class="navbar-brand-minimized" id="brandMini" src="/admin/img/brand/logo.png" width="30" height="30" alt="">
       </a>
-      <!--this button is required for spacing, so it has been disabled and the actual img for the button (the three lines) has been hidden-->
+      <!--this button is required for spacing-->
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
         <!--<span class="navbar-toggler-icon"></span>-->
       </button>
+      <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
         <!--removing top nav bar-->
         <!--<li class="nav-item px-3">
@@ -67,24 +68,24 @@
           <a class="nav-link" href="accounts.html">Settings</a>
         </li>
       </ul>-->
-      
+      </ul>
       <ul class="nav navbar-nav ml-auto">
         <div><!--<a id="userEmail"></a>--></div>
         <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <img class="img-avatar" id="imgex" src="" alt="">
         </a>
-        <div class="dropdown-menu dropdown-menu-right pt-0">
-          <div class="dropdown-header bg-light py-2">
-            <strong>General</strong>
+          <div class="dropdown-menu dropdown-menu-right pt-0">
+            <div class="dropdown-header bg-light py-2">
+              <strong>General</strong>
+            </div>
+            <a class="dropdown-item" id="userEmail"></a>
+            <a class="dropdown-item" href="dashboard.html">Home</a>
+            <a class="dropdown-item" href="accounts.html">Settings</a>
+            <a class="dropdown-item" href="#" onclick="firebase.auth().signOut()">Sign Out
+              <span class="badge badge-danger ml-auto">New!</span>
+            </a>
           </div>
-          <a class="dropdown-item" id="userEmail"></a>
-          <a class="dropdown-item" href="dashboard.html">Home</a>
-          <a class="dropdown-item" href="accounts.html">Settings</a>
-          <a class="dropdown-item" href="#" onclick="firebase.auth().signOut()">Sign Out
-            <span class="badge badge-danger ml-auto">New!</span>
-          </a>
-        </div>
-      </li>
+        </li>
       </ul>
     </header>
         <div class="app-body">
