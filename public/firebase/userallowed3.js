@@ -1,4 +1,4 @@
-window.onload(allowed());
+window.onload(allowed2());
 // global settings
 var debugEnable = false;
 
@@ -6,18 +6,7 @@ var debugEnable = false;
 var userRef = firebase.database().ref("user"); // References the "/user/" directory in the Firebase Realtime Database
 var usersRef = firebase.database().ref("users"); // References the "/users/" directory in the Firebase Realtime Database
 var baseRef = firebase.database().ref("/"); //references the "/" directory in the Firebase Realtime Database (The Root Directory)
-baseRef.once("value", function(userSnapshot) {
-var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(orgid2).val();
-var multiOrgSubOrgNum = " " + userSnapshot.child(orgid2).child("subOrgNumber").val(); // current limit is hard coded at three
-var multiOrgSubOrgA = userSnapshot.child(orgid2).child("subOrgs").child("org1").val();
-var multiOrgSubOrgB = userSnapshot.child(orgid2).child("subOrgs").child("org2").val();
-var multiOrgSubOrgC = userSnapshot.child(orgid2).child("subOrgs").child("org3").val();
-var location1 = userSnapshot.child(orgid2).child(multiOrgSubOrgA).child("location").val();
-var location2 = userSnapshot.child(orgid2).child(multiOrgSubOrgB).child("location").val();
-var location3 = userSnapshot.child(orgid2).child(multiOrgSubOrgC).child("location").val();
-var userAllowedSubOrgA = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgA).child(userid).val();
-var userAllowedSubOrgB = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgB).child(userid).val();
-var userAllowedSubOrgC = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgC).child(userid).val();
+
 
 function switchOrg(arg1) {
   if (arg1 == "1") {
@@ -44,7 +33,7 @@ function isMultiOrg(){
       //check to see if user is allowed to view sub org c
       if (userAllowedSubOrgC == " true") {
         console.log("USER ALLOWED SUB ORG" + multiOrgSubOrgC);
-        document.getElementById("location3").innerHTML= location3;
+        document.getElementById("location3").innerHTML= getLocation3();
         suborgcperm = true;
       } else {
         console.log("USER NOT ALLOWED" + multiOrgSubOrgC);
@@ -58,7 +47,7 @@ function isMultiOrg(){
     //check to see if user is allowed to view sub org a
     if (userAllowedSubOrgA == " true") {
       console.log("USER ALLOWED SUB ORG" + multiOrgSubOrgA);
-      document.getElementById("location1").innerHTML= location1;
+      document.getElementById("location1").innerHTML= getLocation1();
       suborgaperm = true;
     } else {
       console.log("USER NOT ALLOWED" + multiOrgSubOrgA);
@@ -68,7 +57,7 @@ function isMultiOrg(){
     //check to see if user is allowed to view sub org b
     if (userAllowedSubOrgB == " true") {
       console.log("USER ALLOWED SUB ORG" + multiOrgSubOrgB);
-      document.getElementById("location2").innerHTML= location2;
+      document.getElementById("location2").innerHTML= getLocation2();;
       suborgbperm = true;
     } else {
       console.log("USER NOT ALLOWED" + multiOrgSubOrgB);
@@ -185,8 +174,8 @@ function getLogo(orgLogo) {
     }
   }
 
-function allowed(){
-isMultiOrg();
+function allowed2(){
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User logged in already or has just logged in.
@@ -314,4 +303,41 @@ ref.on("value", function(snapshot11) {
     var tank11 = " " + tank11val;
     document.getElementById("tank11").innerHTML =tank11 + "°F";
   });
-}});
+}
+function setLocation1(location){
+  var location1 = location;
+  console.log(location1);
+}
+function getLocation1(){
+  return setLocation1.location1;
+}
+function setLocation2(location){
+  var location2 = location;
+  console.log(location2);
+}
+function getLocation2(){
+  return setLocation2.location2;
+}
+function setLocation3(location){
+  var location3 = location;
+  console.log(location3);
+}
+function getLocation3(){
+  return setLocation3.location3;
+}
+baseRef.once("value", function(userSnapshot) {
+  var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(orgid2).val();
+  var multiOrgSubOrgNum = " " + userSnapshot.child(orgid2).child("subOrgNumber").val(); // current limit is hard coded at three
+  var multiOrgSubOrgA = userSnapshot.child(orgid2).child("subOrgs").child("org1").val();
+  var multiOrgSubOrgB = userSnapshot.child(orgid2).child("subOrgs").child("org2").val();
+  var multiOrgSubOrgC = userSnapshot.child(orgid2).child("subOrgs").child("org3").val();
+  var location1 = userSnapshot.child(orgid2).child(multiOrgSubOrgA).child("location").val();
+  setLocation1(location1);
+  var location2 = userSnapshot.child(orgid2).child(multiOrgSubOrgB).child("location").val();
+  setLocation2(location2);
+  var location3 = userSnapshot.child(orgid2).child(multiOrgSubOrgC).child("location").val();
+  setLocation3(location3);
+  var userAllowedSubOrgA = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgA).child(userid).val();
+  var userAllowedSubOrgB = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgB).child(userid).val();
+  var userAllowedSubOrgC = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgC).child(userid).val();
+});
