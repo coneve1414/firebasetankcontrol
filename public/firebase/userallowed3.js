@@ -128,6 +128,15 @@ function getOrgID(){
     }
   }
 );}
+function getUserID(){
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var userid = user.uid;
+      console.log(userid);
+      return userid;
+    }
+  }
+);}
 
 function hideTemps() {
     var x = document.getElementById("temps");
@@ -326,18 +335,18 @@ function getLocation3(){
   return setLocation3.location3;
 }
 baseRef.once("value", function(userSnapshot) {
-  var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(orgid2).val();
-  var multiOrgSubOrgNum = " " + userSnapshot.child(orgid2).child("subOrgNumber").val(); // current limit is hard coded at three
-  var multiOrgSubOrgA = userSnapshot.child(orgid2).child("subOrgs").child("org1").val();
-  var multiOrgSubOrgB = userSnapshot.child(orgid2).child("subOrgs").child("org2").val();
-  var multiOrgSubOrgC = userSnapshot.child(orgid2).child("subOrgs").child("org3").val();
-  var location1 = userSnapshot.child(orgid2).child(multiOrgSubOrgA).child("location").val();
+  var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID()).val();
+  var multiOrgSubOrgNum = " " + userSnapshot.child(getOrgID()).child("subOrgNumber").val(); // current limit is hard coded at three
+  var multiOrgSubOrgA = userSnapshot.child(getOrgID()).child("subOrgs").child("org1").val();
+  var multiOrgSubOrgB = userSnapshot.child(getOrgID()).child("subOrgs").child("org2").val();
+  var multiOrgSubOrgC = userSnapshot.child(getOrgID()).child("subOrgs").child("org3").val();
+  var location1 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child("location").val();
   setLocation1(location1);
-  var location2 = userSnapshot.child(orgid2).child(multiOrgSubOrgB).child("location").val();
+  var location2 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgB).child("location").val();
   setLocation2(location2);
-  var location3 = userSnapshot.child(orgid2).child(multiOrgSubOrgC).child("location").val();
+  var location3 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgC).child("location").val();
   setLocation3(location3);
-  var userAllowedSubOrgA = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgA).child(userid).val();
-  var userAllowedSubOrgB = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgB).child(userid).val();
-  var userAllowedSubOrgC = " " + userSnapshot.child(orgid2).child(multiOrgSubOrgC).child(userid).val();
+  var userAllowedSubOrgA = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child(getUserID()).val();
+  var userAllowedSubOrgB = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgB).child(getUserID()).val();
+  var userAllowedSubOrgC = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgC).child(getUserID()).val();
 });
