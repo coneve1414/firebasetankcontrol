@@ -132,8 +132,8 @@ function getOrgID(){
 function getUserID(){
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      var userid = "" + user.uid;
-      //console.log(userid);
+      var userid = user.uid;
+      console.log(userid);
       // setUserID(userid);
       return userid;
     }
@@ -190,7 +190,7 @@ function setInternalUid(x) {
   console.log(x);
   var userid = x;
   console.log(userid);
-  userID().set(userid);
+  setUserID(userid);
 }
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -327,19 +327,6 @@ function setLocation1(location){
   var location1 = location;
   console.log(location1);
 }
-
-function location1() {
-  var location1;
-  return {
-    get : function () {
-        return location1;
-    },
-    set : function (val) {
-        location1 = val;
-    }
-}
-}
-
 function getLocation1(){
   return setLocation1.location1;
 }
@@ -373,10 +360,16 @@ function userID() {
     }
 }
 
+function setUserID(userInput) {
+  console.log(userInput + "< Input to setUserID()")
+  var userid = userInput;
+  console.log(userid + " < Output of setUserID()");
+  console.log("test " + getUserID());
 }
 function getUserID2() {
-  
-  return userID().get();
+  console.log("retreiving user id: "+ setUserID.userid);
+  var userid = setUserID.userid;
+  return userid;
 }
 function wait() {
 baseRef.once("value", function(userSnapshot) {
