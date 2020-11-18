@@ -127,7 +127,7 @@ function getOrgID(){
       });
     }
   }
-}
+  )};
 
 function getUserID(){
   firebase.auth().onAuthStateChanged((user) => {
@@ -200,8 +200,9 @@ firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             // User logged in already or has just logged in.
             var userid2 = ""+user.uid;
-            console.log(user.uid);
+            console.log(userid2);
             setUserID(userid2);
+            console.log(setUserID.userid + "test");
             usersRef.once("value", function(debugInfo) {
               var userid = "" + user.uid
               var useruid = debugInfo.child(orgid).child(userid).val(); // "Lovelace"
