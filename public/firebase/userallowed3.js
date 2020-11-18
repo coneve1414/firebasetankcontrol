@@ -132,8 +132,8 @@ function getOrgID(){
 function getUserID(){
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      var userid = user.uid;
-      console.log(userid);
+      var userid = "" + user.uid;
+      //console.log(userid);
       // setUserID(userid);
       return userid;
     }
@@ -190,7 +190,7 @@ function setInternalUid(x) {
   console.log(x);
   var userid = x;
   console.log(userid);
-  setUserID(userid);
+  userID().set(userid);
 }
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -327,6 +327,19 @@ function setLocation1(location){
   var location1 = location;
   console.log(location1);
 }
+
+function location1() {
+  var location1;
+  return {
+    get : function () {
+        return location1;
+    },
+    set : function (val) {
+        location1 = val;
+    }
+}
+}
+
 function getLocation1(){
   return setLocation1.location1;
 }
@@ -344,16 +357,24 @@ function setLocation3(location){
 function getLocation3(){
   return setLocation3.location3;
 }
-function setUserID(userInput) {
-  console.log(userInput + "< Input to setUserID()")
+function userID() {
   var userid = userInput;
-  console.log(userid + " < Output of setUserID()");
-  console.log("test " + getUserID());
+  //console.log(userid + " < Output of setUserID()");
+  //console.log("test " + getUserID());
+  return {
+    get : function () {
+        console.log(userid + " < Output of setUserID()");
+        return userid;
+    },
+    set : function (userInput) {
+        console.log(userid + " < Input of setUserID()");
+        userid = userInput;
+    }
+}
 }
 function getUserID2() {
-  console.log("retreiving user id: "+ setUserID.userid);
-  var userid = setUserID.userid;
-  return userid;
+  
+  return userID().get();
 }
 baseRef.once("value", function(userSnapshot) {
   var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID()).val();
