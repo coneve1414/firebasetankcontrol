@@ -348,7 +348,7 @@ function setUserID(userInput) {
   console.log(userInput + "< Input to setUserID()")
   var userid = userInput;
   console.log(userid + " < Output of setUserID()");
-  getUserID();
+  console.log("test " + getUserID());
 }
 function getUserID2() {
   console.log("retreiving user id: "+ setUserID.userid);
