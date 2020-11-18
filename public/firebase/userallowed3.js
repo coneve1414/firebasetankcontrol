@@ -116,16 +116,16 @@ function isMultiOrg(){
   }
 }
 
-function getOrgID(userid){
-  if (userid) {
-    userRef.once("value", function(getOrgId){
-      var orgid = getOrgId.child(userid).val();
-      console.log(orgid);
-      return orgid;
-    });
-  } else {
-    console.log("no user signed in");
-    return null;
+function getOrgID(){
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var userid = user.uid;
+      console.log(userid);
+      userRef.once("value", function(getOrgId){
+        var orgid = getOrgId.child(userid).val();
+        return orgid;
+      });
+    }
   }
 }
 
@@ -348,16 +348,12 @@ function getUserID2() {
   return userid;
 }
 baseRef.once("value", function(userSnapshot) {
-  var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID(getUserID2())).val();
-  console.log("multiOrg: " + multiOrgEnable);
-  var multiOrgSubOrgNum = " " + userSnapshot.child(getOrgID(getUserID2())).child("subOrgNumber").val(); // current limit is hard coded at three
-  var multiOrgSubOrgA = userSnapshot.child(getOrgID(getUserID2())).child("subOrgs").child("org1").val();
-  console.log("multiOrgSubOrgA: " + multiOrgSubOrgA);
-  var multiOrgSubOrgB = userSnapshot.child(getOrgID(getUserID2())).child("subOrgs").child("org2").val();
-  console.log("multiOrgSubOrgB: " + multiOrgSubOrgB);
-  var multiOrgSubOrgC = userSnapshot.child(getOrgID(getUserID2())).child("subOrgs").child("org3").val();
-  console.log("multiOrgSubOrgC: " + multiOrgSubOrgC);
-  var location1 = userSnapshot.child(getOrgID(getUserID2())).child(multiOrgSubOrgA).child("location").val();
+  var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID()).val();
+  var multiOrgSubOrgNum = " " + userSnapshot.child(getOrgID()).child("subOrgNumber").val(); // current limit is hard coded at three
+  var multiOrgSubOrgA = userSnapshot.child(getOrgID()).child("subOrgs").child("org1").val();
+  var multiOrgSubOrgB = userSnapshot.child(getOrgID()).child("subOrgs").child("org2").val();
+  var multiOrgSubOrgC = userSnapshot.child(getOrgID()).child("subOrgs").child("org3").val();
+  var location1 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child("location").val();
   setLocation1(location1);
   var location2 = userSnapshot.child(getOrgID(getUserID2())).child(multiOrgSubOrgB).child("location").val();
   setLocation2(location2);
