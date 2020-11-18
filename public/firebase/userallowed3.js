@@ -207,7 +207,7 @@ firebase.auth().onAuthStateChanged((user) => {
             var userid2 = ""+user.uid;
             console.log(userid2);
             setInternalUid(userid2);
-            console.log(setUserID.userid + "test");
+            console.log(userID.get() + "test");
             usersRef.once("value", function(debugInfo) {
               var userid = "" + user.uid
               var useruid = debugInfo.child(orgid).child(userid).val(); // "Lovelace"
@@ -358,7 +358,8 @@ function getLocation3(){
   return setLocation3.location3;
 }
 function userID() {
-  var userid = userInput;
+  var userid;
+
   //console.log(userid + " < Output of setUserID()");
   //console.log("test " + getUserID());
   return {
@@ -371,11 +372,13 @@ function userID() {
         userid = userInput;
     }
 }
+
 }
 function getUserID2() {
   
   return userID().get();
 }
+function wait() {
 baseRef.once("value", function(userSnapshot) {
   var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID()).val();
   var multiOrgSubOrgNum = " " + userSnapshot.child(getOrgID()).child("subOrgNumber").val(); // current limit is hard coded at three
@@ -391,4 +394,4 @@ baseRef.once("value", function(userSnapshot) {
   var userAllowedSubOrgA = " " + userSnapshot.child(getOrgID(getUserID2())).child(multiOrgSubOrgA).child(getUserID2()).val();
   var userAllowedSubOrgB = " " + userSnapshot.child(getOrgID(getUserID2())).child(multiOrgSubOrgB).child(getUserID2()).val();
   var userAllowedSubOrgC = " " + userSnapshot.child(getOrgID(getUserID2())).child(multiOrgSubOrgC).child(getUserID2()).val();
-});
+});};
