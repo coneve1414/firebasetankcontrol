@@ -344,6 +344,7 @@ function setLocation3(location){
 function getLocation3(){
   return setLocation3.location3;
 }
+<<<<<<< HEAD
 function userID() {
   var userid;
 
@@ -360,6 +361,8 @@ function userID() {
     }
 }
 
+=======
+>>>>>>> parent of f27f0e9... Reworking Get and Set
 function setUserID(userInput) {
   console.log(userInput + "< Input to setUserID()")
   var userid = userInput;
