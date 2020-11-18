@@ -117,18 +117,17 @@ function isMultiOrg(){
 }
 
 function getOrgID(){
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      var userid = user.uid;
-      console.log(userid);
-      userRef.once("value", function(getOrgId){
-        var orgid = getOrgId.child(userid).val();
-        console.log(orgid);
-        return orgid;
-      });
-    }
+  if (getUserID()) {
+    userRef.once("value", function(getOrgId){
+      var orgid = getOrgId.child(getUserID()).val();
+      console.log(orgid);
+      return orgid;
+    });
+  } else {
+    console.log("no user signed in");
+    return null;
   }
-);}
+}
 function getUserID(){
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
