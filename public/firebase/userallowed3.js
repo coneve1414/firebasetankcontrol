@@ -123,6 +123,7 @@ function getOrgID(){
       console.log(userid);
       userRef.once("value", function(getOrgId){
         var orgid = getOrgId.child(userid).val();
+        console.log(orgid);
         return orgid;
       });
     }
@@ -336,17 +337,21 @@ function getLocation3(){
 }
 baseRef.once("value", function(userSnapshot) {
   var multiOrgEnable = userSnapshot.child("multiViewOrgs").child(getOrgID()).val();
+  console.log("multiOrg: " + multiOrgEnable);
   var multiOrgSubOrgNum = " " + userSnapshot.child(getOrgID()).child("subOrgNumber").val(); // current limit is hard coded at three
   var multiOrgSubOrgA = userSnapshot.child(getOrgID()).child("subOrgs").child("org1").val();
+  console.log("multiOrgSubOrgA: " + multiOrgSubOrgA);
   var multiOrgSubOrgB = userSnapshot.child(getOrgID()).child("subOrgs").child("org2").val();
+  console.log("multiOrgSubOrgB: " + multiOrgSubOrgB);
   var multiOrgSubOrgC = userSnapshot.child(getOrgID()).child("subOrgs").child("org3").val();
+  console.log("multiOrgSubOrgC: " + multiOrgSubOrgC);
   var location1 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child("location").val();
   setLocation1(location1);
   var location2 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgB).child("location").val();
   setLocation2(location2);
   var location3 = userSnapshot.child(getOrgID()).child(multiOrgSubOrgC).child("location").val();
   setLocation3(location3);
-  var userAllowedSubOrgA = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child(getUserID()).val();
+  var userAllowedSubOrgA = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgA).child(getUserID().userid).val();
   var userAllowedSubOrgB = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgB).child(getUserID()).val();
   var userAllowedSubOrgC = " " + userSnapshot.child(getOrgID()).child(multiOrgSubOrgC).child(getUserID()).val();
 });
