@@ -186,7 +186,12 @@ function getLogo(orgLogo) {
   }
 
 function allowed2(){
-
+function setInternalUid(x) {
+  console.log(x);
+  var userid = x;
+  console.log(userid);
+  setUserID(userid);
+}
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User logged in already or has just logged in.
@@ -201,7 +206,7 @@ firebase.auth().onAuthStateChanged((user) => {
             // User logged in already or has just logged in.
             var userid2 = ""+user.uid;
             console.log(userid2);
-            setUserID(userid2);
+            setInternalUid(userid2);
             console.log(setUserID.userid + "test");
             usersRef.once("value", function(debugInfo) {
               var userid = "" + user.uid
@@ -340,8 +345,9 @@ function getLocation3(){
   return setLocation3.location3;
 }
 function setUserID(userInput) {
+  console.log(userInput + "< Input to setUserID()")
   var userid = userInput;
-  console.log(userid);
+  console.log(userid + " < Output of setUserID()");
 }
 function getUserID2() {
   console.log("retreiving user id: "+ setUserID.userid);
