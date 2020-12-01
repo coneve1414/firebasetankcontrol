@@ -7,7 +7,7 @@ function initApp2() {
       window.location = "/admin/login.html";
     }
       if (user) {
-        writeUserData(user.uid, document.getElementById('verificationCode').value) 
+        writeUserData(user.uid, document.getElementById('verificationCode').value) //writing user data to the appropriate organization verification code
       } else {
         function createUser() {
           console.log('starting user create');
