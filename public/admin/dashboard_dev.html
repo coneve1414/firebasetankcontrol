@@ -98,25 +98,23 @@
           <ul class="nav">          
             <li class="nav-item" id=subOrg1>
               <a class="nav-link" onclick="setSubOrg(1)">
-                <i class="nav-icon cil-speedometer"></i> <div id=subOrg1Button >Loading...</div>
+                <i class="nav-icon cil-speedometer"></i> <div id=subOrg1Name >Loading...</div>
               </a>
             </li>
             <li class="nav-item" id=subOrg2>
-              <a class="nav-link" onclick="setSubOrg(2)">(
-                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg2Button >Loading...</div>
-               
+              <a class="nav-link" onclick="setSubOrg(2)">
+                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg2Name >Loading...</div>
               </a>
             </li>
             <li class="nav-item" id=subOrg3>
-              <a class="nav-link" href="dashboard_dev.html" >
-                <i class="nav-icon cil-speedometer"></i> <p id=subOrg3Button>Loading...</p>
-               
+              <a class="nav-link" onclick="setSubOrg(3)" >
+                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg3Name>Loading...</div>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="accounts.html"> 
-                <i class="nav-icon cil-cog"></i> Account
-               <span class="badge badge-success">NEW</span>
+                <i class="nav-icon cil-cog"></i> <div class="text">Account</div>
+               <!--<span class="badge badge-success">NEW</span>-->
               </a>
             </li>
             </li>
@@ -281,7 +279,7 @@
       
       <div>
         <span>&copy; 2020 Conner Everett - </span>
-        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> </a>
+        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> - Subscription: <a id="subscription"></a> </a>
       </div>
       
       <script src="/firebase/config.js"></script>

@@ -18,44 +18,46 @@ function hideTemps() {
   }
 }
 
-// function hideSubOrg1() {
-//   var y = document.getElementById("suborg1");
-//   if (y.style.display === "none") {
-//     y.style.display = "block";
-//   } else {
-//     y.style.display = "none";
-//   }
-// }
+function hideSubOrg1Button() {
+  var hideSubOrg1ButtonVar = document.getElementById("subOrg1");
+  if (hideSubOrg1ButtonVar.style.display === "none") {
+    hideSubOrg1ButtonVar.style.display = "block";
+  } else {
+    hideSubOrg1ButtonVar.style.display = "none";
+  }
+}
 
-// function hideSubOrg2() {
-//   var z = document.getElementById("suborg2");
-//   if (z.style.display === "none") {
-//     z.style.display = "block";
-//   } else {
-//     z.style.display = "none";
-//   }
-// }
+function hideSubOrg2Button() {
+  var hideSubOrg2ButtonVar = document.getElementById("subOrg2");
+  if (hideSubOrg2ButtonVar.style.display === "none") {
+    hideSubOrg2ButtonVar.style.display = "block";
+  } else {
+    hideSubOrg2ButtonVar.style.display = "none";
+  }
+}
 
-// function hideSubOrg3() {
-//   var x2 = document.getElementById("suborg3");
-//   if (x2.style.display === "none") {
-//     x2.style.display = "block";
-//   } else {
-//     x2.style.display = "none";
-//   }
-// }
+function hideSubOrg3Button() {
+  var hideSubOrg3ButtonVar = document.getElementById("subOrg3");
+  if (hideSubOrg3ButtonVar.style.display === "none") {
+    hideSubOrg3ButtonVar.style.display = "block";
+  } else {
+    hideSubOrg3ButtonVar.style.display = "none";
+  }
+}
 
 var subOrg1Master;
 var subOrg2Master;
 var subOrg3Master;
 var userIdMaster;
 var orgIdMaster;
+var multiOrgTrueMaster;
 
 function setSubOrg(subOrgNumber) {
   
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       baseRef.once("value", function(subOrgSet) {
+        if (multiOrgTrueMaster=="true"){
         var subOrgId1Master = subOrgSet.child(orgIdMaster).child("subOrgs").child("org1").val();
         var subOrgId2Master = subOrgSet.child(orgIdMaster).child("subOrgs").child("org2").val();
         //subOrgId3 = subOrgSet.child(orgid).child("subOrgs").child("org3").val();
@@ -77,7 +79,9 @@ function setSubOrg(subOrgNumber) {
           console.log("success");
           window.location = pageLocation;
         }
-      })
+      } else {
+        console.log("multiOrgSupport Disabled")
+      }})
       // if (subOrgNumber == 1) {
       //   baseRef.child(orgIdMaster).child("userView").child(userIdMaster).set(subOrg1Master)
       // }
@@ -114,8 +118,14 @@ firebase.auth().onAuthStateChanged((user) => {
               var useruid = debugInfo.child("users").child(orgid).child(userId).val();
               var version = debugInfo.child("version").val();
               var orgname = debugInfo.child("users").child(orgid).child("orgName").val();
+              var subscription = debugInfo.child("users").child(orgid).child("subscription").val();
               var multiOrgTrue = debugInfo.child("multiViewOrgs").child(orgid).val();
               var orgid2;
+              orgName1 = debugInfo.child("users").child(orgid).child("orgName").val();
+              //console.log("orgName: "+ orgName1);
+              orgLocation1 = debugInfo.child("users").child(orgid).child("locationName").val();
+              //console.log("location: "+ orgLocation1);
+              multiOrgTrueMaster = multiOrgTrue;
               if (multiOrgTrue == "true") {
                 //window.alert("MULTI ORG TRUE");
                 var multiOrgSubOrgNum = debugInfo.child(orgid).child("subOrgNumber").val(); //Currently, Hard Limit on Sub Views is 3
@@ -127,6 +137,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 var userPermSubOrg2;
                 var userPermSubOrg3;
                 var subOrgName1;
+                var orgName1;
                 var subOrgName2;
                 var subOrgName3;
                 var subOrgLocation1;
@@ -151,12 +162,12 @@ firebase.auth().onAuthStateChanged((user) => {
                   subOrgLocation1 = debugInfo.child(orgid).child(subOrgId1).child("location").val();
                   subOrgLocation2 = debugInfo.child(orgid).child(subOrgId2).child("location").val();
                   subOrgLocation3 = debugInfo.child(orgid).child(subOrgId3).child("location").val();
-                  document.getElementById('subOrg1Button').onclick = setSubOrgView(orgid, user.uid, subOrgId1);
-                  document.getElementById('subOrg2Button').onclick = setSubOrgView(orgid, user.uid, subOrgId2);
-                  document.getElementById('subOrg3Button').onclick = setSubOrgView(orgid, user.uid, subOrgId3);
-                  //document.getElementById("location1").innerHTML= subOrgLocation1;
-                  //document.getElementById("location2").innerHTML= subOrgLocation2;
-                  //document.getElementById("location3").innerHTML= subOrgLocation3;
+                  //document.getElementById('subOrg1').onclick = setSubOrg(1);
+                  //document.getElementById('subOrg2').onclick = setSubOrg(2);
+                  //document.getElementById('subOrg3').onclick = setSubOrg(3);
+                  document.getElementById("subOrg1Name").innerHTML= subOrgName1 +" - " + subOrgLocation1;
+                  document.getElementById("subOrg2Name").innerHTML= subOrgName2 +" - " + subOrgLocation2;
+                  document.getElementById("subOrg3Name").innerHTML= subOrgName3 +" - " + subOrgLocation3;
                 } else {
                   subOrgId1 = debugInfo.child(orgid).child("subOrgs").child("org1").val();
                   subOrgId2 = debugInfo.child(orgid).child("subOrgs").child("org2").val();
@@ -168,11 +179,12 @@ firebase.auth().onAuthStateChanged((user) => {
                   subOrgName2 = debugInfo.child(orgid).child(subOrgId2).child("orgName").val();
                   subOrgLocation1 = debugInfo.child(orgid).child(subOrgId1).child("location").val();
                   subOrgLocation2 = debugInfo.child(orgid).child(subOrgId2).child("location").val();
-                  //document.getElementById('subOrg1Button').onclick = setSubOrgView(orgid, user.uid, subOrgId2b);
-                  //document.getElementById('subOrg2Button').onclick = setSubOrgView(orgid, user.uid, subOrgId1b);
-                  //document.getElementById("location1").innerHTML= subOrgLocation1;
-                  //document.getElementById("location2").innerHTML= subOrgLocation2;
+                  //document.getElementById('subOrg1').onclick = setSubOrg(1);
+                  //document.getElementById('subOrg2').onclick = setSubOrg(2);
+                  document.getElementById("subOrg1Name").innerHTML= subOrgName1 +" - " + subOrgLocation1;
+                  document.getElementById("subOrg2Name").innerHTML= subOrgName2 +" - " + subOrgLocation2;
                   //hideSubOrg3();
+                  hideSubOrg3Button();
                 }
                 if (userPermSubOrg1=="true") {
                   viewSubOrg1=true;
@@ -265,15 +277,21 @@ firebase.auth().onAuthStateChanged((user) => {
                 console.log(subOrgId2);
               } else {
                 orgid2 = orgid;
+                hideSubOrg3Button();
+                hideSubOrg2Button();
+                document.getElementById("subOrg1Name").innerHTML= orgLocation1;
                 console.log("ORG ID FALSE: "+ orgid2);
               }
               console.log(orgname);
               console.log(version);
               console.log(useruid);
+              console.log(orgLocation1);
               console.log("ORG ID: "+ orgid2);
               var useruid2 = " " + useruid
+              
               document.getElementById("version").innerHTML= version;
               document.getElementById("userEmail").innerHTML = user.email;
+              document.getElementById("subscription").innerHTML= subscription;
               if (debugEnable == true) {
                 document.getElementById("emailDebug").innerHTML = user.email;
                 document.getElementById("useridDebug").innerHTML = user.uid;
