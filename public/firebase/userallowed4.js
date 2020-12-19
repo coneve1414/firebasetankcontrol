@@ -384,7 +384,6 @@ firebase.auth().onAuthStateChanged((user) => {
                   hideTank11();
                   hideTank12();
                 } else if (tankNum=="11") {
-                  hideTank11();
                   hideTank12();
                 } else {
                   console.log("all values shown")
@@ -405,18 +404,19 @@ firebase.auth().onAuthStateChanged((user) => {
                             document.getElementById("org").innerHTML = orgname;
                             getLogo(orgid2);
                             getTanks(orgid2);
-                        } else {
-                          if (useruid2 == " systemadmin") {
-                            document.getElementById("role").innerHTML = "System Administrator (Global)";
-                            document.getElementById("org").innerHTML = orgname;
-                          } else {
+                        } else if (useruid2 == " systemadmin") {
+                          document.getElementById("role").innerHTML = "System Administrator (Global)";
+                          document.getElementById("org").innerHTML = orgname;
+                        } else { 
+                        
+                        
                     document.getElementById("org").innerHTML = orgname;
                     document.getElementById("role").innerHTML = "Standard User";
                     getLogo(orgid2);
                     getTanks(orgid2);
                     return 
                   }
-                }
+                
               }
             }
               // User not logged in or has just logged out.
