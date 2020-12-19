@@ -51,6 +51,7 @@ var subOrg3Master;
 var userIdMaster;
 var orgIdMaster;
 var multiOrgTrueMaster;
+var tankNum;
 
 function setSubOrg(subOrgNumber) {
   
@@ -60,6 +61,7 @@ function setSubOrg(subOrgNumber) {
         if (multiOrgTrueMaster=="true"){
         var subOrgId1Master = subOrgSet.child(orgIdMaster).child("subOrgs").child("org1").val();
         var subOrgId2Master = subOrgSet.child(orgIdMaster).child("subOrgs").child("org2").val();
+        var subOrgId1Master = subOrgSet.child(orgIdMaster).child("subOrgs").child("org3").val();
         //subOrgId3 = subOrgSet.child(orgid).child("subOrgs").child("org3").val();
         console.log(subOrgId1Master);
         console.log(subOrgId2Master);
@@ -75,7 +77,7 @@ function setSubOrg(subOrgNumber) {
           window.location = pageLocation;
         }
         if (subOrgNumber == 3) {
-          baseRef.child(orgIdMaster).child("userView").child(userIdMaster).set(subOrg3);
+          baseRef.child(orgIdMaster).child("userView").child(userIdMaster).set(subOrgId3Master);
           console.log("success");
           window.location = pageLocation;
         }
@@ -282,6 +284,10 @@ firebase.auth().onAuthStateChanged((user) => {
                 document.getElementById("subOrg1Name").innerHTML= orgLocation1;
                 console.log("ORG ID FALSE: "+ orgid2);
               }
+              var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
+              console.log(tankNumFetch);
+              tankNum=tankNumFetch;
+              console.log("tankNum Out "+tankNum);
               console.log(orgname);
               console.log(version);
               console.log(useruid);
@@ -302,6 +308,88 @@ firebase.auth().onAuthStateChanged((user) => {
                 window.alert("Access Denied! User removed from an organization! Code: A1004");
             
             } else {
+                if (tankNum=="1") { //Testing to see what values to hide
+                  hideTank02();
+                  hideTank03();
+                  hideTank04();
+                  hideTank05();
+                  hideTank06();
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="2") {
+                  hideTank03();
+                  hideTank04();
+                  hideTank05();
+                  hideTank06();
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="3") {
+                  hideTank04();
+                  hideTank05();
+                  hideTank06();
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="4") {
+                  hideTank05();
+                  hideTank06();
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="5") {
+                  hideTank06();
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="6") {
+                  hideTank07();
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="7") {
+                  hideTank08();
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="8") {
+                  hideTank09();
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="9") {
+                  hideTank10();
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="10") {
+                  hideTank11();
+                  hideTank12();
+                } else if (tankNum=="11") {
+                  hideTank11();
+                  hideTank12();
+                } else {
+                  console.log("all values shown")
+                }
+
                 if (useruid2 == " null") {
                     hideTemps(); //Hides the temperature guages
                     window.alert("Access Denied! User not assigned to an organization! Code: A1003");
@@ -318,13 +406,18 @@ firebase.auth().onAuthStateChanged((user) => {
                             getLogo(orgid2);
                             getTanks(orgid2);
                         } else {
+                          if (useruid2 == " systemadmin") {
+                            document.getElementById("role").innerHTML = "System Administrator (Global)";
+                            document.getElementById("org").innerHTML = orgname;
+                          } else {
                     document.getElementById("org").innerHTML = orgname;
                     document.getElementById("role").innerHTML = "Standard User";
                     getLogo(orgid2);
                     getTanks(orgid2);
-                    return
+                    return 
+                  }
                 }
-            }
+              }
             }
               // User not logged in or has just logged out.
             }
@@ -493,6 +586,116 @@ function getLogo(orgLogo) {
 
 
       }
+
     };
+
+    function hideTank01() {
+      var hideTank01Var = document.getElementById("orgTank01");
+      if (hideTank01Var.style.display === "none") {
+        hideTank01Var.style.display = "block";
+      } else {
+        hideTank01Var.style.display = "none";
+      }
+    };
+
+    function hideTank02() {
+      var hideTank02Var = document.getElementById("orgTank02");
+      if (hideTank02Var.style.display === "none") {
+        hideTank02Var.style.display = "block";
+      } else {
+        hideTank02Var.style.display = "none";
+      }
+    };
+
+    function hideTank03() {
+      var hideTank03Var = document.getElementById("orgTank03");
+      if (hideTank03Var.style.display === "none") {
+        hideTank03Var.style.display = "block";
+      } else {
+        hideTank03Var.style.display = "none";
+      }
+    };
+
+    function hideTank04() {
+      var hideTank04Var = document.getElementById("orgTank04");
+      if (hideTank04Var.style.display === "none") {
+        hideTank04Var.style.display = "block";
+      } else {
+        hideTank04Var.style.display = "none";
+      }
+    };
+
+    function hideTank05() {
+      var hideTank05Var = document.getElementById("orgTank05");
+      if (hideTank05Var.style.display === "none") {
+        hideTank05Var.style.display = "block";
+      } else {
+        hideTank05Var.style.display = "none";
+      }
+    };
+    
+    function hideTank06() {
+      var hideTank06Var = document.getElementById("orgTank06");
+      if (hideTank06Var.style.display === "none") {
+        hideTank06Var.style.display = "block";
+      } else {
+        hideTank06Var.style.display = "none";
+      }
+    };
+
+    function hideTank07() {
+      var hideTank07Var = document.getElementById("orgTank07");
+      if (hideTank07Var.style.display === "none") {
+        hideTank07Var.style.display = "block";
+      } else {
+        hideTank07Var.style.display = "none";
+      }
+    };
+
+    function hideTank08() {
+      var hideTank08Var = document.getElementById("orgTank08");
+      if (hideTank08Var.style.display === "none") {
+        hideTank08Var.style.display = "block";
+      } else {
+        hideTank08Var.style.display = "none";
+      }
+    };
+
+    function hideTank09() {
+      var hideTank09Var = document.getElementById("orgTank09");
+      if (hideTank09Var.style.display === "none") {
+        hideTank09Var.style.display = "block";
+      } else {
+        hideTank09Var.style.display = "none";
+      }
+    };
+
+    function hideTank10() {
+      var hideTank10Var = document.getElementById("orgTank10");
+      if (hideTank10Var.style.display === "none") {
+        hideTank10Var.style.display = "block";
+      } else {
+        hideTank10Var.style.display = "none";
+      }
+    };
+
+    function hideTank11() {
+      var hideTank11Var = document.getElementById("orgTank11");
+      if (hideTank11Var.style.display === "none") {
+        hideTank11Var.style.display = "block";
+      } else {
+        hideTank11Var.style.display = "none";
+      }
+    };
+
+    function hideTank12() {
+      var hideTank12Var = document.getElementById("orgTank12");
+      if (hideTank12Var.style.display === "none") {
+        hideTank12Var.style.display = "block";
+      } else {
+        hideTank12Var.style.display = "none";
+      }
+    };
+
   })}});
 }
