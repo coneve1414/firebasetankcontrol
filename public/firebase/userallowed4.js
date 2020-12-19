@@ -458,14 +458,14 @@ function getLogo(orgLogo) {
       ref.on("value", function(snapshot2) {
         var tank02val = snapshot2.child("tanks").child("tank02").child("temp").val(); // "Lovelace"
         //var tank02time = snapshot2.child("tanks").child("tank02").child("timestamp").val();
-        var tank02min = snapshot.child("tanks").child("tank02").child("minTemp").val(); // min temperature
-        var tank02max = snapshot.child("tanks").child("tank02").child("maxTemp").val(); // max temperature
+        var tank02min = snapshot2.child("tanks").child("tank02").child("minTemp").val(); // min temperature
+        var tank02max = snapshot2.child("tanks").child("tank02").child("maxTemp").val(); // max temperature
         if (tank02val >=tank02max) {
           document.getElementById("tank02Color").className = "card text-white bg-danger";
         } else if (tank02val<=tank02min) {
           document.getElementById("tank02Color").className = "card text-white bg-warning";
         } else {
-          document.getElementById("tank02Color").className = "card text-white bg-success";
+          document.getElementById("tank02Color").className = "card text-white bg-primary";
         }
         var tank02 = " " + tank02val;
         document.getElementById("tank02").innerHTML =tank02 + "°F";
@@ -475,8 +475,8 @@ function getLogo(orgLogo) {
       ref.on("value", function(snapshot3) {
         var tank03val = snapshot3.child("tanks").child("tank03").child("temp").val(); // "Lovelace"
       // var tank03time = snapshot3.child("tanks").child("tank03").child("timestamp").val();
-        var tank03min = snapshot.child("tanks").child("tank03").child("minTemp").val(); // min temperature
-        var tank03max = snapshot.child("tanks").child("tank03").child("maxTemp").val(); // max temperature
+        var tank03min = snapshot3.child("tanks").child("tank03").child("minTemp").val(); // min temperature
+        var tank03max = snapshot3.child("tanks").child("tank03").child("maxTemp").val(); // max temperature
         if (tank03val >=tank03max) {
           document.getElementById("tank03Color").className = "card text-white bg-danger";
         } else if (tank03val<=tank03min) {
