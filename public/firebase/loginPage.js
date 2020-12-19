@@ -1,4 +1,8 @@
+
+
 function toggleSignIn() {
+  var disableLogin = "false";
+  if (disableLogin=="false") {
     if (firebase.auth().currentUser) {
       firebase.auth().signOut();
     } else {
@@ -24,7 +28,10 @@ function toggleSignIn() {
         document.getElementById('quickstart-sign-in').disabled = false;
       });
     }
-  }
+  } else {
+    window.location = "/"
+    window.alert("Sorry! Currently new logins to the system are disabled!");
+  }};
   function redirectregister() {
           window.location = "/admin/register.html";
       };
