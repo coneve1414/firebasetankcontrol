@@ -287,6 +287,7 @@ firebase.auth().onAuthStateChanged((user) => {
               }
               var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
               orgPhotoId = debugInfo.child(orgid2).child("orgPhotoId").val();
+              console.log(orgPhotoId);
               console.log(tankNumFetch);
               tankNum=tankNumFetch;
               console.log("tankNum Out "+tankNum);
@@ -425,14 +426,8 @@ firebase.auth().onAuthStateChanged((user) => {
           });
 //        };
 
-function getLogo(orgLogo) {
-  var orgLogo2;
-  if (orgPhotoId!=null) {
-    orgLogo2=orgPhotoId;
-  } else {
-    orgLogo2=orgLogo;
-  }
-  if (orgLogo == "namhf"){ // temporary fix for the shitty code
+function getLogo(orgLogo2) {
+  if (orgLogo2 == "namhf"){ // temporary fix for the shitty code
     document.getElementById("brandFull").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
     document.getElementById("brandMini").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
   } else {
