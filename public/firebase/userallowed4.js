@@ -52,7 +52,6 @@ var userIdMaster;
 var orgIdMaster;
 var multiOrgTrueMaster;
 var tankNum;
-var orgPhotoId;
 
 function setSubOrg(subOrgNumber) {
   
@@ -286,8 +285,6 @@ firebase.auth().onAuthStateChanged((user) => {
                 console.log("ORG ID FALSE: "+ orgid2);
               }
               var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
-              orgPhotoId = debugInfo.child(orgid2).child("orgPhotoId").val();
-              console.log(orgPhotoId);
               console.log(tankNumFetch);
               tankNum=tankNumFetch;
               console.log("tankNum Out "+tankNum);
