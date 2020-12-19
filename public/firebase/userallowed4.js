@@ -438,45 +438,54 @@ function getLogo(orgLogo) {
 
       function getTanks(orgid3) {
           var ref = firebase.database().ref(orgid3);
-      //ref.once("value")
+// tank 01
       ref.on("value", function(snapshot) {
-      //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
-      //var firstName = snapshot.child("name/first").val(); // "Ada"
-        var tank01val = snapshot.child("tanks").child("tank01").child("temp").val(); // "Lovelace"
-        var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
-      //  var tank01val = snapshot.child("tank01").val(); // "Lovelace"
+        var tank01val = snapshot.child("tanks").child("tank01").child("temp").val(); // Example: 120 and will be formatted to 120°
+        //var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
+        var tank01min = snapshot.child("tanks").child("tank01").child("minTemp").val(); // min temperature
+        var tank01max = snapshot.child("tanks").child("tank01").child("maxTemp").val(); // max temperature
+        if (tank01val >=tank01max) {
+          document.getElementById("tank01Color").className = "card text-white bg-danger";
+        } else if (tank01val<=tank01min) {
+          document.getElementById("tank01Color").className = "card text-white bg-warning";
+        } else {
+          document.getElementById("tank01Color").className = "card text-white bg-success";
+        }
         var tank01 = " " + tank01val;
         document.getElementById("tank01").innerHTML =tank01 + "°F";
-      // document.getElementById("tank01time").innerHTML ="Last Updated: " + tank01time;
-      //document.write(tank01);
-      //var age = snapshot.child("age").val(); // null
       });
-      //ref.once("value")
+// tank02
       ref.on("value", function(snapshot2) {
-      //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
-      //var firstName = snapshot.child("name/first").val(); // "Ada"
         var tank02val = snapshot2.child("tanks").child("tank02").child("temp").val(); // "Lovelace"
-        var tank02time = snapshot2.child("tanks").child("tank02").child("timestamp").val();
-      //  var tank01val = snapshot.child("tank01").val(); // "Lovelace"
+        //var tank02time = snapshot2.child("tanks").child("tank02").child("timestamp").val();
+        var tank02min = snapshot.child("tanks").child("tank02").child("minTemp").val(); // min temperature
+        var tank02max = snapshot.child("tanks").child("tank02").child("maxTemp").val(); // max temperature
+        if (tank02val >=tank02max) {
+          document.getElementById("tank02Color").className = "card text-white bg-danger";
+        } else if (tank02val<=tank02min) {
+          document.getElementById("tank02Color").className = "card text-white bg-warning";
+        } else {
+          document.getElementById("tank02Color").className = "card text-white bg-success";
+        }
         var tank02 = " " + tank02val;
         document.getElementById("tank02").innerHTML =tank02 + "°F";
-      // document.getElementById("tank02time").innerHTML ="Last Updated: " + tank02time;
-      //document.write(tank01);
-      //var age = snapshot.child("age").val(); // null
       });
 
-      //ref.once("value")
+// tank03
       ref.on("value", function(snapshot3) {
-      //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
-      //var firstName = snapshot.child("name/first").val(); // "Ada"
         var tank03val = snapshot3.child("tanks").child("tank03").child("temp").val(); // "Lovelace"
       // var tank03time = snapshot3.child("tanks").child("tank03").child("timestamp").val();
-      //  var tank01val = snapshot.child("tank01").val(); // "Lovelace"
+        var tank03min = snapshot.child("tanks").child("tank03").child("minTemp").val(); // min temperature
+        var tank03max = snapshot.child("tanks").child("tank03").child("maxTemp").val(); // max temperature
+        if (tank03val >=tank03max) {
+          document.getElementById("tank03Color").className = "card text-white bg-danger";
+        } else if (tank03val<=tank03min) {
+          document.getElementById("tank03Color").className = "card text-white bg-warning";
+        } else {
+          document.getElementById("tank03Color").className = "card text-white bg-success";
+        }
         var tank03 = " " + tank03val;
         document.getElementById("tank03").innerHTML =tank03 + "°F";
-      // document.getElementById("tank03time").innerHTML ="Last Updated: " + tank03time;
-      //document.write(tank01);
-      //var age = snapshot.child("age").val(); // null
       });
       ref.on("value", function(snapshot4) {
         //var name = snapshot.child("tanks").val(); // {first:"Ada",last:"Lovelace"}
