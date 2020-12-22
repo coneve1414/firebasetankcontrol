@@ -444,7 +444,7 @@ function getLogo(orgLogo) {
       ref.on("value", function(snapshot) {
         var tank01val = snapshot.child("tanks").child("tank01").child("temp").val(); // Example: 120 and will be formatted to 120°
         //var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
-        var tankDyn = snapshot1.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
+        var tankDyn = snapshot.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
         var tank01min = snapshot.child("tanks").child("tank01").child("minTemp").val(); // min temperature
         var tank01max = snapshot.child("tanks").child("tank01").child("maxTemp").val(); // max temperature
         if (tankDyn=="true") {
@@ -460,6 +460,7 @@ function getLogo(orgLogo) {
         var tank01 = " " + tank01val;
         document.getElementById("tank01").innerHTML =tank01 + "°F";
       });
+
 // tank02
       ref.on("value", function(snapshot2) {
         var tank02val = snapshot2.child("tanks").child("tank02").child("temp").val(); // Example: 120 and will be formatted to 120°
