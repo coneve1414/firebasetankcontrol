@@ -36,7 +36,7 @@
 </script>
     
   </head>
-  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+  <body class="app header-fixed sidebar-fixed sidebar-lg-show">
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
@@ -45,7 +45,7 @@
 
   
     <header class="app-header navbar">
-      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+      <button disabled class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand">
@@ -55,7 +55,7 @@
       </a>
       <!--this button is required for spacing-->
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
-        <!-- <span class="navbar-toggler-icon"></span> -->
+        <!-- <span class="navbar-toggler-icon"></span>-->
       </button>
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
@@ -127,18 +127,24 @@
             <li class="divider"></li>
           </ul>
         </nav>
-        <button disabled class="sidebar-minimizer brand-minimizer" type="button" id="quickstart-verify-email"></button>
+        <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
       </div>
       <main class="main">
         <br>
         <div class="container-fluid">
           <div class="animated fadeIn">
+            <div>
+              <div class="alert alert-danger" id="ErrorA1004" role="alert">
+                Sorry, you are not a member of an organization. Please contact your administrator or contact support here: tankstatuscontrol.ce@gmail.com | Code: A1004
+              </div>
+              <br>
+            </div>
             <div class="row" id="temps">
 
               <div id=orgTank01 class="col-sm-6 col-lg-3">
           <div id=tank01Color class="card text-white bg-primary">
               <div class="card-body pb-0">
-                <div class="btn-group float-right">                
+                <div class="btn-group float-right">         
                 </div>
                 <div class="text-value" id="tank01">
                   Loading...

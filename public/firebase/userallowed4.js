@@ -18,6 +18,15 @@ function hideTemps() {
   }
 }
 
+function showNoOrg() {
+  var xx = document.getElementById("ErrorA1004");
+  if (xx.style.display === "none") {
+    xx.style.display = "block";
+  } else {
+    xx.style.display = "none";
+  }
+}
+
 function hideSubOrg1Button() {
   var hideSubOrg1ButtonVar = document.getElementById("subOrg1");
   if (hideSubOrg1ButtonVar.style.display === "none") {
@@ -101,7 +110,7 @@ function setSubOrg(subOrgNumber) {
 }
 
 function allowed(){
-
+showNoOrg();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User logged in already or has just logged in.
@@ -305,7 +314,8 @@ firebase.auth().onAuthStateChanged((user) => {
               }
             if (useruid == false) {
                 getTanks.hideTemps();
-                window.alert("Access Denied! User removed from an organization! Code: A1004");
+                showNoOrg();
+                //window.alert("Access Denied! User removed from an organization! Code: A1004");
             
             } else {
                 if (tankNum=="1") { //Testing to see what values to hide
@@ -391,7 +401,9 @@ firebase.auth().onAuthStateChanged((user) => {
 
                 if (useruid2 == " null") {
                     hideTemps(); //Hides the temperature guages
-                    window.alert("Access Denied! User not assigned to an organization! Code: A1003");
+                    showNoOrg();
+                    document.getElementById("subOrg1Name").innerHTML= "Dashboard";
+                    //window.alert("Access Denied! User not assigned to an organization! Code: A1003");
                 } else { 
                     if(useruid2 == " admin") {
                         document.getElementById("role").innerHTML = "Administrator";
