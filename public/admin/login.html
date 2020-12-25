@@ -50,7 +50,26 @@
               <div class="card-body">
                 <h1>Login</h1>
                 <p class="text-muted">Sign In to your account</p>
+                <div class="alert alert-danger" id="ErrorA1001" role="alert">
+                  Sorry, your email password is incorrect | Code: A1001
+                </div>
+                <div class="alert alert-danger" id="ErrorA1000" role="alert">
+                  Sorry, your email password is incorrect | Code: A1000
+                </div>
+                <div class="alert alert-danger" id="ErrorA1009" role="alert">
+                  Please enter an email address | Code: A1009
+                </div>
+                <div class="alert alert-danger" id="ErrorA1008" role="alert">
+                  Please enter an password | Code: A1008
+                </div>
+                <script type="text/javascript">
+                  $("#ErrorA1000").hide();
+                  $("#ErrorA1001").hide();
+                  $("#ErrorA1008").hide();
+                  $("#ErrorA1009").hide();
+              </script>
                 <div class="input-group mb-3">
+                  <br>
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="icon-user"></i>

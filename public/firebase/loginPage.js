@@ -1,4 +1,35 @@
-
+function showWrongPassword() {
+  var xx = document.getElementById("ErrorA1001");
+  if (xx.style.display === "none") {
+    xx.style.display = "block";
+  } else {
+    xx.style.display = "none";
+  }
+}
+function showEmailNotExist() {
+  var xx = document.getElementById("ErrorA1000");
+  if (xx.style.display === "none") {
+    xx.style.display = "block";
+  } else {
+    xx.style.display = "none";
+  }
+}
+function showEmailEmpty() {
+  var xxx = document.getElementById("ErrorA1009");
+  if (xxx.style.display === "none") {
+    xxx.style.display = "block";
+  } else {
+    xxx.style.display = "none";
+  }
+}
+function showPasswordEmpty() {
+  var xxxx = document.getElementById("ErrorA1008");
+  if (xxxx.style.display === "none") {
+    xxxx.style.display = "block";
+  } else {
+    xxxx.style.display = "none";
+  }
+}
 
 function toggleSignIn() {
   var disableLogin = "false";
@@ -9,18 +40,21 @@ function toggleSignIn() {
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
       if (email.length < 4) {
-        alert('Please enter an email address.');
+        showEmailEmpty();
         return;
       }
       if (password.length < 4) {
-        alert('Please enter a password.');
+        showPasswordEmpty();
         return;
       }
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
+          //alert('Wrong password.');
+          showWrongPassword();
+        } else if (errorCode == 'auth/user-not-found') {
+          showEmailNotExist();
         } else {
           alert(errorMessage);
         }
@@ -51,6 +85,10 @@ function toggleSignIn() {
     });
   }
   function initApp() {
+    showWrongPassword();
+    showEmailEmpty();
+    showEmailNotExist();
+    showPasswordEmpty();
     firebase.auth().onAuthStateChanged(function(user) {		
       if (user) {
           setTimeout(redirectadmin, 10)
