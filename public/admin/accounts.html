@@ -40,6 +40,61 @@
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+      <script src="/firebase/orgVerificationCodejs"></script>
+      <script>
+        function changeOrg() {
+  var orgCodeIn = document.getElementById('newOrgCode').value;
+  getOrgCode(orgCodeIn);
+}
+
+function getOrgCode(orgCode) {
+  console.log("recieved!")
+  console.log("orgCode: "+orgCode);
+   //checking the code against the database
+  console.log("checking the database");
+
+  // ref.once("value", function(debugInfo) {
+  //   orgCodeMaster= debugInfo.child(orgCode).val();
+  // });
+  // console.log(orgCodeMaster);
+
+
+  orgRef.once("value", function(snapshot) {
+  console.log("now in the database check!");
+  console.log("orgCode2: "+orgCode);
+  var orgCodeValid = snapshot.child(orgCode).val();
+  console.log("orgCodeValid");
+  var orgCodeCheck = " " + orgCodeValid;
+  console.log(orgCodeCheck);
+  if (orgCodeCheck != " null") { //if a verification code exists
+    console.log('orgcode exists');
+    if (orgCodeValid = "namf") { //checking for return value of database
+    
+    var email2 = document.getElementById('email').value;
+    var password2 = document.getElementById('password').value;
+    console.log(email2);
+    console.log(password2);
+    console.log("creating user account!");
+    firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
+        // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode === 'auth/user-exists') {
+            alert('The User already exists');
+          } else {
+            alert(errorMessage);
+          }
+        });
+        console.log("Success!");
+      };
+  } else {
+      alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
+      return
+  }
+});
+
+};
+      </script>
       <header class="app-header navbar">
         <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
           <!-- <li class="nav-item dropdown"> -->
@@ -162,6 +217,22 @@
             </div>
             <div class="card">
               <div class="card-header">
+                <strong>Change Organization</strong>
+              </div>
+              <div class="card-body">
+                <div>
+                    
+                    <h4>NOTICE:</h4>
+                    <br>
+                    <h6>Currently, this is in development.</h6>   
+                    <br>
+                    <input id="newOrgCode" type="text">
+                    <button onclick="changeOrg()">changeOrg</button>        
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
                 <strong>Update Profile Photo</strong>
               </div>
               <div class="card-body">
@@ -183,6 +254,7 @@ window.location = "/admin/login.html";
                 </div>
               </div>
             </div>
+            
           
       </div>
       <!-- Hidden Attributes so that the code works as intended. -->
@@ -242,6 +314,7 @@ window.location = "/admin/login.html";
       <script src="/firebase/userallowed4.js"></script>
       <script src="/firebase/changePhoto.js"></script>
       <script src="/firebase/changePassword.js"></script>
+      <script src="/firebase/orgVerificationCodejs"></script>
     </footer>
     <!-- Necessary plugins-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
