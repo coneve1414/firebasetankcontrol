@@ -30,6 +30,14 @@ function showPasswordEmpty() {
     xxxx.style.display = "none";
   }
 }
+function showPasswordResetSuccess() {
+  var xxxxx = document.getElementById("ErrorA1007");
+  if (xxxxx.style.display === "none") {
+    xxxxx.style.display = "block";
+  } else {
+    xxxxx.style.display = "none";
+  }
+}
 
 function toggleSignIn() {
   var disableLogin = "false";
@@ -72,7 +80,8 @@ function toggleSignIn() {
   function sendPasswordReset() {
     var email = document.getElementById('email').value;
     firebase.auth().sendPasswordResetEmail(email).then(function() {
-      alert('Password Reset Email Sent!');
+      // alert('Password Reset Email Sent!');
+      showPasswordResetSuccess();
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
