@@ -45,22 +45,20 @@
 
   
     <header class="app-header navbar">
-      
-      
-      <!--<li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-      </a>
-        <div class="dropdown-menu dropdown-menu-left pt-0">
-          <div class="dropdown-header bg-light py-2">
-            <strong>Organizations</strong>
+      <button disabled class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown">
+        <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+          <div class="dropdown-menu dropdown-menu-left pt-0">
+            <div class="dropdown-header bg-light py-2">
+              <strong>Organizations</strong>
+            </div>
+            <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
+            <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
+            <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
           </div>
-          <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
-          <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
-          <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
-        </div>
-      </li>-->
-
-
+        </li>
+      </button>
       <a class="navbar-brand">
         <!--Adding Organization Images-->
         <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
