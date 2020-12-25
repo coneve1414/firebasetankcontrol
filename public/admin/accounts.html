@@ -46,7 +46,7 @@
   var orgCodeIn = document.getElementById('newOrgCode').value;
   getOrgCode(orgCodeIn);
 }
-
+var orgRef = firebase.database().ref("orgCodes");
 function getOrgCode(orgCode) {
   console.log("recieved!")
   console.log("orgCode: "+orgCode);
@@ -59,7 +59,7 @@ function getOrgCode(orgCode) {
   // console.log(orgCodeMaster);
 
 
-  orgRef.once("value", function(snapshot) {
+  firebase.database().ref("orgCodes").once("value", function(snapshot) {
   console.log("now in the database check!");
   console.log("orgCode2: "+orgCode);
   var orgCodeValid = snapshot.child(orgCode).val();
