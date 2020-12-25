@@ -34,6 +34,12 @@ function hideSubOrg1Button() {
   } else {
     hideSubOrg1ButtonVar.style.display = "none";
   }
+  var hideSubOrg1ButtonVarMobile = document.getElementById("subOrg1Mobile");
+  if (hideSubOrg1ButtonVarMobile.style.display === "none") {
+    hideSubOrg1ButtonVarMobile.style.display = "block";
+  } else {
+    hideSubOrg1ButtonVarMobile.style.display = "none";
+  }
 }
 
 function hideSubOrg2Button() {
@@ -43,6 +49,12 @@ function hideSubOrg2Button() {
   } else {
     hideSubOrg2ButtonVar.style.display = "none";
   }
+  var hideSubOrg2ButtonVarMobile = document.getElementById("subOrg2Mobile");
+  if (hideSubOrg2ButtonVarMobile.style.display === "none") {
+    hideSubOrg2ButtonVarMobile.style.display = "block";
+  } else {
+    hideSubOrg2ButtonVarMobile.style.display = "none";
+  }
 }
 
 function hideSubOrg3Button() {
@@ -51,6 +63,12 @@ function hideSubOrg3Button() {
     hideSubOrg3ButtonVar.style.display = "block";
   } else {
     hideSubOrg3ButtonVar.style.display = "none";
+  }
+  var hideSubOrg3ButtonVarMobile = document.getElementById("subOrg3Mobile");
+  if (hideSubOrg3ButtonVarMobile.style.display === "none") {
+    hideSubOrg3ButtonVarMobile.style.display = "block";
+  } else {
+    hideSubOrg3ButtonVarMobile.style.display = "none";
   }
 }
 
