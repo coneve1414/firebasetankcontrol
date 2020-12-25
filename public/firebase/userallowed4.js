@@ -6,9 +6,9 @@ var pageLocation = "/admin/dashboard.html"
 var userRef = firebase.database().ref("user"); //Reference for the "/user" directory in the database
 var baseRef = firebase.database().ref("/"); //Reference for the "/" directory in the database
 var usersRef = firebase.database().ref("users"); //Reference for the "/users" directory in the database
+var orgRef = firebase.database().ref("orgCodes"); //Reference for the "/orgCodes" directory in the database
 
 //base functions
-
 function hideTemps() {
   var x = document.getElementById("temps");
   if (x.style.display === "none") {
@@ -34,6 +34,26 @@ function showOrgViewDropDown() {
     xxx.style.display = "none";
   }
 }
+function showOrgCodeChange() {
+  var xxxx = document.getElementById("ErrorA1012");
+  if (xxxx.style.display === "none") {
+    xxxx.style.display = "block";
+  } else {
+    xxxx.style.display = "none";
+  }
+}
+function showOrgCodeNotValid() {
+  var xxxxx = document.getElementById("ErrorA1013");
+  if (xxxxx.style.display === "none") {
+    xxxxx.style.display = "block";
+  } else {
+    xxxxx.style.display = "none";
+  }
+}
+
+function redirectDashboard() {
+window.location = pageLocation;
+}
 
 function hideSubOrg1Button() {
   var hideSubOrg1ButtonVar = document.getElementById("subOrg1");
@@ -42,7 +62,7 @@ function hideSubOrg1Button() {
   } else {
     hideSubOrg1ButtonVar.style.display = "none";
   }
-  var hideSubOrg1ButtonVarMobile = document.getElementById("subOrg1NameMobile");
+  var hideSubOrg1ButtonVarMobile = document.getElementById("subOrg1Mobile");
   if (hideSubOrg1ButtonVarMobile.style.display === "none") {
     hideSubOrg1ButtonVarMobile.style.display = "block";
   } else {
@@ -57,7 +77,7 @@ function hideSubOrg2Button() {
   } else {
     hideSubOrg2ButtonVar.style.display = "none";
   }
-  var hideSubOrg2ButtonVarMobile = document.getElementById("subOrg2NameMobile");
+  var hideSubOrg2ButtonVarMobile = document.getElementById("subOrg2Mobile");
   if (hideSubOrg2ButtonVarMobile.style.display === "none") {
     hideSubOrg2ButtonVarMobile.style.display = "block";
   } else {
@@ -72,7 +92,7 @@ function hideSubOrg3Button() {
   } else {
     hideSubOrg3ButtonVar.style.display = "none";
   }
-  var hideSubOrg3ButtonVarMobile = document.getElementById("subOrg3NameMobile");
+  var hideSubOrg3ButtonVarMobile = document.getElementById("subOrg3Mobile");
   if (hideSubOrg3ButtonVarMobile.style.display === "none") {
     hideSubOrg3ButtonVarMobile.style.display = "block";
   } else {
@@ -87,6 +107,8 @@ var userIdMaster;
 var orgIdMaster;
 var multiOrgTrueMaster;
 var tankNum;
+var roleMaster;
+var MultiOrgSubOrgNumMaster;
 
 function setSubOrg(subOrgNumber) {
   
@@ -135,8 +157,56 @@ function setSubOrg(subOrgNumber) {
   });
 }
 
+//page specific functions - account.html
+
+function changeOrg() {
+  var orgCodeIn = document.getElementById('newOrgCode').value;
+  getOrgCode(orgCodeIn);
+}
+
+function getOrgCode(orgCode) {
+  console.log("recieved!")
+  console.log("orgCode: "+orgCode);
+   //checking the code against the database
+  console.log("checking the database");
+  orgRef.once("value", function(snapshot) {
+  console.log("now in the database check!");
+  console.log("NewOrgCode: "+orgCode);
+  var orgCodeValid = snapshot.child(orgCode).val();
+  console.log(orgCodeValid);
+  if (orgCodeValid!=null) {
+    if (multiOrgTrueMaster == "true") {
+      baseRef.child("user").child(userIdMaster).set(orgCodeValid);
+      baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
+      baseRef.child(orgCodeValid).child(subOrg1Master).child(userIdMaster).set("true");
+      baseRef.child(orgCodeValid).child(subOrg2Master).child(userIdMaster).set("true");
+      if (MultiOrgSubOrgNumMaster=="3") {
+        baseRef.child(orgCodeValid).child(subOrg3Master).child(userIdMaster).set("true");
+      }
+      console.log("success");
+      showOrgCodeChange();
+      setTimeout(redirectDashboard(), 100);
+    } else {
+    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
+    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
+    console.log("success");
+    showOrgCodeChange();
+    setTimeout(redirectDashboard(), 100);
+    }
+  } else {
+    console.log("error");
+    showOrgCodeNotValid();
+  }
+});
+
+};
+
+
+//main function
 function allowed(){
 showNoOrg();
+showOrgCodeNotValid();
+showOrgCodeChange();
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -167,6 +237,7 @@ firebase.auth().onAuthStateChanged((user) => {
               if (multiOrgTrue == "true") {
                 //window.alert("MULTI ORG TRUE");
                 var multiOrgSubOrgNum = debugInfo.child(orgid).child("subOrgNumber").val(); //Currently, Hard Limit on Sub Views is 3
+                MultiOrgSubOrgNumMaster = multiOrgSubOrgNum;
                 var subOrgId1;
                 var subOrgId2;
                 var subOrgId3;
@@ -322,6 +393,8 @@ firebase.auth().onAuthStateChanged((user) => {
                 orgid2 = orgid;
                 hideSubOrg3Button();
                 hideSubOrg2Button();
+                document.getElementById("subOrg1").addEventListener('click', redirectDashboard, false);
+                document.getElementById("subOrg1Mobile").addEventListener('click', redirectDashboard, false);
                 document.getElementById("subOrg1Name").innerHTML= orgLocation1;
                 document.getElementById("subOrg1NameMobile").innerHTML= orgLocation1;
                 console.log("ORG ID FALSE: "+ orgid2);
@@ -351,6 +424,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 //window.alert("Access Denied! User removed from an organization! Code: A1004");
             
             } else {
+              roleMaster = useruid;
                 if (tankNum=="1") { //Testing to see what values to hide
                   hideTank02();
                   hideTank03();

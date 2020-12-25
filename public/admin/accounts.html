@@ -40,61 +40,6 @@
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
-      <script src="/firebase/orgVerificationCodejs"></script>
-      <script>
-        function changeOrg() {
-  var orgCodeIn = document.getElementById('newOrgCode').value;
-  getOrgCode(orgCodeIn);
-}
-var orgRef = firebase.database().ref("orgCodes");
-function getOrgCode(orgCode) {
-  console.log("recieved!")
-  console.log("orgCode: "+orgCode);
-   //checking the code against the database
-  console.log("checking the database");
-
-  // ref.once("value", function(debugInfo) {
-  //   orgCodeMaster= debugInfo.child(orgCode).val();
-  // });
-  // console.log(orgCodeMaster);
-
-
-  firebase.database().ref("orgCodes").once("value", function(snapshot) {
-  console.log("now in the database check!");
-  console.log("orgCode2: "+orgCode);
-  var orgCodeValid = snapshot.child(orgCode).val();
-  console.log("orgCodeValid");
-  var orgCodeCheck = " " + orgCodeValid;
-  console.log(orgCodeCheck);
-  if (orgCodeCheck != " null") { //if a verification code exists
-    console.log('orgcode exists');
-    if (orgCodeValid = "namf") { //checking for return value of database
-    
-    var email2 = document.getElementById('email').value;
-    var password2 = document.getElementById('password').value;
-    console.log(email2);
-    console.log(password2);
-    console.log("creating user account!");
-    firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
-        // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode === 'auth/user-exists') {
-            alert('The User already exists');
-          } else {
-            alert(errorMessage);
-          }
-        });
-        console.log("Success!");
-      };
-  } else {
-      alert('Please enter a valid code. Error Code: A1011'); //code not valid error code
-      return
-  }
-});
-
-};
-      </script>
       <header class="app-header navbar">
         <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
           <!-- <li class="nav-item dropdown"> -->
@@ -102,15 +47,15 @@ function getOrgCode(orgCode) {
             <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
           </a>
-            <div class="dropdown-menu dropdown-menu-left pt-0">
-              <div class="dropdown-header bg-light py-2">
-                <strong>Organizations</strong>
-              </div>
-              <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
-              <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
-              <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
-              <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
+          <div class="dropdown-menu dropdown-menu-left pt-0">
+            <div class="dropdown-header bg-light py-2">
+              <strong>Organizations</strong>
             </div>
+            <a class="dropdown-item" id=subOrg1Mobile><div id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg2Mobile><div id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg3Mobile><div id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</div></a>
+            <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
+          </div>
           </li>
         <!-- </button> -->
         <a class="navbar-brand">
@@ -221,7 +166,12 @@ function getOrgCode(orgCode) {
               </div>
               <div class="card-body">
                 <div>
-                    
+                  <div class="alert alert-success" id="ErrorA1012" role="alert">
+                    Org Change Valid, Refreshing Page | Code: A1012
+                  </div>
+                  <div class="alert alert-danger" id="ErrorA1013" role="alert">
+                    Org Code Not Valid | Code: A1013
+                  </div>
                     <h4>NOTICE:</h4>
                     <br>
                     <h6>Currently, this is in development.</h6>   
@@ -294,7 +244,7 @@ window.location = "/admin/login.html";
       <a hidden class="dropdown-item" id=labelTank09></a>
       <a hidden class="dropdown-item" id=labelTank10></a>
       <a hidden class="dropdown-item" id=labelTank11></a>
-      <a hidden class="dropdown-item" id=ank12></a>
+      <a hidden class="dropdown-item" id=labelTank12></a>
 
 
       </main>

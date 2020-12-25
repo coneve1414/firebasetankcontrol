@@ -55,9 +55,9 @@
             <div class="dropdown-header bg-light py-2">
               <strong>Organizations</strong>
             </div>
-            <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
-            <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
-            <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
+            <a class="dropdown-item" id=subOrg1Mobile><div id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg2Mobile><div id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg3Mobile><div id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</div></a>
             <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
           </div>
         </li>
@@ -71,6 +71,8 @@
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
         <!-- <span class="navbar-toggler-icon"></span>-->
       </button>
+      <!-- Hidden due to code limitations -->
+      
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
         <!--removing top nav bar-->
@@ -305,6 +307,11 @@
 
 </div>
       </div> <!--Temperatures End-->
+      <!-- Due to Code Limitations, this is a hotfix jerry rig solution -->
+
+      <a hidden class="dropdown-item" id=ErrorA1012></a>
+      <a hidden class="dropdown-item" id=ErrorA1013></a>
+
       </main>
     </div>
     <footer class="app-footer">
