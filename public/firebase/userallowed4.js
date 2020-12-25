@@ -179,6 +179,9 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("subOrg1Name").innerHTML= subOrgName1 +" - " + subOrgLocation1;
                   document.getElementById("subOrg2Name").innerHTML= subOrgName2 +" - " + subOrgLocation2;
                   document.getElementById("subOrg3Name").innerHTML= subOrgName3 +" - " + subOrgLocation3;
+                  document.getElementById("subOrg1NameMobile").innerHTML= subOrgName1 +" - " + subOrgLocation1;
+                  document.getElementById("subOrg2NameMobile").innerHTML= subOrgName2 +" - " + subOrgLocation2;
+                  document.getElementById("subOrg3NameMobile").innerHTML= subOrgName3 +" - " + subOrgLocation3;
                 } else {
                   subOrgId1 = debugInfo.child(orgid).child("subOrgs").child("org1").val();
                   subOrgId2 = debugInfo.child(orgid).child("subOrgs").child("org2").val();
@@ -194,6 +197,8 @@ firebase.auth().onAuthStateChanged((user) => {
                   //document.getElementById('subOrg2').onclick = setSubOrg(2);
                   document.getElementById("subOrg1Name").innerHTML= subOrgName1 +" - " + subOrgLocation1;
                   document.getElementById("subOrg2Name").innerHTML= subOrgName2 +" - " + subOrgLocation2;
+                  document.getElementById("subOrg1NameMobile").innerHTML= subOrgName1 +" - " + subOrgLocation1;
+                  document.getElementById("subOrg2NameMobile").innerHTML= subOrgName2 +" - " + subOrgLocation2;
                   //hideSubOrg3();
                   hideSubOrg3Button();
                 }
@@ -291,6 +296,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 hideSubOrg3Button();
                 hideSubOrg2Button();
                 document.getElementById("subOrg1Name").innerHTML= orgLocation1;
+                document.getElementById("subOrg1NameMobile").innerHTML= orgLocation1;
                 console.log("ORG ID FALSE: "+ orgid2);
               }
               var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.

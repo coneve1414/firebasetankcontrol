@@ -45,9 +45,18 @@
 
   
     <header class="app-header navbar">
-      <button disabled class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+      <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </a>
+        <div class="dropdown-menu dropdown-menu-left pt-0">
+          <div class="dropdown-header bg-light py-2">
+            <strong>General</strong>
+          </div>
+          <a class="dropdown-item" id=subOrg1NameMobile href="#">Loading...</a>
+          <a class="dropdown-item" id=subOrg2NameMobile href="#">Loading...</a>
+          <a class="dropdown-item" id=subOrg3NameMobile href="#">Loading...</a>
+        </div>
+      </li>
       <a class="navbar-brand">
         <!--Adding Organization Images-->
         <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
