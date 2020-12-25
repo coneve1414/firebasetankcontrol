@@ -98,6 +98,7 @@ function toggleSignIn() {
     showEmailEmpty();
     showEmailNotExist();
     showPasswordEmpty();
+    showPasswordResetSuccess();
     firebase.auth().onAuthStateChanged(function(user) {		
       if (user) {
           setTimeout(redirectadmin, 10)
