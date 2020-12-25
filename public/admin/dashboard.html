@@ -36,7 +36,7 @@
 </script>
     
   </head>
-  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+  <body class="app header-fixed sidebar-fixed sidebar-lg-show">
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
@@ -45,9 +45,23 @@
 
   
     <header class="app-header navbar">
-      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
+        <!-- <li class="nav-item dropdown"> -->
+          <li class="navbar-toggler sidebar-toggler d-lg-none mr-auto">
+          <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+          <div class="dropdown-menu dropdown-menu-left pt-0">
+            <div class="dropdown-header bg-light py-2">
+              <strong>Organizations</strong>
+            </div>
+            <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
+            <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
+            <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
+            <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
+          </div>
+        </li>
+      <!-- </button> -->
       <a class="navbar-brand">
         <!--Adding Organization Images-->
         <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
@@ -55,7 +69,7 @@
       </a>
       <!--this button is required for spacing-->
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
-        <!--<span class="navbar-toggler-icon"></span>-->
+        <!-- <span class="navbar-toggler-icon"></span>-->
       </button>
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
@@ -96,16 +110,25 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">          
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.html">
-                <i class="nav-icon cil-speedometer"></i> Dashboard - Fairfield
-               
+            <li class="nav-item" id=subOrg1>
+              <a class="nav-link" onclick="setSubOrg(1)">
+                <i class="nav-icon cil-speedometer"></i> <div id=subOrg1Name >Loading...</div>
+              </a>
+            </li>
+            <li class="nav-item" id=subOrg2>
+              <a class="nav-link" onclick="setSubOrg(2)">
+                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg2Name >Loading...</div>
+              </a>
+            </li>
+            <li class="nav-item" id=subOrg3>
+              <a class="nav-link" onclick="setSubOrg(3)" >
+                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg3Name>Loading...</div>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="accounts.html"> 
-                <i class="nav-icon cil-cog"></i> Account
-               <span class="badge badge-success">NEW</span>
+                <i class="nav-icon cil-cog"></i> <div class="text">Account</div>
+               <!--<span class="badge badge-success">NEW</span>-->
               </a>
             </li>
             </li>
@@ -118,143 +141,161 @@
             <li class="divider"></li>
           </ul>
         </nav>
-        <button disabled class="sidebar-minimizer brand-minimizer" type="button" id="quickstart-verify-email"></button>
+        <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
       </div>
       <main class="main">
         <br>
         <div class="container-fluid">
           <div class="animated fadeIn">
+            <div>
+              <div class="alert alert-danger" id="ErrorA1004" role="alert">
+                Sorry, you are not a member of an organization. Please contact your administrator or contact support here: tankstatuscontrol.ce@gmail.com | Code: A1004
+              </div>
+              <br>
+            </div>
             <div class="row" id="temps">
-              <div class="col-sm-6 col-lg-3">
-          <div class="card text-white bg-primary">
+
+              <div id=orgTank01 class="col-sm-6 col-lg-3">
+          <div id=tank01Color class="card text-white bg-primary">
               <div class="card-body pb-0">
-                <div class="btn-group float-right">                
+                <div class="btn-group float-right">         
                 </div>
                 <div class="text-value" id="tank01">
                   Loading...
                 </div>
-                <div>Tank 1</div>
+                <div id="labelTank01">Tank 1</div>
               </div>
               <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                 <canvas class="chart" id="card-chart1" height="70"></canvas>
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-success">
+
+          <div id=orgTank02 class="col-sm-6 col-lg-3">
+            <div id=tank02Color class="card text-white bg-success">
               <div class="card-body pb-0">
                 <div class="text-value" id="tank02">Loading...</div>
-                <div>Tank 2</div>
+                <div id="labelTank02">Tank 2</div>
               </div>
               <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                 <canvas class="chart" id="card-chart2" height="70"></canvas>
               </div>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card text-white bg-danger">
+
+        <div id=orgTank03 class="col-sm-6 col-lg-3">
+          <div id=tank03Color class="card text-white bg-danger">
             <div class="card-body pb-0">
               <div class="text-value" id="tank03">Loading...</div>
-              <div>Tank 3</div>
+              <div id="labelTank03">Tank 3</div>
               </div>
             <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
               <canvas class="chart" id="card-chart2" height="70"></canvas>
             </div>
           </div>
       </div>
-      <div class="col-sm-6 col-lg-3">
-        <div class="card text-white bg-warning">
+
+      <div id=orgTank04 class="col-sm-6 col-lg-3">
+        <div id=tank04Color class="card text-white bg-warning">
           <div class="card-body pb-0">
             <div class="text-value" id="tank04">Loading...</div>
-            <div>Tank 4</div>
+            <div id="labelTank04">Tank 4</div>
           </div>
           <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
             <canvas class="chart" id="card-chart2" height="70"></canvas>
           </div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-primary">
+
+    <div id=orgTank05 class="col-sm-6 col-lg-3">
+      <div id=tank05Color class="card text-white bg-primary">
         <div class="card-body pb-0">
           <div class="text-value" id="tank05">Loading...</div>
-          <div>Tank 5</div>
+          <div id="labelTank05">Tank 5</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas class="chart" id="card-chart2" height="70"></canvas>
         </div>
       </div>
   </div>
-  <div class="col-sm-6 col-lg-3">
-    <div class="card text-white bg-success">
+
+  <div id=orgTank06 class="col-sm-6 col-lg-3">
+    <div id=tank06Color class="card text-white bg-success">
       <div class="card-body pb-0">
         <div class="text-value" id="tank06">Loading...</div>
-        <div>Tank 6</div>
+        <div id="labelTank06">Tank 6</div>
       </div>
       <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
         <canvas class="chart" id="card-chart2" height="70"></canvas>
       </div>
     </div>
 </div>
-<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-danger">
+
+<div id=orgTank07 class="col-sm-6 col-lg-3">
+  <div id=tank07Color class="card text-white bg-danger">
     <div class="card-body pb-0">
       <div class="text-value" id="tank07">Loading...</div>
-      <div>Tank 7</div>
+      <div id="labelTank07">Tank 7</div>
     </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
 </div>
-<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-warning">
+
+<div id=orgTank08 class="col-sm-6 col-lg-3">
+  <div id=tank08Color class="card text-white bg-warning">
     <div class="card-body pb-0">
       <div class="text-value" id="tank08">Loading...</div>
-      <div>Tank 8</div>
+      <div id="labelTank08">Tank 8</div>
     </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
 </div>
-<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-primary">
+
+<div id=orgTank09 class="col-sm-6 col-lg-3">
+  <div id=tank09Color class="card text-white bg-primary">
     <div class="card-body pb-0">
       <div class="text-value" id="tank09">Loading...</div>
-      <div>Tank 9</div>
+      <div id="labelTank09">Tank 9</div>
     </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
 </div>
-<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-success">
+
+<div id=orgTank10 class="col-sm-6 col-lg-3">
+  <div id=tank10Color class="card text-white bg-success">
     <div class="card-body pb-0">
       <div class="text-value" id="tank10">Loading...</div>
-      <div>Tank 10</div>
+      <div id="labelTank10">Tank 10</div>
     </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
 </div>
-<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-danger">
+
+<div id=orgTank11 class="col-sm-6 col-lg-3">
+  <div id=tank11Color class="card text-white bg-danger">
     <div class="card-body pb-0">
       <div class="text-value" id="tank11">Loading...</div>
-      <div>Tank 11</div>
+      <div id="labelTank11">Tank 11</div>
     </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
     </div>
   </div>
 </div>
-<!--<div class="col-sm-6 col-lg-3">
-  <div class="card text-white bg-warning">
+
+<div id=orgTank12 class="col-sm-6 col-lg-3">
+  <div id=tank12Color class="card text-white bg-warning">
     <div class="card-body pb-0">
       <div class="text-value" id="tank12">Loading...</div>
-      <div>Tank 12</div>
+      <div id="labelTank12">Tank 12</div>
       </div>
     <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
       <canvas class="chart" id="card-chart2" height="70"></canvas>
@@ -262,7 +303,7 @@
   </div>
 
 
-</div>-->
+</div>
       </div> <!--Temperatures End-->
       </main>
     </div>
@@ -270,20 +311,18 @@
       
       <div>
         <span>&copy; 2020 Conner Everett - </span>
-        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> </a>
+        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> - Subscription: <a id="subscription"></a> </a>
       </div>
       
+      <!-- Custom Code -->
       <script src="/firebase/config.js"></script>
-      <script src="__/firebase/5.0.0/firebase-app.js"></script>
-      <script src="__/firebase/5.0.0/firebase-auth.js"></script>
-      <script src="__/firebase/init.js"></script>
       <script src="/firebase/userphoto.js"></script>
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
-      <script src="/firebase/userallowed2.js"></script>
+      <script src="/firebase/userallowed4.js"></script>
     </footer>
     <!-- Necessary plugins-->
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/node_modules/pace-progress/pace.min.js"></script>
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>

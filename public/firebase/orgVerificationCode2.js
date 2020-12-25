@@ -12,36 +12,19 @@ function redirectAdmin() {
   window.location = "/admin/dashboard.html";
 }
 
-var orgCodeMaster;
 
-function getOrgCode(orgCode) {
-  console.log("recieved!")
-  console.log("orgCode: "+orgCode);
+
+function getOrgCode(orgCode, uid) {
   var ref = firebase.database().ref("orgCodes"); //checking the code against the database
-  console.log("checking the database");
-
-  // ref.once("value", function(debugInfo) {
-  //   orgCodeMaster= debugInfo.child(orgCode).val();
-  // });
-  // console.log(orgCodeMaster);
-
-
-  ref.once("value", function(snapshot) {
-  console.log("now in the database check!");
-  console.log("orgCode2: "+orgCode);
+  ref.on("value", function(snapshot) {
   var orgCodeValid = snapshot.child(orgCode).val();
-  console.log("orgCodeValid");
   var orgCodeCheck = " " + orgCodeValid;
-  console.log(orgCodeCheck);
   if (orgCodeCheck != " null") { //if a verification code exists
     console.log('orgcode exists');
     if (orgCodeValid = "namf") { //checking for return value of database
     
     var email2 = document.getElementById('email').value;
     var password2 = document.getElementById('password').value;
-    console.log(email2);
-    console.log(password2);
-    console.log("creating user account!");
     firebase.auth().createUserWithEmailAndPassword(email2, password2).catch(function(error) {
         // Handle Errors here.
           var errorCode = error.code;
@@ -52,7 +35,6 @@ function getOrgCode(orgCode) {
             alert(errorMessage);
           }
         });
-        console.log("Success!");
       };
   } else {
       alert('Please enter a valid code. Error Code: A1011'); //code not valid error code

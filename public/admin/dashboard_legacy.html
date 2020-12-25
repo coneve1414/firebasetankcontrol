@@ -96,25 +96,16 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">          
-            <li class="nav-item" id=subOrg1>
-              <a class="nav-link" onclick="setSubOrg(1)">
-                <i class="nav-icon cil-speedometer"></i> <div id=subOrg1Name >Loading...</div>
-              </a>
-            </li>
-            <li class="nav-item" id=subOrg2>
-              <a class="nav-link" onclick="setSubOrg(2)">
-                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg2Name >Loading...</div>
-              </a>
-            </li>
-            <li class="nav-item" id=subOrg3>
-              <a class="nav-link" onclick="setSubOrg(3)" >
-                <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg3Name>Loading...</div>
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <i class="nav-icon cil-speedometer"></i> Dashboard - Fairfield
+               
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="accounts.html"> 
-                <i class="nav-icon cil-cog"></i> <div class="text">Account</div>
-               <!--<span class="badge badge-success">NEW</span>-->
+                <i class="nav-icon cil-cog"></i> Account
+               <span class="badge badge-success">NEW</span>
               </a>
             </li>
             </li>
@@ -279,7 +270,7 @@
       
       <div>
         <span>&copy; 2020 Conner Everett - </span>
-        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> - Subscription: <a id="subscription"></a> </a>
+        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> </a>
       </div>
       
       <script src="/firebase/config.js"></script>
@@ -289,10 +280,10 @@
       <script src="/firebase/userphoto.js"></script>
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
-      <script src="/firebase/userallowed4.js"></script>
+      <script src="/firebase/userallowed2.js"></script>
     </footer>
     <!-- Necessary plugins-->
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/node_modules/pace-progress/pace.min.js"></script>
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>

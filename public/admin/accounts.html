@@ -40,79 +40,106 @@
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
-    <header class="app-header navbar">
-      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand">
-        <!--Adding Organization Images-->
-        <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
-        <img class="navbar-brand-minimized" id="brandMini" src="/admin/img/brand/logo.png" width="30" height="30" alt="">
-      </a>
-      <!--this button is required for spacing-->
-      <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
-        <!--<span class="navbar-toggler-icon"></span>-->
-      </button>
-      <!--contemplating removing the top bar with options-->
-      <ul class="nav navbar-nav d-md-down-none">
-        <!--removing top nav bar-->
-        <!--<li class="nav-item px-3">
-          <a class="nav-link" href="dashboard.html">Home</a>
-        </li>-->
-        <!-- Currently Creating A User Page -->
-        <!--<li class="nav-item px-3">
-          <a class="nav-link" href="#">Users</a>
-        </li>-->
-        <!--Removing Top Tav Bar-->
-        <!--<li class="nav-item px-3">
-          <a class="nav-link" href="accounts.html">Settings</a>
-        </li>
-      </ul>-->
-      </ul>
-      <ul class="nav navbar-nav ml-auto">
-        <div><!--<a id="userEmail"></a>--></div>
-        <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <img class="img-avatar" id="imgex" src="" alt="">
-        </a>
-          <div class="dropdown-menu dropdown-menu-right pt-0">
-            <div class="dropdown-header bg-light py-2">
-              <strong>General</strong>
+      <header class="app-header navbar">
+        <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
+          <!-- <li class="nav-item dropdown"> -->
+            <li class="navbar-toggler sidebar-toggler d-lg-none mr-auto">
+            <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+          </a>
+            <div class="dropdown-menu dropdown-menu-left pt-0">
+              <div class="dropdown-header bg-light py-2">
+                <strong>Organizations</strong>
+              </div>
+              <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
+              <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
+              <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
+              <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
             </div>
-            <a class="dropdown-item" id="userEmail"></a>
-            <a class="dropdown-item" href="dashboard.html">Home</a>
-            <a class="dropdown-item" href="accounts.html">Settings</a>
-            <a class="dropdown-item" href="#" onclick="firebase.auth().signOut()">Sign Out
-              <span class="badge badge-danger ml-auto">New!</span>
-            </a>
-          </div>
-        </li>
-      </ul>
-    </header>
+          </li>
+        <!-- </button> -->
+        <a class="navbar-brand">
+          <!--Adding Organization Images-->
+          <img class="navbar-brand-full" id="brandFull" src="/admin/img/brand/logo.png" width="89" height="25" alt="">
+          <img class="navbar-brand-minimized" id="brandMini" src="/admin/img/brand/logo.png" width="30" height="30" alt="">
+        </a>
+        <!--this button is required for spacing & fixing error codes-->
+        <button hidden disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
+        <button hidden disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="ErrorA1004">
+          <!-- <span class="navbar-toggler-icon"></span>-->
+        </button>
+        <!--contemplating removing the top bar with options-->
+        <ul class="nav navbar-nav d-md-down-none">
+          <!--removing top nav bar-->
+          <!--<li class="nav-item px-3">
+            <a class="nav-link" href="dashboard.html">Home</a>
+          </li>-->
+          <!-- Currently Creating A User Page -->
+          <!--<li class="nav-item px-3">
+            <a class="nav-link" href="#">Users</a>
+          </li>-->
+          <!--Removing Top Tav Bar-->
+          <!--<li class="nav-item px-3">
+            <a class="nav-link" href="accounts.html">Settings</a>
+          </li>
+        </ul>-->
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <div><!--<a id="userEmail"></a>--></div>
+          <li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <img class="img-avatar" id="imgex" src="" alt="">
+          </a>
+            <div class="dropdown-menu dropdown-menu-right pt-0">
+              <div class="dropdown-header bg-light py-2">
+                <strong>General</strong>
+              </div>
+              <a class="dropdown-item" id="userEmail"></a>
+              <a class="dropdown-item" href="dashboard.html">Home</a>
+              <a class="dropdown-item" href="accounts.html">Settings</a>
+              <a class="dropdown-item" href="#" onclick="firebase.auth().signOut()">Sign Out
+                <span class="badge badge-danger ml-auto">New!</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </header>
         <div class="app-body">
           <div class="sidebar">
             <nav class="sidebar-nav">
               <ul class="nav">          
-                <li class="nav-item">
-                  <a class="nav-link" href="dashboard.html">
-                    <i class="nav-icon cil-speedometer"></i> Dashboard - Fairfield
+                <li class="nav-item" id=subOrg1>
+                  <a class="nav-link" onclick="setSubOrg(1)">
+                    <i class="nav-icon cil-speedometer"></i> <div id=subOrg1Name >Loading...</div>
+                  </a>
+                </li>
+                <li class="nav-item" id=subOrg2>
+                  <a class="nav-link" onclick="setSubOrg(2)">
+                    <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg2Name >Loading...</div>
+                  </a>
+                </li>
+                <li class="nav-item" id=subOrg3>
+                  <a class="nav-link" onclick="setSubOrg(3)" >
+                    <i class="nav-icon cil-speedometer"></i> <div class="text" id=subOrg3Name>Loading...</div>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="accounts.html"> 
-                    <i class="nav-icon cil-cog"></i> Account
-                   <span class="badge badge-success">NEW</span>
+                    <i class="nav-icon cil-cog"></i> <div class="text">Account</div>
+                   <!--<span class="badge badge-success">NEW</span>-->
                   </a>
                 </li>
+                </li>
+                <!--Removing Temporary Signout Button-->
                 <!--<li class="nav-item">
-                  <a class="nav-link" onclick="firebase.auth().signOut().then(logOutRedirect())" href="#">
+                  <a class="nav-link" onclick="firebase.auth().signOut()" href"dashboard">
                   <i class="nav-icon cil-room" id="quickstart-sign-in"></i> Sign Out
                   </a>
                 </li>-->
-            <li class="divider"></li>
-          </ul>
-        </nav>
-        <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
-      </div>
+                <li class="divider"></li>
+              </ul>
+            </nav>
+            <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
+          </div>
       <main class="main">
         <br>
         <div class="container-fluid">
@@ -158,26 +185,66 @@ window.location = "/admin/login.html";
             </div>
           
       </div>
+      <!-- Hidden Attributes so that the code works as intended. -->
+
+      <a hidden class="dropdown-item" id=tank01Color></a>
+      <a hidden class="dropdown-item" id=tank02Color></a>
+      <a hidden class="dropdown-item" id=tank03Color></a>
+      <a hidden class="dropdown-item" id=tank04Color></a>
+      <a hidden class="dropdown-item" id=tank05Color></a>
+      <a hidden class="dropdown-item" id=tank06Color></a>
+      <a hidden class="dropdown-item" id=tank07Color></a>
+      <a hidden class="dropdown-item" id=tank08Color></a>
+      <a hidden class="dropdown-item" id=tank09Color></a>
+      <a hidden class="dropdown-item" id=tank10Color></a>
+      <a hidden class="dropdown-item" id=tank11Color></a>
+      <a hidden class="dropdown-item" id=tank12Color></a>
+      <a hidden class="dropdown-item" id=tank01></a>
+      <a hidden class="dropdown-item" id=tank02></a>
+      <a hidden class="dropdown-item" id=tank03></a>
+      <a hidden class="dropdown-item" id=tank04></a>
+      <a hidden class="dropdown-item" id=tank05></a>
+      <a hidden class="dropdown-item" id=tank06></a>
+      <a hidden class="dropdown-item" id=tank07></a>
+      <a hidden class="dropdown-item" id=tank08></a>
+      <a hidden class="dropdown-item" id=tank09></a>
+      <a hidden class="dropdown-item" id=tank10></a>
+      <a hidden class="dropdown-item" id=tank11></a>
+      <a hidden class="dropdown-item" id=tank12></a>
+      <a hidden class="dropdown-item" id=labelTank01></a>
+      <a hidden class="dropdown-item" id=labelTank02></a>
+      <a hidden class="dropdown-item" id=labelTank03></a>
+      <a hidden class="dropdown-item" id=labelTank04></a>
+      <a hidden class="dropdown-item" id=labelTank05></a>
+      <a hidden class="dropdown-item" id=labelTank06></a>
+      <a hidden class="dropdown-item" id=labelTank07></a>
+      <a hidden class="dropdown-item" id=labelTank08></a>
+      <a hidden class="dropdown-item" id=labelTank09></a>
+      <a hidden class="dropdown-item" id=labelTank10></a>
+      <a hidden class="dropdown-item" id=labelTank11></a>
+      <a hidden class="dropdown-item" id=ank12></a>
+
+
       </main>
     </div>
     <footer class="app-footer">
       <div>
         <span>&copy; 2020 Conner Everett - </span>
-        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> </a>
+        <a>Organization: <a id="org"></a> - Role: <a id="role"></a> - Version: <a id="version"></a> - Subscription: <a id="subscription"></a> </a>
       </div>
       <script src="/firebase/config.js"></script>
-      <script src="__/firebase/5.0.0/firebase-app.js"></script>
+      <!-- <script src="__/firebase/5.0.0/firebase-app.js"></script>
       <script src="__/firebase/5.0.0/firebase-auth.js"></script>
-      <script src="__/firebase/init.js"></script>
+      <script src="__/firebase/init.js"></script> -->
       <script src="/firebase/userphoto.js"></script>
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
-      <script src="/firebase/userallowed2.js"></script>
+      <script src="/firebase/userallowed4.js"></script>
       <script src="/firebase/changePhoto.js"></script>
       <script src="/firebase/changePassword.js"></script>
     </footer>
     <!-- Necessary plugins-->
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/node_modules/pace-progress/pace.min.js"></script>
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
