@@ -26,14 +26,6 @@ function showNoOrg() {
     xx.style.display = "none";
   }
 }
-function showOrgViewDropDown() {
-  var xxx = document.getElementById("MobileOrgDropDown");
-  if (xxx.style.display === "none") {
-    xxx.style.display = "block";
-  } else {
-    xxx.style.display = "none";
-  }
-}
 
 function hideSubOrg1Button() {
   var hideSubOrg1ButtonVar = document.getElementById("subOrg1");
@@ -137,7 +129,6 @@ function setSubOrg(subOrgNumber) {
 
 function allowed(){
 showNoOrg();
-//showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User logged in already or has just logged in.
