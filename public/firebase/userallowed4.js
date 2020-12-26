@@ -50,6 +50,22 @@ function showOrgCodeNotValid() {
     xxxxx.style.display = "none";
   }
 }
+function showPasswordChangeSuccess() {
+  var xxxxxx = document.getElementById("ErrorA1014");
+  if (xxxxxx.style.display === "none") {
+    xxxxxx.style.display = "block";
+  } else {
+    xxxxxx.style.display = "none";
+  }
+}
+function showPasswordChangeFail() {
+  var xxxxxxx = document.getElementById("ErrorA1015");
+  if (xxxxxxx.style.display === "none") {
+    xxxxxxx.style.display = "block";
+  } else {
+    xxxxxxx.style.display = "none";
+  }
+}
 
 function redirectDashboard() {
 window.location = pageLocation;
@@ -164,6 +180,24 @@ function changeOrg() {
   getOrgCode(orgCodeIn);
 }
 
+function setSubOrgPermission(orgCodeValid2, subOrgNum, subOrgPermSet) {
+  baseRef.once("value", function(debugInfo) {
+    var subOrg1b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org1").val();
+    var subOrg2b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org2").val();
+    var subOrg3b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org3").val();
+    if (subOrgNum==1) {
+      baseRef.child(orgCodeValid2).child(subOrg1b).child(userIdMaster).set(subOrgPermSet);
+    } else if (subOrgNum==2) {
+      baseRef.child(orgCodeValid2).child(subOrg2b).child(userIdMaster).set(subOrgPermSet);
+    } else if (subOrgNum==3) {
+      baseRef.child(orgCodeValid2).child(subOrg3b).child(userIdMaster).set(subOrgPermSet);
+    } else {
+      console.log("error");
+    }
+    });
+  
+}
+
 function getOrgCode(orgCode) {
   console.log("recieved!")
   console.log("orgCode: "+orgCode);
@@ -172,18 +206,46 @@ function getOrgCode(orgCode) {
   orgRef.once("value", function(snapshot) {
   console.log("now in the database check!");
   console.log("NewOrgCode: "+orgCode);
-  var orgCodeValid = snapshot.child(orgCode).val();
-  console.log(orgCodeValid);
-  if (orgCodeValid!=null) {
-    if (multiOrgTrueMaster == "true") {
-      baseRef.child("user").child(userIdMaster).set(orgCodeValid);
-      baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
-      baseRef.child(orgCodeValid).child(subOrg1Master).child(userIdMaster).set("true");
-      baseRef.child(orgCodeValid).child(subOrg2Master).child(userIdMaster).set("true");
-      if (MultiOrgSubOrgNumMaster=="3") {
-        baseRef.child(orgCodeValid).child(subOrg3Master).child(userIdMaster).set("true");
+  var orgCodeValid3 = snapshot.child(orgCode).val();
+  console.log(orgCodeValid3);
+  var orgCodeValid = orgCodeValid3+"";
+  console.log(userIdMaster);
+  if (roleMaster==null) {
+    roleMaster=="true";
+  }
+  if (orgCodeValid3!=null) {
+    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
+    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
+    baseRef.once("value", function(debugInfo333) {
+    var multiOrgTrueb = debugInfo333.child("multiViewOrgs").child(orgCodeValid).val();
+    var multiOrgSubOrgNumbb = debugInfo333.child(orgCodeValid).child("subOrgNumber").val(); //Currently, Hard Limit on Sub Views is 3
+    multiOrgTrueMasterb = multiOrgTrueb;
+    console.log(multiOrgTrueMaster);
+    
+    if (multiOrgTrueMasterb == "true") {
+      //window.alert("MULTI ORG TRUE");
+      var subOrgId1bb;
+      var subOrgId2bb;
+      var subOrgId3bb;
+      console.log(multiOrgSubOrgNumbb);
+      if (multiOrgSubOrgNumbb == "3") {
+        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
+        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
+        subOrgId3bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org3").val();
+        console.log(subOrgId1bb);
+        console.log(subOrgId2bb);
+        console.log(subOrgId3bb);
+        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
+        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
+        baseRef.child(orgCodeValid3).child(subOrgId3bb).child(userIdMaster).set("true");
+      } else {
+        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
+        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
+        console.log(subOrgId1bb);
+        console.log(subOrgId2bb);
+        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
+        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
       }
-      console.log("success");
       showOrgCodeChange();
       setTimeout(redirectDashboard(), 100);
     } else {
@@ -192,7 +254,7 @@ function getOrgCode(orgCode) {
     console.log("success");
     showOrgCodeChange();
     setTimeout(redirectDashboard(), 100);
-    }
+    }});
   } else {
     console.log("error");
     showOrgCodeNotValid();
@@ -207,6 +269,8 @@ function allowed(){
 showNoOrg();
 showOrgCodeNotValid();
 showOrgCodeChange();
+showPasswordChangeFail();
+showPasswordChangeSuccess();
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -224,6 +288,7 @@ firebase.auth().onAuthStateChanged((user) => {
             console.log(userId);
             baseRef.once("value", function(debugInfo) {
               var useruid = debugInfo.child("users").child(orgid).child(userId).val();
+              roleMaster = useruid;
               var version = debugInfo.child("version").val();
               var orgname = debugInfo.child("users").child(orgid).child("orgName").val();
               var subscription = debugInfo.child("users").child(orgid).child("subscription").val();
@@ -424,7 +489,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 //window.alert("Access Denied! User removed from an organization! Code: A1004");
             
             } else {
-              roleMaster = useruid;
+              
                 if (tankNum=="1") { //Testing to see what values to hide
                   hideTank02();
                   hideTank03();

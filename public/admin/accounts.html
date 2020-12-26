@@ -150,13 +150,25 @@
               </div>
               <div class="card-body">
                 <div>
+                  <div class="alert alert-success" id="ErrorA1014" role="alert">
+                    Password Changed | Code: A1014
+                  </div>
+                  <div class="alert alert-danger" id="ErrorA1015" role="alert">
+                    Password Change Failed | Code: A1015
+                  </div>
                     <h4>NOTICE:</h4>
                     <br>
                     <h6>Currently, this is password reset only.</h6>
                     <img src="" id="imgex" class="img-avatar">
                     <br>
-                    <input id="newPasswordInput" type="password">
-                    <button onclick="resetPasswordText()">Change Password</button>                   
+                    <div class="input-group mb-3">
+                      <input id="newPasswordInput" type="password" class="form-control" aria-label="New Password" aria-describedby="basic-addon2">
+                    
+                    <!-- <input id="newPasswordInput" type="password"> -->
+                    <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="resetPasswordText()">Change Password</button>        
+                  </div>   
+                </div>    
                 </div>
               </div>
             </div>
@@ -176,12 +188,16 @@
                     <br>
                     <h6>Currently, this is in development.</h6>   
                     <br>
-                    <input id="newOrgCode" type="text">
-                    <button onclick="changeOrg()">changeOrg</button>        
+                    <div class="input-group mb-3">
+                      <input id="newOrgCode" type="text" class="form-control" aria-label="New Password" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="changeOrg()">Change Organization</button>
+                    </div>
+                    </div>
                 </div>
               </div>
             </div>
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header">
                 <strong>Update Profile Photo</strong>
               </div>
@@ -203,7 +219,7 @@ window.location = "/admin/login.html";
                     </script>             
                 </div>
               </div>
-            </div>
+            </div> -->
             
           
       </div>
