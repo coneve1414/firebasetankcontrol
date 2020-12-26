@@ -210,8 +210,14 @@ function getOrgCode(orgCode) {
   console.log(orgCodeValid3);
   var orgCodeValid = orgCodeValid3+"";
   console.log(userIdMaster);
-  if (roleMaster==null) {
-    roleMaster=="true";
+  if (roleMaster=="admin") {
+    roleMaster="admin";
+  } else if (roleMaster=="superadmin"){
+    roleMaster="superadmin";
+  } else if (roleMaster=="systemadmin") {
+    roleMaster="systemadmin";
+  } else {
+    roleMaster="true";
   }
   if (orgCodeValid3!=null) {
     baseRef.child("user").child(userIdMaster).set(orgCodeValid);
