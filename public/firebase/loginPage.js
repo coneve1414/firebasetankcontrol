@@ -38,6 +38,22 @@ function showPasswordResetSuccess() {
     xxxxx.style.display = "none";
   }
 }
+function showAccountDisabled() {
+  var xxxxxx = document.getElementById("ErrorA1016");
+  if (xxxxxx.style.display === "none") {
+    xxxxxx.style.display = "block";
+  } else {
+    xxxxxx.style.display = "none";
+  }
+}
+function showTooManyRequests() {
+  var xxxxxxx = document.getElementById("ErrorA1017");
+  if (xxxxxxx.style.display === "none") {
+    xxxxxxx.style.display = "block";
+  } else {
+    xxxxxxx.style.display = "none";
+  }
+}
 
 function toggleSignIn() {
   var disableLogin = "false";
@@ -63,6 +79,10 @@ function toggleSignIn() {
           showWrongPassword();
         } else if (errorCode == 'auth/user-not-found') {
           showEmailNotExist();
+        } else if (errorCode == 'auth/user-disabled') {
+          showAccountDisabled();
+        } else if (errorCode == 'auth/too-many-requests') {
+          showTooManyRequests();
         } else {
           alert(errorMessage);
         }
@@ -99,6 +119,8 @@ function toggleSignIn() {
     showEmailNotExist();
     showPasswordEmpty();
     showPasswordResetSuccess();
+    showAccountDisabled();
+    showTooManyRequests();
     firebase.auth().onAuthStateChanged(function(user) {		
       if (user) {
           setTimeout(redirectadmin, 10)
