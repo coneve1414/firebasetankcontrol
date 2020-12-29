@@ -128,6 +128,12 @@
                    <!--<span class="badge badge-success">NEW</span>-->
                   </a>
                 </li>
+                <li id=optionsNavLink class="nav-item">
+                    <a class="nav-link" href="options.html"> 
+                      <i class="nav-icon cil-cog"></i> <div class="text">Organization Options</div>
+                     <!--<span class="badge badge-success">NEW</span>-->
+                    </a>
+                  </li>
                 </li>
                 <!--Removing Temporary Signout Button-->
                 <!--<li class="nav-item">
@@ -146,27 +152,39 @@
           <div class="animated fadeIn">
             <div class="card">
               <div class="card-header">
-                <strong>Account Settings</strong>
+                <strong>Organization Settings</strong>
               </div>
               <div class="card-body">
                 <div>
-                  <div class="alert alert-success" id="ErrorA1014" role="alert">
-                    Password Changed | Code: A1014
+                  <div class="alert alert-success" id="ErrorA1018" role="alert">
+                    Tank Number Changed | Code: A1018
                   </div>
-                  <div class="alert alert-danger" id="ErrorA1015" role="alert">
-                    Password Change Failed | Code: A1015
+                  <div class="alert alert-danger" id="ErrorA1019" role="alert">
+                    Tank Number Change Failed | Code: A1019
                   </div>
                     <h4>NOTICE:</h4>
                     <br>
-                    <h6>Currently, this is password reset only.</h6>
-                    <img src="" id="imgex" class="img-avatar">
+                    <h6>Currently, this is in development.</h6>
                     <br>
                     <div class="input-group mb-3">
-                      <input id="newPasswordInput" type="password" class="form-control" aria-label="New Password" aria-describedby="basic-addon2">
-                    
-                    <!-- <input id="newPasswordInput" type="password"> -->
+                        <select class="form-control" id="tankNumSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                          </select>
+                          
+                      <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
                     <div class="input-group-append">
-                    <button class="btn btn-primary">Change Password</button> <!--onclick="resetPasswordText()">-->       
+                    <button class="btn btn-primary" onclick="setTankShown()">Submit</button> <!--onclick="resetPasswordText()">-->       
                   </div>   
                 </div>    
                 </div>
@@ -262,9 +280,22 @@ window.location = "/admin/login.html";
       <a hidden class="dropdown-item" id=labelTank11></a>
       <a hidden class="dropdown-item" id=labelTank12></a>
       <a hidden class="dropdown-item" id=temps></a>
-      <a hidden class="dropdown-item" id=tank01Button></a>
       <a hidden class="dropdown-item" id=ErrorA1012></a>
       <a hidden class="dropdown-item" id=ErrorA1013></a>
+      <a hidden class="dropdown-item" id=ErrorA1014></a>
+      <a hidden class="dropdown-item" id=ErrorA1015></a>
+      <a hidden class="dropdown-item" id=orgTank01></a>
+      <a hidden class="dropdown-item" id=orgTank02></a>
+      <a hidden class="dropdown-item" id=orgTank03></a>
+      <a hidden class="dropdown-item" id=orgTank04></a>
+      <a hidden class="dropdown-item" id=orgTank05></a>
+      <a hidden class="dropdown-item" id=orgTank06></a>
+      <a hidden class="dropdown-item" id=orgTank07></a>
+      <a hidden class="dropdown-item" id=orgTank08></a>
+      <a hidden class="dropdown-item" id=orgTank09></a>
+      <a hidden class="dropdown-item" id=orgTank10></a>
+      <a hidden class="dropdown-item" id=orgTank11></a>
+      <a hidden class="dropdown-item" id=orgTank12></a>
 
 
       </main>

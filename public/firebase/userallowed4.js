@@ -76,7 +76,7 @@ function setSidebar() {
 }
 function showAdminOptions() {
 
-  var adminOptions01 = document.getElementById("tank01Button");
+  var adminOptions01 = document.getElementById("optionsNavLink");
   if (adminOptions01.style.display === "none") {
     adminOptions01.style.display = "block";
   } else {
@@ -169,10 +169,23 @@ var subOrg2Master;
 var subOrg3Master;
 var userIdMaster;
 var orgIdMaster;
+var tankOrgIdMaster;
 var multiOrgTrueMaster;
 var tankNum;
 var roleMaster;
 var MultiOrgSubOrgNumMaster;
+
+function setTankShown() {
+  var tankNumSelectIn = document.getElementById("tankNumSelect").value;
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn);
+
+    } else {
+      redirectDashboard();
+    }
+  });
+}
 
 function setSubOrg(subOrgNumber) {
   
@@ -509,6 +522,8 @@ firebase.auth().onAuthStateChanged((user) => {
                 console.log("ORG ID TRUE: "+ orgid2);
                 console.log(subOrgId1); 
                 console.log(subOrgId2);
+                tankOrgIdMaster = orgid2;
+                console.log(tankOrgIdMaster);
               } else {
                 orgid2 = orgid;
                 hideSubOrg3Button();
@@ -518,6 +533,8 @@ firebase.auth().onAuthStateChanged((user) => {
                 document.getElementById("subOrg1Name").innerHTML= orgLocation1;
                 document.getElementById("subOrg1NameMobile").innerHTML= orgLocation1;
                 console.log("ORG ID FALSE: "+ orgid2);
+                tankOrgIdMaster = orgid2;
+                console.log(tankOrgIdMaster);
               }
               var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
               console.log(tankNumFetch);
