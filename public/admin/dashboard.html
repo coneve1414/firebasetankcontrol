@@ -36,7 +36,7 @@
 </script>
     
   </head>
-  <body class="app header-fixed sidebar-fixed sidebar-lg-show">
+  <body id="appHeader" class="app header-fixed sidebar-fixed sidebar-lg-show">
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
@@ -143,7 +143,8 @@
             <li class="divider"></li>
           </ul>
         </nav>
-        <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
+        <button class="sidebar-minimizer brand-minimizer" onclick="setSidebar()" type="button"></button>
+        <!-- <button class="sidebar-minimizer brand-minimizer c-class-toggler" type="button" data-target="_parent" data-class="sidebar-minimized"></button> -->
       </div>
       <main class="main">
         <br>
@@ -160,7 +161,16 @@
               <div id=orgTank01 class="col-sm-6 col-lg-3">
           <div id=tank01Color class="card text-white bg-primary">
               <div class="card-body pb-0">
-                <div class="btn-group float-right">         
+                <div class="btn-group float-right"> 
+                  <div id=tank01Button class="dropdown">
+                    <a class="btn btn-transparent dropdown-toggle p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#">Set Minimum Temperature</a>
+                      <a class="dropdown-item" href="#">Set Maximum Temperature</a>
+                    </div>
+                  </div>        
                 </div>
                 <div class="text-value" id="tank01">
                   Loading...
@@ -176,6 +186,18 @@
           <div id=orgTank02 class="col-sm-6 col-lg-3">
             <div id=tank02Color class="card text-white bg-success">
               <div class="card-body pb-0">
+                <div class="btn-group float-right"> 
+                  <div hidden id=tank02Button class="dropdown">
+                    <a class="btn btn-transparent dropdown-toggle p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#">Item</a>
+                      <a class="dropdown-item" href="#">Another Item</a>
+                      <a class="dropdown-item" href="#">One more item</a>
+                    </div>
+                  </div>        
+                </div>
                 <div class="text-value" id="tank02">Loading...</div>
                 <div id="labelTank02">Tank 2</div>
               </div>
@@ -331,10 +353,11 @@
       <script src="/firebase/userallowed4.js"></script>
     </footer>
     <!-- Necessary plugins-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/node_modules/pace-progress/pace.min.js"></script>
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.min.js"></script> -->
+    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
   </body>
 </html>

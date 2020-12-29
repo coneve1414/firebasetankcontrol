@@ -66,6 +66,54 @@ function showPasswordChangeFail() {
     xxxxxxx.style.display = "none";
   }
 }
+function setSidebar() {
+  var xxxxxxxx = document.getElementById("appHeader");
+  if (xxxxxxxx.className === "app header-fixed sidebar-fixed sidebar-lg-show") {
+    xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show sidebar-minimized";
+  } else {
+    xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show";
+  }
+}
+function showAdminOptions() {
+
+  var adminOptions01 = document.getElementById("tank01Button");
+  if (adminOptions01.style.display === "none") {
+    adminOptions01.style.display = "block";
+  } else {
+    adminOptions01.style.display = "none";
+  }
+  // var adminOptions02 = document.getElementById("adminOptionsTank02");
+  // if (adminOptions02.style.display === "none") {
+  //   adminOptions02.style.display = "block";
+  // } else {
+  //   adminOptions02.style.display = "none";
+  // }
+  // var adminOptions03 = document.getElementById("adminOptionsTank03");
+  // if (adminOptions03.style.display === "none") {
+  //   adminOptions03.style.display = "block";
+  // } else {
+  //   adminOptions03.style.display = "none";
+  // }
+  // var adminOptions04 = document.getElementById("adminOptionsTank04");
+  // if (adminOptions04.style.display === "none") {
+  //   adminOptions04.style.display = "block";
+  // } else {
+  //   adminOptions04.style.display = "none";
+  // }
+  // var adminOptions05 = document.getElementById("adminOptionsTank05");
+  // if (adminOptions05.style.display === "none") {
+  //   adminOptions05.style.display = "block";
+  // } else {
+  //   adminOptions05.style.display = "none";
+  // }
+  // var adminOptions06 = document.getElementById("adminOptionsTank06");
+  // if (adminOptions06.style.display === "none") {
+  //   adminOptions06.style.display = "block";
+  // } else {
+  //   adminOptions06.style.display = "none";
+  // }
+  console.log("test");
+}
 
 function redirectDashboard() {
 window.location = pageLocation;
@@ -586,6 +634,7 @@ firebase.auth().onAuthStateChanged((user) => {
                     if(useruid2 == " admin") {
                         document.getElementById("role").innerHTML = "Administrator";
                         document.getElementById("org").innerHTML = orgname;
+                        showAdminOptions();
                         getLogo(orgid2);
                         getTanks(orgid2);
                     } else{
