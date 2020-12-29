@@ -325,6 +325,7 @@ showOrgCodeNotValid();
 showOrgCodeChange();
 showPasswordChangeFail();
 showPasswordChangeSuccess();
+showAdminOptions();
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -630,35 +631,53 @@ firebase.auth().onAuthStateChanged((user) => {
                     showNoOrg();
                     document.getElementById("subOrg1Name").innerHTML= "Dashboard";
                     //window.alert("Access Denied! User not assigned to an organization! Code: A1003");
-                } else { 
-                    if(useruid2 == " admin") {
-                        document.getElementById("role").innerHTML = "Administrator";
-                        document.getElementById("org").innerHTML = orgname;
-                        showAdminOptions();
-                        getLogo(orgid2);
-                        getTanks(orgid2);
-                    } else{
-                        if (useruid2 == " superadmin") {
-                            document.getElementById("role").innerHTML = "Super Administrator";
-                            document.getElementById("org").innerHTML = orgname;
-                            getLogo(orgid2);
-                            getTanks(orgid2);
-                        } else if (useruid2 == " systemadmin") {
-                          document.getElementById("role").innerHTML = "System Administrator (Global)";
-                          document.getElementById("org").innerHTML = orgname;
-                          getLogo(orgid2);
-                          getTanks(orgid2);
-                        } else { 
-                        
-                        
-                    document.getElementById("org").innerHTML = orgname;
-                    document.getElementById("role").innerHTML = "Standard User";
-                    getLogo(orgid2);
-                    getTanks(orgid2);
-                    return 
-                  }
+                } else if (useruid2==" admin") {
+                  document.getElementById("role").innerHTML = "Administrator";
+                  document.getElementById("org").innerHTML = orgname;
+                  getLogo(orgid2);
+                  getTanks(orgid2);
+                } else if (useruid2==" superadmin"){
+                  document.getElementById("role").innerHTML = "Super Administrator";
+                  document.getElementById("org").innerHTML = orgname;
+                  getLogo(orgid2);
+                  getTanks(orgid2);
+                } else if (useruid2 == " systemadmin") {
+                  document.getElementById("role").innerHTML = "System Administrator (Global)";
+                  document.getElementById("org").innerHTML = orgname;
+                  showAdminOptions();
+                  getLogo(orgid2);
+                  getTanks(orgid2);
+                } else {
+                  document.getElementById("org").innerHTML = orgname;
+                  document.getElementById("role").innerHTML = "Standard User";
+                  getLogo(orgid2);
+                  getTanks(orgid2);
+              //       if(useruid2 == " admin") {
+              //           document.getElementById("role").innerHTML = "Administrator";
+              //           document.getElementById("org").innerHTML = orgname;
+              //           getLogo(orgid2);
+              //           getTanks(orgid2);
+              //       } else{
+              //           if (useruid2 == " superadmin") {
+              //               document.getElementById("role").innerHTML = "Super Administrator";
+              //               document.getElementById("org").innerHTML = orgname;
+              //               getLogo(orgid2);
+              //               getTanks(orgid2);
+              //           } else if (useruid2 == " systemadmin") {
+              //             document.getElementById("role").innerHTML = "System Administrator (Global)";
+              //             document.getElementById("org").innerHTML = orgname;
+              //             showAdminOptions();
+              //             getLogo(orgid2);
+              //             getTanks(orgid2);
+              //           } else { 
+                // document.getElementById("org").innerHTML = orgname;
+                //     document.getElementById("role").innerHTML = "Standard User";
+                //     getLogo(orgid2);
+                //     getTanks(orgid2);
+                //     return 
+              //     }
                 
-              }
+              // }
             }
               // User not logged in or has just logged out.
             }
