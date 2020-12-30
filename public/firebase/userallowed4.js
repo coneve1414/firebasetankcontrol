@@ -66,14 +66,31 @@ function showPasswordChangeFail() {
     xxxxxxx.style.display = "none";
   }
 }
+function showTankNumChangeSuccess() {
+  var xxxxxxxx = document.getElementById("ErrorA1018");
+  if (xxxxxxxx.style.display === "none") {
+    xxxxxxxx.style.display = "block";
+  } else {
+    xxxxxxxx.style.display = "none";
+  }
+}
+function showTankNumChangeFail() {
+  var xxxxxxxxx = document.getElementById("ErrorA1019");
+  if (xxxxxxxxx.style.display === "none") {
+    xxxxxxxxx.style.display = "block";
+  } else {
+    xxxxxxxxx.style.display = "none";
+  }
+}
 function setSidebar() {
   var xxxxxxxx = document.getElementById("appHeader");
-  if (xxxxxxxx.className === "app header-fixed sidebar-fixed sidebar-lg-show") {
+  if (xxxxxxxx.className == "app header-fixed sidebar-fixed sidebar-lg-show") {
     xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show sidebar-minimized";
   } else {
     xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show";
   }
 }
+
 function showAdminOptions() {
 
   var adminOptions01 = document.getElementById("optionsNavLink");
@@ -112,7 +129,7 @@ function showAdminOptions() {
   // } else {
   //   adminOptions06.style.display = "none";
   // }
-  console.log("test");
+  //console.log("test");
 }
 
 function redirectDashboard() {
@@ -174,12 +191,24 @@ var multiOrgTrueMaster;
 var tankNum;
 var roleMaster;
 var MultiOrgSubOrgNumMaster;
+var pageVar;
+
+function page(pageSetIn) {
+  pageVar = pageSetIn;
+}
 
 function setTankShown() {
   var tankNumSelectIn = document.getElementById("tankNumSelect").value;
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn);
+      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn).then(function() {
+        showTankNumChangeSuccess();
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        showTankNumChangeFail();
+        alert(errorMessage);
+      })
 
     } else {
       redirectDashboard();
@@ -539,6 +568,9 @@ firebase.auth().onAuthStateChanged((user) => {
               var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
               console.log(tankNumFetch);
               tankNum=tankNumFetch;
+              if (pageVar=="options") {
+                document.getElementById("tanksShownCurrently").innerHTML= tankNumFetch;
+              }
               console.log("tankNum Out "+tankNum);
               console.log(orgname);
               console.log(version);
