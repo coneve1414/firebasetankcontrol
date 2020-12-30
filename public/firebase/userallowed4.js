@@ -203,6 +203,7 @@ function setTankShown() {
     if (user) {
       baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn).then(function() {
         showTankNumChangeSuccess();
+        setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
         // var errorCode = error.code;
         var errorMessage = error.message;
@@ -368,9 +369,13 @@ showOrgCodeChange();
 showPasswordChangeFail();
 showPasswordChangeSuccess();
 showAdminOptions();
+pageVar=document.getElementById("pageView").getAttribute("value");
+console.log(pageVar);
 if (pageVar=="options") {
 showTankNumChangeFail();
 showTankNumChangeSuccess();
+} else {
+  console.log("failed");
 }
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
