@@ -368,6 +368,10 @@ showOrgCodeChange();
 showPasswordChangeFail();
 showPasswordChangeSuccess();
 showAdminOptions();
+if (pageVar=="options") {
+showTankNumChangeFail();
+showTankNumChangeSuccess();
+}
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
