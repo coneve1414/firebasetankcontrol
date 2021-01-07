@@ -206,11 +206,24 @@
                     <h6>Currently, this is in development.</h6>
                     <br>
                     Currently, there are <a id="tanksShownCurrently">null</a> tanks shown.
-                    <div class="input-group mb-3">
-                      <form>
-                        <div class=row>
-                          <div class=col>
-                        <select class="form-control" id="tankNumSelect2">
+
+                    <form>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="minTemp">Minimum Temp:</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="maxTemp">Maximum Temp:</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="maxT" name="maxTemp">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-2">Checkbox</div>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="tankNumSelect2">
                             <option value="01">1</option>
                             <option value="02">2</option>
                             <option value="03">3</option>
@@ -225,21 +238,14 @@
                             <option value="12">12</option>
                             <!-- <option value="13">Dev Test 13</option> -->
                           </select>
-                          </div>
-                          <div class=col>
-                          <label class="input-group-text" for="minTemp">Minimum Temp:</label>
-                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
-                          <label class="input-group-text" for="maxTemp">Maximum Temp:</label>
-                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="maxTemp" name="maxTemp">
-                          </div>
                         </div>
-                        </form>
-
-                      <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
-                    <div class="input-group-append">
-                    <button class="btn btn-primary" onclick="setTankMinMax()">Submit</button> <!--onclick="resetPasswordText()">-->       
-                  </div>   
-                </div>    
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-10">
+                          <button type="submit" onclick="setTankMinMax()" class="btn btn-primary">Sign in</button>
+                        </div>
+                      </div>
+                    </form>   
                 </div>
               </div>
             </div>
