@@ -207,6 +207,9 @@
                     <br>
                     Currently, there are <a id="tanksShownCurrently">null</a> tanks shown.
                     <div class="input-group mb-3">
+                      <form>
+                        <div class=row>
+                          <div class=col>
                         <select class="form-control" id="tankNumSelect2">
                             <option value="01">1</option>
                             <option value="02">2</option>
@@ -222,12 +225,16 @@
                             <option value="12">12</option>
                             <!-- <option value="13">Dev Test 13</option> -->
                           </select>
-                          <label for="minTemp">Minimum Temp:</label>
-                          <input type="number" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
-                          <br>
-                          <label for="maxTemp">Maximum Temp:</label>
-                          <input type="number" min=-197 max=255 minlength=1 maxlength=3 id="maxTemp" name="maxTemp">
-                          
+                          </div>
+                          <div class=col>
+                          <label class="input-group-text" for="minTemp">Minimum Temp:</label>
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
+                          <label class="input-group-text" for="maxTemp">Maximum Temp:</label>
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="maxTemp" name="maxTemp">
+                          </div>
+                        </div>
+                        </form>
+
                       <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
                     <div class="input-group-append">
                     <button class="btn btn-primary" onclick="setTankMinMax()">Submit</button> <!--onclick="resetPasswordText()">-->       

@@ -25,7 +25,7 @@ function showAlert(errorCodeIn, alertColorIn, alertLocationIn) {
   } else {
     alertLocation = 'alerts';
   }
-  if (alertColorIn!=null) {
+  if (alertColorIn==null) {
     alertClassIn = 'alert alert-danger alert-dismissible fade show';
   } else {
     alertClassIn = 'alert alert-'+alertColorIn+' alert-dismissible fade show';
@@ -332,7 +332,7 @@ function setTankMinMax() {
         // showAlert("A1020", "success", "tankMinMax");
       }).catch(function(error) {
         // var errorCode = error.code;
-        showAlert("A1021", "danger", "tankMinMax");
+        showAlert("A1021", 'danger', "tankMinMax");
         var errorMessage = error.message;
         // showTankNumChangeFail();
         alert(errorMessage);
@@ -346,11 +346,11 @@ function setTankMinMax() {
     if (user) {
       baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankNumMaxIn).then(function() {
         // showTankNumChangeSuccess();
-        showAlert("A1020", "success", "tankMinMax");
+        showAlert("A1020", 'success', "tankMinMax");
         // setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
         // var errorCode = error.code;
-        showAlert("A1021", "danger", "tankMinMax");
+        showAlert("A1021", 'danger', "tankMinMax");
         var errorMessage = error.message;
         // showTankNumChangeFail();
         alert(errorMessage);
