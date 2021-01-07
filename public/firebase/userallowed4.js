@@ -299,6 +299,7 @@ function setTankMinMax() {
 
     } else {
       // redirectDashboard();
+      console.log("minSuccess");
     }
     if (user) {
       baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankNumMaxIn).then(function() {
@@ -313,6 +314,7 @@ function setTankMinMax() {
 
     } else {
       // redirectDashboard();
+      console.log("maxSuccess");
     }
   });
  } 
