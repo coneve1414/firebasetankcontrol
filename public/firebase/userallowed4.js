@@ -9,6 +9,45 @@ var usersRef = firebase.database().ref("users"); //Reference for the "/users" di
 var orgRef = firebase.database().ref("orgCodes"); //Reference for the "/orgCodes" directory in the database
 
 //base functions
+
+function showAlert(errorCodeIn, alertColorIn, alertLocationIn) {
+  if(typeof(document.getElementById(errorCodeIn)) != 'undefined' && document.getElementById(errorCodeIn) != null){
+    console.log("alert already exists");
+  } else {
+    var alertClass;
+    var alertLocation;
+    var iDiv = document.createElement('div');
+  iDiv.id = errorCodeIn;
+  if (alertLocationIn==null) {
+    alertLocation = 'alerts';
+  } else if (alertLocationIn=="tankMinMax") {
+    alertLocation = 'minMaxAlerts';
+  } else {
+    alertLocation = 'alerts';
+  }
+  if (alertColorIn!=null) {
+    alertClassIn = 'alert alert-danger alert-dismissible fade show';
+  } else {
+    alertClassIn = 'alert alert-'+alertColorIn+' alert-dismissible fade show';
+  }
+  if (errorCodeIn=="A1020") {
+    iDiv.innerHTML= "Operation Succeeded! | Code: A1020"
+  } else if (errorCodeIn=="A1021") {
+    iDiv.innerHTML= "Sorry, Operation Failed | Code: A1021"
+  }
+  iDiv.className= alertClass;
+  // iDiv.innerHTML = 'block';
+  //var innerDiv = document.createElement('button');
+  //innerDiv.className = 'close';
+  // innerDiv.data.dismiss='alert';
+  // innerDiv.aria.label='Close';
+  // innerDiv.data-dismiss="alert";
+  // innerDiv.aria-label="Close";
+  //iDiv.appendChild("<button class='close' type='button' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button>");
+  document.getElementById(alertLocation).appendChild(iDiv);
+  }
+
+}
 function hideTemps() {
   var x = document.getElementById("temps");
   if (x.style.display === "none") {
@@ -289,32 +328,37 @@ function setTankMinMax() {
     if (user) {
       baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("minTemp").set(tankNumMinIn).then(function() {
         // showTankNumChangeSuccess();
-        setTimeout(redirectDashboard(), 100);
+        // setTimeout(redirectDashboard(), 100);
+        // showAlert("A1020", "success", "tankMinMax");
       }).catch(function(error) {
         // var errorCode = error.code;
+        showAlert("A1021", "danger", "tankMinMax");
         var errorMessage = error.message;
         // showTankNumChangeFail();
         alert(errorMessage);
+        return;
       })
 
     } else {
-      // redirectDashboard();
-      console.log("minSuccess");
+      redirectDashboard();
+      //console.log("minSuccess");
     }
     if (user) {
       baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankNumMaxIn).then(function() {
         // showTankNumChangeSuccess();
-        setTimeout(redirectDashboard(), 100);
+        showAlert("A1020", "success", "tankMinMax");
+        // setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
         // var errorCode = error.code;
+        showAlert("A1021", "danger", "tankMinMax");
         var errorMessage = error.message;
         // showTankNumChangeFail();
         alert(errorMessage);
       })
 
     } else {
-      // redirectDashboard();
-      console.log("maxSuccess");
+      redirectDashboard();
+      //console.log("maxSuccess");
     }
   });
  } 
