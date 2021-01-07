@@ -91,6 +91,50 @@ function setSidebar() {
   }
 }
 
+function showTank(tankNumberIn) {
+  var iDiv = document.createElement('div');
+  iDiv.id = 'orgTank'+tankNumberIn;
+  iDiv.className = "col-sm-6 col-lg-3";
+  var inDiv1 = document.createElement('div');
+  inDiv1.className = 'card text-white bg-primary';
+  inDiv1.id = 'tank'+tankNumberIn+'Color'
+  var inDiv2 = document.createElement('div');
+  inDiv2.className = 'card-body pb-0';
+  var inDiv3 = document.createElement('div');
+  inDiv3.className = 'btn-group float-right';
+  var inDiv4 = document.createElement('div');
+  inDiv4.className = 'text-value';
+  inDiv4.innerHTML = 'Loading Test...';
+  inDiv4.id='tank'+tankNumberIn;
+  var inDiv5 = document.createElement('div');
+  inDiv5.id = 'labelTank'+tankNumberIn;
+  inDiv5.innerHTML= 'Loading Test...';
+  var inDiv6 = document.createElement('div');
+  inDiv6.className = 'chart-wrapper mt-3 mx-3';
+  // inDiv6.style.height=70;
+  var inDiv7 = document.createElement('canvas');
+  inDiv7.className = 'chart';
+  inDiv7.id="card-chart13";
+  inDiv7.style.height="70px";
+  inDiv6.appendChild(inDiv7);
+  inDiv2.appendChild(inDiv3);
+  inDiv2.appendChild(inDiv4);
+  inDiv2.appendChild(inDiv5);
+  inDiv1.appendChild(inDiv2);
+  inDiv1.appendChild(inDiv6);
+  iDiv.appendChild(inDiv1);
+  document.getElementById('temps').appendChild(iDiv);
+  // iDiv.innerHTML = 'block';
+  //var innerDiv = document.createElement('button');
+  //innerDiv.className = 'close';
+  // innerDiv.data.dismiss='alert';
+  // innerDiv.aria.label='Close';
+  // innerDiv.data-dismiss="alert";
+  // innerDiv.aria-label="Close";
+  //iDiv.appendChild("<button class='close' type='button' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button>");
+  //document.getElementById('alerts').appendChild(iDiv);
+  }
+
 function showAdminOptions() {
 
   var adminOptions01 = document.getElementById("optionsNavLink");
@@ -215,6 +259,63 @@ function setTankShown() {
       redirectDashboard();
     }
   });
+}
+
+function setTankMinMax() {
+  var tankNumSelectIn2 = document.getElementById("tankNumSelect2").value;
+  var tankNumMinIn = document.getElementById('minTemp').value;
+  var tankNumMaxIn = document.getElementById('maxTemp').value;
+  console.log(tankNumMinIn);
+  var tankMinInNum = Number(tankNumMinIn);
+  console.log(tankNumMaxIn);
+  var tankMaxInNum = Number(tankNumMaxIn);
+  if (tankNumMinIn==null) {
+    console.log("min is empty");
+    return;
+  } else if (tankNumMinIn=="") {
+    console.log("min is empty");
+    return;
+  } else if (tankNumMaxIn==null) {
+    console.log("min is empty");
+    return;
+  } else if (tankNumMaxIn=="") {
+    console.log("min is empty");
+    return;
+  } else if (tankMaxInNum<tankMinInNum) {
+    console.log("min cannot be larger than max");
+    return;
+  } else {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("minTemp").set(tankNumMinIn).then(function() {
+        // showTankNumChangeSuccess();
+        setTimeout(redirectDashboard(), 100);
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        // showTankNumChangeFail();
+        alert(errorMessage);
+      })
+
+    } else {
+      // redirectDashboard();
+    }
+    if (user) {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankNumMaxIn).then(function() {
+        // showTankNumChangeSuccess();
+        setTimeout(redirectDashboard(), 100);
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        // showTankNumChangeFail();
+        alert(errorMessage);
+      })
+
+    } else {
+      // redirectDashboard();
+    }
+  });
+ } 
 }
 
 function setSubOrg(subOrgNumber) {
@@ -363,15 +464,22 @@ function getOrgCode(orgCode) {
 
 //main function
 function allowed(){
+// const remoteConfig = firebase.remoteConfig();
+// remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
+// remoteConfig.defaultConfig = {
+//   "loginDisabled": "false"
+// };
+// const val = remoteConfig.getValue("welcome_messsage");
 showNoOrg();
 showOrgCodeNotValid();
 showOrgCodeChange();
 showPasswordChangeFail();
 showPasswordChangeSuccess();
 showAdminOptions();
-pageVar=document.getElementById("pageView").getAttribute("value");
 console.log(pageVar);
-if (pageVar=="options") {
+if (document.getElementById("pageView").getAttribute("value")==null) {
+console.log("failed to know what page");
+} else if (document.getElementById("pageView").getAttribute("value")=="options") {
 showTankNumChangeFail();
 showTankNumChangeSuccess();
 } else {
@@ -680,6 +788,10 @@ firebase.auth().onAuthStateChanged((user) => {
                   hideTank12();
                 } else if (tankNum=="11") {
                   hideTank12();
+                } else if (tankNum=="13") {
+                  
+                  showTank("13");
+
                 } else {
                   console.log("all values shown")
                 }
@@ -694,11 +806,13 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("org").innerHTML = orgname;
                   getLogo(orgid2);
                   getTanks(orgid2);
+                  showAdminOptions();
                 } else if (useruid2==" superadmin"){
                   document.getElementById("role").innerHTML = "Super Administrator";
                   document.getElementById("org").innerHTML = orgname;
                   getLogo(orgid2);
                   getTanks(orgid2);
+                  showAdminOptions();
                 } else if (useruid2 == " systemadmin") {
                   document.getElementById("role").innerHTML = "System Administrator (Global)";
                   document.getElementById("org").innerHTML = orgname;
@@ -710,32 +824,6 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("role").innerHTML = "Standard User";
                   getLogo(orgid2);
                   getTanks(orgid2);
-              //       if(useruid2 == " admin") {
-              //           document.getElementById("role").innerHTML = "Administrator";
-              //           document.getElementById("org").innerHTML = orgname;
-              //           getLogo(orgid2);
-              //           getTanks(orgid2);
-              //       } else{
-              //           if (useruid2 == " superadmin") {
-              //               document.getElementById("role").innerHTML = "Super Administrator";
-              //               document.getElementById("org").innerHTML = orgname;
-              //               getLogo(orgid2);
-              //               getTanks(orgid2);
-              //           } else if (useruid2 == " systemadmin") {
-              //             document.getElementById("role").innerHTML = "System Administrator (Global)";
-              //             document.getElementById("org").innerHTML = orgname;
-              //             showAdminOptions();
-              //             getLogo(orgid2);
-              //             getTanks(orgid2);
-              //           } else { 
-                // document.getElementById("org").innerHTML = orgname;
-                //     document.getElementById("role").innerHTML = "Standard User";
-                //     getLogo(orgid2);
-                //     getTanks(orgid2);
-                //     return 
-              //     }
-                
-              // }
             }
               // User not logged in or has just logged out.
             }

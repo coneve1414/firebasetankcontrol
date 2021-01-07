@@ -1,19 +1,67 @@
+var disableLogin;
 function showWrongPassword() {
   var xx = document.getElementById("ErrorA1001");
-  if (xx.style.display === "none") {
-    xx.style.display = "block";
-  } else {
-    xx.style.display = "none";
-  }
+
+  var iDiv = document.createElement('div');
+iDiv.id = 'ErrorA1001';
+iDiv.className= 'alert alert-danger alert-dismissible fade show';
+iDiv.innerHTML = 'block';
+
+// Create the inner div before appending to the body
+var innerDiv = document.createElement('div');
+innerDiv.className = 'block-2';
+
+// The variable iDiv is still good... Just append to it.
+iDiv.appendChild(innerDiv);
+
+// Then append the whole thing onto the body
+document.getElementById('alerts').appendChild(iDiv);
+  // if (xx.style.display === "none") {
+  //   xx.style.display = "block";
+  // } else {
+  //   xx.style.display = "none";
+  // }
 }
-function showEmailNotExist() {
-  var xx = document.getElementById("ErrorA1000");
-  if (xx.style.display === "none") {
-    xx.style.display = "block";
+
+function showAlert(errorCode, alertColor) {
+  if(typeof(document.getElementById(errorCode)) != 'undefined' && document.getElementById(errorCode) != null){
+    console.log("alert already exists");
   } else {
-    xx.style.display = "none";
+    var alertClass;
+    var iDiv = document.createElement('div');
+  iDiv.id = errorCode;
+  if (alertColor!=null) {
+    alertClass = 'alert alert-danger alert-dismissible fade show';
+  } else {
+    alertClass = 'alert alert-'+alertColor+' alert-dismissible fade show';
   }
+  if (errorCode=="A1000") {
+    iDiv.innerHTML= "Sorry, your account does not exist | Code: A1000"
+  } else if (errorCode=="A1001") {
+    iDiv.innerHTML= "Sorry, your email password is incorrect | Code: A1001"
+  }
+  iDiv.className= alertClass;
+  // iDiv.innerHTML = 'block';
+  //var innerDiv = document.createElement('button');
+  //innerDiv.className = 'close';
+  // innerDiv.data.dismiss='alert';
+  // innerDiv.aria.label='Close';
+  // innerDiv.data-dismiss="alert";
+  // innerDiv.aria-label="Close";
+  //iDiv.appendChild("<button class='close' type='button' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button>");
+  document.getElementById('alerts').appendChild(iDiv);
+  }
+
 }
+
+// function showEmailNotExist() {
+//   var xx = document.getElementById("ErrorA1000");
+//   if (xx.style.display === "none") {
+//     xx.style.display = "block";
+//   } else {
+//     xx.style.display = "none";
+//   }
+// }
 function showEmailEmpty() {
   var xxx = document.getElementById("ErrorA1009");
   if (xxx.style.display === "none") {
@@ -56,8 +104,8 @@ function showTooManyRequests() {
 }
 
 function toggleSignIn() {
-  var disableLogin = "false";
-  if (disableLogin=="false") {
+  disableLogin="false";
+  if (disableLogin=='false') {
     if (firebase.auth().currentUser) {
       firebase.auth().signOut();
     } else {
@@ -76,9 +124,11 @@ function toggleSignIn() {
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
           //alert('Wrong password.');
-          showWrongPassword();
+          // showWrongPassword();
+          showAlert("A1001", "danger");
         } else if (errorCode == 'auth/user-not-found') {
-          showEmailNotExist();
+          // showEmailNotExist();
+          showAlert("A1000", "danger");
         } else if (errorCode == 'auth/user-disabled') {
           showAccountDisabled();
         } else if (errorCode == 'auth/too-many-requests') {
@@ -114,9 +164,9 @@ function toggleSignIn() {
     });
   }
   function initApp() {
-    showWrongPassword();
+    //showWrongPassword();
     showEmailEmpty();
-    showEmailNotExist();
+    // showEmailNotExist();
     showPasswordEmpty();
     showPasswordResetSuccess();
     showAccountDisabled();
@@ -136,9 +186,9 @@ function toggleSignIn() {
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         var providerData = user.providerData;
-        document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+        //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         if (!emailVerified) {
-          document.getElementById('quickstart-verify-email').disabled = false;
+          // document.getElementById('quickstart-verify-email').disabled = false;
         }
       } else {
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';

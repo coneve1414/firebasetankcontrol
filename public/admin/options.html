@@ -41,6 +41,7 @@
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-remote-config.js"></script>
       <header class="app-header navbar">
         <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
           <!-- <li class="nav-item dropdown"> -->
@@ -182,11 +183,59 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
+                            <!-- <option value="13">Dev Test 13</option> -->
                           </select>
                           
                       <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
                     <div class="input-group-append">
                     <button class="btn btn-primary" onclick="setTankShown()">Submit</button> <!--onclick="resetPasswordText()">-->       
+                  </div>   
+                </div>    
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <strong>Tank Dynamic Color Settings</strong>
+              </div>
+              <div class="card-body">
+                <div>
+                  <div class="alert alert-success" id="ErrorA1018" role="alert">
+                    Tank Number Changed | Code: A1018
+                  </div>
+                  <div class="alert alert-danger" id="ErrorA1019" role="alert">
+                    Tank Number Change Failed | Code: A1019
+                  </div>
+                    <h4>NOTICE:</h4>
+                    <br>
+                    <h6>Currently, this is in development.</h6>
+                    <br>
+                    Currently, there are <a id="tanksShownCurrently">null</a> tanks shown.
+                    <div class="input-group mb-3">
+                        <select class="form-control" id="tankNumSelect2">
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <!-- <option value="13">Dev Test 13</option> -->
+                          </select>
+                          <label for="minTemp">Minimum Temp:</label>
+                          <input type="number" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
+                          <br>
+                          <label for="maxTemp">Maximum Temp:</label>
+                          <input type="number" min=-197 max=255 minlength=1 maxlength=3 id="maxTemp" name="maxTemp">
+                          
+                      <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
+                    <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="setTankMinMax()">Submit</button> <!--onclick="resetPasswordText()">-->       
                   </div>   
                 </div>    
                 </div>
