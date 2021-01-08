@@ -280,11 +280,34 @@ var roleMaster;
 var MultiOrgSubOrgNumMaster;
 var pageVar;
 var roleMasterVar;
-var orgIdBaseMaster
+var orgIdBaseMaster;
+var domainMaster;
+var domainLock;
+var domainLockMaster;
 
 function page(pageSetIn) {
   pageVar = pageSetIn;
 }
+
+function validateAdmin() {
+  //Regex for Valid Characters i.e. Alphabets, Numbers and Space.
+  var regex = "@";
+
+  if (domainLockMaster) {
+  //Validate TextBox value against the Regex.
+  var isValid = regex.test(document.getElementById("txtName").value);
+  if (!isValid) {
+      alert("Please do not enter another domain");
+  } else {
+    setAdminUser();
+  }
+
+  return isValid;
+} else {
+  setAdminUser();
+}
+}
+
 function showAdminChange() {
   var showAdminChangeVar = document.getElementById("adminChange");
   if (showAdminChangeVar.style.display === "none") {
@@ -294,12 +317,28 @@ function showAdminChange() {
   }
 }
 
+function showDomain() {
+  var showDomainVar = document.getElementById("adminEmailDomain");
+  if (showDomainVar.style.display === "none") {
+    showDomainVar.style.display = "block";
+  } else {
+    showDomainVar.style.display = "none";
+  }
+}
+
 function setAdminUser() {
   var adminEmailIn = document.getElementById("adminEmailIn").value;
   var oldAdminRole = document.getElementById("oldAdminRole").value;
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(orgIdBaseMaster).child("adminContact").child("adminEmail").set(adminEmailIn).then(function() {
+      var domainOverride;
+      if (domainMaster!=null) {
+        domainOverride = domainMaster;
+      } else {
+        domainOverride = null;
+        showDomain();
+      }
+      baseRef.child(orgIdBaseMaster).child("adminContact").child("adminEmail").set(adminEmailIn + domainOverride).then(function() {
         // showAlert("A1022", "success", "changeAdminUser");
         // setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
@@ -575,7 +614,7 @@ console.log("failed to know what page");
 } else if (document.getElementById("pageView").getAttribute("value")=="options") {
 showTankNumChangeFail();
 showTankNumChangeSuccess();
-document.getElementById("adminChange").style.display="block";
+showAdminChange();
 } else {
   console.log("failed");
 }
@@ -622,7 +661,18 @@ firebase.auth().onAuthStateChanged((user) => {
 
             if (debugInfo.child(orgid).child("companyInfo").child("domain").val()!=null) {
               if (pageVar=="options") {
+                if (debugInfo.child(orgid).child("adminContact").child("adminEmail").val() !=null) {
+                  document.getElementById("currentAdminEmail").innerHTML = debugInfo.child(orgid).child("adminContact").child("adminEmail").val();
+                } else {
+                  document.getElementById("currentAdminEmail").innerHTML = "tankstatuscontrol.ce@gmail.com";
+                }
+                if (debugInfo.child(orgid).child("companyInfo").child("domainLocked").val()!=null) {
+                  domainLockMaster = debugInfo.child(orgid).child("companyInfo").child("domainLocked").val();
+                } else {
+                  domainLockMaster = false;
+                }
                 document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
+                domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
               } else {
                 console.log("not on the org options page");
               }
