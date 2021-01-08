@@ -567,6 +567,8 @@ firebase.auth().onAuthStateChanged((user) => {
               } else {
                 console.log("error - user not system admin")
               }
+            } else {
+              console.log("either does not exist, or it does not allow admin changes");
             }
 
               if (multiOrgTrue == "true") {
