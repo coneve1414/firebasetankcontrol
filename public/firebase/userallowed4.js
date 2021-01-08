@@ -670,6 +670,7 @@ firebase.auth().onAuthStateChanged((user) => {
                   domainLockMaster = debugInfo.child(orgid).child("companyInfo").child("domainLocked").val();
                 } else {
                   domainLockMaster = false;
+                  domainMaster= null;
                 }
                 document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
                 domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
