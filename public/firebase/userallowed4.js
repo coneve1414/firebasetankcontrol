@@ -294,22 +294,25 @@ function page(pageSetIn) {
 
 function validateAdmin() {
   //Regex for Valid Characters i.e. Alphabets, Numbers and Space.
-
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
   if (domainLockMaster) {
   //Validate TextBox value against the Regex.
   var regex = document.getElementById("adminEmailIn").value;
   var isValid = regex.includes("@");
   // console.log(isValid);
-  if (isValid) {
+  if (regex+domainMaster==user.email) {
+    alert("Please do not enter your own email.");
+    return;
+  } else if (isValid) {
     alert("Please do not enter another domain");
   } else {
     setAdminUser();
   }
-
-  return isValid;
 } else {
   setAdminUser();
 }
+    }})
 }
 
 function showAdminChange() {
@@ -671,6 +674,8 @@ firebase.auth().onAuthStateChanged((user) => {
 
             if (debugInfo.child(orgid).child("companyInfo").child("domain").val()!=null) {
               if (pageVar=="options") {
+                document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
+                domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
                 if (debugInfo.child(orgid).child("adminContact").child("adminEmail").val() !=null) {
                   document.getElementById("currentAdminEmail").innerHTML = debugInfo.child(orgid).child("adminContact").child("adminEmail").val();
                 } else {
@@ -681,15 +686,16 @@ firebase.auth().onAuthStateChanged((user) => {
                     domainLockMaster = true;
                   } else {
                     domainLockMaster = false;
+                    domainMaster=null;
+                    domainHideMaster = true;
                   }
-                  domainLockMaster = debugInfo.child(orgid).child("companyInfo").child("domainLocked").val();
+                  // domainLockMaster = debugInfo.child(orgid).child("companyInfo").child("domainLocked").val();
                 } else {
                   domainLockMaster = false;
                   domainMaster= null;
                   domainHideMaster = true;
                 }
-                document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
-                domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
+                
               } else {
                 domainHideMaster = true;
                 console.log("not on the org options page");
