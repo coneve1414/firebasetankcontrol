@@ -1020,7 +1020,15 @@ firebase.auth().onAuthStateChanged((user) => {
                       redirectDashboard();
                     }
                     //window.alert("Access Denied! User not assigned to an organization! Code: A1003");
-                } else if (useruid2==" admin") {
+                } else if (useruid2 == " false") {
+                  hideTemps(); //Hides the temperature guages
+                  showNoOrg();
+                  document.getElementById("subOrg1Name").innerHTML= "Dashboard";
+                  if (pageVar=="options") {
+                    redirectDashboard();
+                  }
+                  //window.alert("Access Denied! User not assigned to an organization! Code: A1003");
+              } else if (useruid2==" admin") {
                   document.getElementById("role").innerHTML = "Administrator";
                   document.getElementById("org").innerHTML = orgname;
                   getLogo(orgid2);
