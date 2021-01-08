@@ -361,6 +361,8 @@ function setAdminUser() {
         alert(errorMessage);
         return;
       })
+      if (oldAdminRole!="false") {
+
       baseRef.child("users").child(orgIdBaseMaster).child(user.uid).set(oldAdminRole).then(function() {
         // showAlert("A1022", "success", "changeAdminUser");
         // setTimeout(redirectDashboard(), 100);
@@ -371,6 +373,18 @@ function setAdminUser() {
         alert(errorMessage);
         return;
       })
+      } else {
+        baseRef.child("user").child(user.uid).set(null).then(function() {
+          // showAlert("A1022", "success", "changeAdminUser");
+          // setTimeout(redirectDashboard(), 100);
+        }).catch(function(error) {
+          // var errorCode = error.code;
+          var errorMessage = error.message;
+          showAlert("A1023", "danger", "changeAdminUser");
+          alert(errorMessage);
+          return;
+        })
+      }
       baseRef.child(orgIdBaseMaster).child("adminContact").child("adminChange").set(true).then(function() {
         showAlert("A1022", "success", "changeAdminUser");
         setTimeout(redirectDashboard(), 100);
