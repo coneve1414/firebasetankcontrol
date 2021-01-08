@@ -326,7 +326,7 @@ function setTankMinMax() {
   } else {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("minTemp").set(tankNumMinIn).then(function() {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("minTemp").set(tankMinInNum).then(function() {
         // showTankNumChangeSuccess();
         // setTimeout(redirectDashboard(), 100);
         // showAlert("A1020", "success", "tankMinMax");
@@ -344,7 +344,7 @@ function setTankMinMax() {
       //console.log("minSuccess");
     }
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankNumMaxIn).then(function() {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("tank"+tankNumSelectIn2).child("maxTemp").set(tankMaxInNum).then(function() {
         // showTankNumChangeSuccess();
         showAlert("A1020", 'success', "tankMinMax");
         // setTimeout(redirectDashboard(), 100);
