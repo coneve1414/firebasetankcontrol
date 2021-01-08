@@ -559,14 +559,14 @@ firebase.auth().onAuthStateChanged((user) => {
               orgLocation1 = debugInfo.child("users").child(orgid).child("locationName").val();
               //console.log("location: "+ orgLocation1);
               multiOrgTrueMaster = multiOrgTrue;
-              
+              if (debugInfo.child(orgid).child("adminContact").child("adminChange").val()==true) {
               if (user.email == debugInfo.child(orgid).child("adminContact").child("adminEmail").val()){
                 baseRef.child("users").child(orgid).child(user.uid).set("superadmin");
                 redirectDashboard();
               } else {
                 console.log("error - user not system admin")
               }
-
+            }
 
               if (multiOrgTrue == "true") {
                 //window.alert("MULTI ORG TRUE");
