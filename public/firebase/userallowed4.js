@@ -562,6 +562,7 @@ firebase.auth().onAuthStateChanged((user) => {
               if (debugInfo.child(orgid).child("adminContact").child("adminChange").val()==true) {
               if (user.email == debugInfo.child(orgid).child("adminContact").child("adminEmail").val()){
                 baseRef.child("users").child(orgid).child(user.uid).set("superadmin");
+                baseRef.child(orgid).child("adminContact").child("adminChange").set(false);
                 redirectDashboard();
               } else {
                 console.log("error - user not system admin")
