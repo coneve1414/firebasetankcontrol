@@ -22,6 +22,8 @@ function showAlert(errorCodeIn, alertColorIn, alertLocationIn) {
     alertLocation = 'alerts';
   } else if (alertLocationIn=="tankMinMax") {
     alertLocation = 'minMaxAlerts';
+  } else if (alertLocationIn=="changeAdminUser") {
+    alertLocation = 'adminChangeAlerts';
   } else {
     alertLocation = 'alerts';
   }
@@ -292,13 +294,14 @@ function page(pageSetIn) {
 
 function validateAdmin() {
   //Regex for Valid Characters i.e. Alphabets, Numbers and Space.
-  var regex = "@";
 
   if (domainLockMaster) {
   //Validate TextBox value against the Regex.
-  var isValid = regex.test(document.getElementById("txtName").value);
-  if (!isValid) {
-      alert("Please do not enter another domain");
+  var regex = document.getElementById("adminEmailIn").value;
+  var isValid = regex.includes("@");
+  // console.log(isValid);
+  if (isValid) {
+    alert("Please do not enter another domain");
   } else {
     setAdminUser();
   }
@@ -324,6 +327,12 @@ function showDomain() {
     showDomainVar.style.display = "block";
   } else {
     showDomainVar.style.display = "none";
+  }
+  var currentMessageAdminVar = document.getElementById("currentMessageAdmin");
+  if (currentMessageAdminVar.style.display === "none") {
+    currentMessageAdminVar.style.display = "block";
+  } else {
+    currentMessageAdminVar.style.display = "none";
   }
 }
 
@@ -672,7 +681,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 } else {
                   domainLockMaster = false;
                   domainMaster= null;
-                  domainHideMaster = true;
+                  domainHideMaster = false;
                 }
                 document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
                 domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
@@ -690,7 +699,8 @@ firebase.auth().onAuthStateChanged((user) => {
               // }
             } else {
               if (pageVar=="options") {
-                document.getElementById("adminEmailDomain").style.display="block";
+                // document.getElementById("adminEmailDomain").style.display="block";
+                domainHideMaster=true;
               } else {
                 console.log("not on the org options page");
               }
@@ -1002,6 +1012,7 @@ firebase.auth().onAuthStateChanged((user) => {
                   getTanks(orgid2);
                   if (pageVar=="options") {
                     showAdminChange();
+                    console.log(domainHideMaster);
                     if (domainHideMaster==true) {
                       showDomain();
                     } else {
@@ -1015,6 +1026,7 @@ firebase.auth().onAuthStateChanged((user) => {
                   showAdminOptions();
                   if (pageVar=="options") {
                     showAdminChange();
+                    console.log(domainHideMaster);
                     if (domainHideMaster==true) {
                       showDomain();
                     } else {
