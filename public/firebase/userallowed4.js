@@ -284,6 +284,7 @@ var orgIdBaseMaster;
 var domainMaster;
 var domainLock;
 var domainLockMaster;
+var domainHideMaster;
 
 function page(pageSetIn) {
   pageVar = pageSetIn;
@@ -671,10 +672,12 @@ firebase.auth().onAuthStateChanged((user) => {
                 } else {
                   domainLockMaster = false;
                   domainMaster= null;
+                  domainHideMaster = true;
                 }
                 document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
                 domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
               } else {
+                domainHideMaster = true;
                 console.log("not on the org options page");
               }
               
@@ -999,6 +1002,11 @@ firebase.auth().onAuthStateChanged((user) => {
                   getTanks(orgid2);
                   if (pageVar=="options") {
                     showAdminChange();
+                    if (domainHideMaster==true) {
+                      showDomain();
+                    } else {
+                      console.log("domain is not hidden");
+                    }
                   }
                   showAdminOptions();
                 } else if (useruid2 == " systemadmin") {
@@ -1007,6 +1015,11 @@ firebase.auth().onAuthStateChanged((user) => {
                   showAdminOptions();
                   if (pageVar=="options") {
                     showAdminChange();
+                    if (domainHideMaster==true) {
+                      showDomain();
+                    } else {
+                      console.log("domain is not hidden");
+                    }
                   }
                   getLogo(orgid2);
                   getTanks(orgid2);
