@@ -123,10 +123,10 @@ function showTankNumChangeFail() {
 }
 function setSidebar() {
   var xxxxxxxx = document.getElementById("appHeader");
-  if (xxxxxxxx.className == "app header-fixed sidebar-fixed sidebar-lg-show") {
-    xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show sidebar-minimized";
+  if (xxxxxxxx.className == "app footer-fixed header-fixed sidebar-fixed sidebar-lg-show") {
+    xxxxxxxx.className = "app footer-fixed header-fixed sidebar-fixed sidebar-lg-show sidebar-minimized";
   } else {
-    xxxxxxxx.className = "app header-fixed sidebar-fixed sidebar-lg-show";
+    xxxxxxxx.className = "app footer-fixed header-fixed sidebar-fixed sidebar-lg-show";
   }
 }
 
