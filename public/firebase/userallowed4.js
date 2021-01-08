@@ -677,11 +677,16 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("currentAdminEmail").innerHTML = "tankstatuscontrol.ce@gmail.com";
                 }
                 if (debugInfo.child(orgid).child("companyInfo").child("domainLocked").val()!=null) {
+                  if (debugInfo.child(orgid).child("companyInfo").child("domainLocked").val()==true) {
+                    domainLockMaster = true;
+                  } else {
+                    domainLockMaster = false;
+                  }
                   domainLockMaster = debugInfo.child(orgid).child("companyInfo").child("domainLocked").val();
                 } else {
                   domainLockMaster = false;
                   domainMaster= null;
-                  domainHideMaster = false;
+                  domainHideMaster = true;
                 }
                 document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
                 domainMaster = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
