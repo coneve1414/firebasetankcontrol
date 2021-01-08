@@ -318,7 +318,7 @@ function showAdminChange() {
 }
 
 function showDomain() {
-  var showDomainVar = document.getElementById("adminEmailDomain");
+  var showDomainVar = document.getElementById("adminEmailDomainEnable");
   if (showDomainVar.style.display === "none") {
     showDomainVar.style.display = "block";
   } else {
