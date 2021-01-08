@@ -34,6 +34,10 @@ function showAlert(errorCodeIn, alertColorIn, alertLocationIn) {
     iDiv.innerHTML= "Operation Succeeded! | Code: A1020"
   } else if (errorCodeIn=="A1021") {
     iDiv.innerHTML= "Sorry, Operation Failed | Code: A1021"
+  } else if (errorCodeIn=="A1022") {
+    iDiv.innerHTML= "Operation Success! Reloading... | Code: A1022"
+  } else if (errorCodeIn=="A1023") {
+    iDiv.innerHTML= "Sorry, Operation Failed | Code: A1023"
   }
   iDiv.className= alertClass;
   // iDiv.innerHTML = 'block';
@@ -275,9 +279,51 @@ var tankNum;
 var roleMaster;
 var MultiOrgSubOrgNumMaster;
 var pageVar;
+var roleMasterVar;
+var orgIdBaseMaster
 
 function page(pageSetIn) {
   pageVar = pageSetIn;
+}
+function showAdminChange() {
+  var showAdminChangeVar = document.getElementById("adminChange");
+  if (showAdminChangeVar.style.display === "none") {
+    showAdminChangeVar.style.display = "block";
+  } else {
+    showAdminChangeVar.style.display = "none";
+  }
+}
+
+function setAdminUser() {
+  var adminEmailIn = document.getElementById("adminEmailIn").value;
+  var oldAdminRole = document.getElementById("oldAdminRole").value;
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      baseRef.child(orgIdBaseMaster).child("adminContact").child("adminEmail").set(adminEmailIn).then(function() {
+        // showAlert("A1022", "success", "changeAdminUser");
+        // setTimeout(redirectDashboard(), 100);
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        showAlert("A1023", "danger", "changeAdminUser");
+        alert(errorMessage);
+        return;
+      })
+      baseRef.child("users").child(orgIdBaseMaster).child(user.uid).set(oldAdminRole).then(function() {
+        showAlert("A1022", "success", "changeAdminUser");
+        setTimeout(redirectDashboard(), 100);
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        showAlert("A1023", "danger", "changeAdminUser");
+        alert(errorMessage);
+        return;
+      })
+
+    } else {
+      redirectDashboard();
+    }
+  });
 }
 
 function setTankShown() {
@@ -522,12 +568,14 @@ showOrgCodeChange();
 showPasswordChangeFail();
 showPasswordChangeSuccess();
 showAdminOptions();
+pageVar=document.getElementById("pageView").getAttribute("value");
 console.log(pageVar);
 if (document.getElementById("pageView").getAttribute("value")==null) {
 console.log("failed to know what page");
 } else if (document.getElementById("pageView").getAttribute("value")=="options") {
 showTankNumChangeFail();
 showTankNumChangeSuccess();
+document.getElementById("adminChange").style.display="block";
 } else {
   console.log("failed");
 }
@@ -559,6 +607,7 @@ firebase.auth().onAuthStateChanged((user) => {
               orgLocation1 = debugInfo.child("users").child(orgid).child("locationName").val();
               //console.log("location: "+ orgLocation1);
               multiOrgTrueMaster = multiOrgTrue;
+              orgIdBaseMaster=orgid;
               if (debugInfo.child(orgid).child("adminContact").child("adminChange").val()==true) {
               if (user.email == debugInfo.child(orgid).child("adminContact").child("adminEmail").val()){
                 baseRef.child("users").child(orgid).child(user.uid).set("superadmin");
@@ -569,6 +618,30 @@ firebase.auth().onAuthStateChanged((user) => {
               }
             } else {
               console.log("either does not exist, or it does not allow admin changes");
+            }
+
+            if (debugInfo.child(orgid).child("companyInfo").child("domain").val()!=null) {
+              if (pageVar=="options") {
+                document.getElementById("adminEmailDomain").innerHTML = "@"+debugInfo.child(orgid).child("companyInfo").child("domain").val();
+              } else {
+                console.log("not on the org options page");
+              }
+              
+              // if (user.email == debugInfo.child(orgid).child("adminContact").child("adminEmail").val()){
+              //   baseRef.child("users").child(orgid).child(user.uid).set("superadmin");
+              //   baseRef.child(orgid).child("adminContact").child("adminChange").set(false);
+              //   redirectDashboard();
+              // } else {
+              //   console.log("error - user not system admin")
+              // }
+            } else {
+              if (pageVar=="options") {
+                document.getElementById("adminEmailDomain").style.display="block";
+              } else {
+                console.log("not on the org options page");
+              }
+              // console.log("either does not exist, or it does not allow admin changes");
+
             }
 
               if (multiOrgTrue == "true") {
@@ -853,11 +926,14 @@ firebase.auth().onAuthStateChanged((user) => {
                 } else {
                   console.log("all values shown")
                 }
-
+                roleMasterVar = useruid2;
                 if (useruid2 == " null") {
                     hideTemps(); //Hides the temperature guages
                     showNoOrg();
                     document.getElementById("subOrg1Name").innerHTML= "Dashboard";
+                    if (pageVar=="options") {
+                      redirectDashboard();
+                    }
                     //window.alert("Access Denied! User not assigned to an organization! Code: A1003");
                 } else if (useruid2==" admin") {
                   document.getElementById("role").innerHTML = "Administrator";
@@ -870,11 +946,17 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("org").innerHTML = orgname;
                   getLogo(orgid2);
                   getTanks(orgid2);
+                  if (pageVar=="options") {
+                    showAdminChange();
+                  }
                   showAdminOptions();
                 } else if (useruid2 == " systemadmin") {
                   document.getElementById("role").innerHTML = "System Administrator (Global)";
                   document.getElementById("org").innerHTML = orgname;
                   showAdminOptions();
+                  if (pageVar=="options") {
+                    showAdminChange();
+                  }
                   getLogo(orgid2);
                   getTanks(orgid2);
                 } else {
@@ -882,6 +964,9 @@ firebase.auth().onAuthStateChanged((user) => {
                   document.getElementById("role").innerHTML = "Standard User";
                   getLogo(orgid2);
                   getTanks(orgid2);
+                  if (pageVar=="options") {
+                    redirectDashboard();
+                  }
             }
               // User not logged in or has just logged out.
             }
