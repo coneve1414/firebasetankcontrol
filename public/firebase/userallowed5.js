@@ -287,7 +287,6 @@ var domainMaster;
 var domainLock;
 var domainLockMaster;
 var domainHideMaster;
-var userMaster;
 
 function page(pageSetIn) {
   pageVar = pageSetIn;
@@ -581,23 +580,6 @@ function getOrgCode(orgCode) {
     roleMaster="true";
   }
   if (orgCodeValid3!=null) {
-    var userTopLevelDomain = userMaster.email.lastIndexOf(".");
-        var userAtSymbol = userMaster.email.lastIndexOf("@");
-        var userEmailFront = userMaster.email.substring(0, userAtSymbol);
-        var userMidLevelDomain = userMaster.email.substring(userAtSymbol+1, userTopLevelDomain)
-        var userEmailBack = userMaster.email.substring(userTopLevelDomain+1);
-        var userInfo = {
-          uid: userMaster.uid,
-          email: userMaster.email,
-          updateSuccess: true,
-          role: {
-            org: orgCodeValid,
-            role: roleMaster
-          }
-        }
-        baseRef.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).set(userInfo).then(function() {
-          redirectadmin();
-        });
     baseRef.child("user").child(userIdMaster).set(orgCodeValid);
     baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
     baseRef.once("value", function(debugInfo333) {
@@ -676,7 +658,6 @@ showAdminChange();
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      userMaster = user;
       // User logged in already or has just logged in.
       console.log(user.uid);
       userRef.once("value", function(userSnapshot) {
@@ -1555,4 +1536,3 @@ function getLogo(orgLogo) {
 
   })}});
 }
-

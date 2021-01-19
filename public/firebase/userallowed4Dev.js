@@ -679,18 +679,33 @@ firebase.auth().onAuthStateChanged((user) => {
       userMaster = user;
       // User logged in already or has just logged in.
       console.log(user.uid);
-      userRef.once("value", function(userSnapshot) {
+      baseRef.once("value", function(userSnapshot2) {
         var userId = "" + user.uid //Firebase User ID Number
         userIdMaster = userId;
+        var userSnapshot = userSnapshot2.child("user")
         var orgid = userSnapshot.child(userId).val(); // Organization ID Value - Example "TESTORG"
         orgIdMaster = userSnapshot.child(userId).val();
+
+
+        var userTopLevelDomain = user.email.lastIndexOf(".");
+        var userAtSymbol = user.email.lastIndexOf("@");
+        var userEmailFront = user.email.substring(0, userAtSymbol);
+        var userMidLevelDomain = user.email.substring(userAtSymbol+1, userTopLevelDomain)
+        var userEmailBack = user.email.substring(userTopLevelDomain+1);
+        var userData=userSnapshot2.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).val();
+        console.log(userSnapshot2.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).val());
+        orgid = userSnapshot2.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).child("role").child("org").val();
+        orgIdMaster = orgid;
         var orgIdOverride;
+
+
 //        firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             // User logged in already or has just logged in.
             console.log(userId);
             baseRef.once("value", function(debugInfo) {
-              var useruid = debugInfo.child("users").child(orgid).child(userId).val();
+              // var useruid = debugInfo.child("users").child(orgid).child(userId).val();
+              var useruid=userData.role.role;
               roleMaster = useruid;
               var version = debugInfo.child("version").val();
               var orgname = debugInfo.child("users").child(orgid).child("orgName").val();

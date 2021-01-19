@@ -1,4 +1,7 @@
+var debugTestNewData = false;
+
 function initApp2() {
+  var baseRef = firebase.database().ref("/");
   firebase.auth().onAuthStateChanged(function(user) {		
     function redirectadmin() {
       window.location = "/admin/dashboard.html";
@@ -8,7 +11,22 @@ function initApp2() {
     }
       if (user) {
         //writeUserData(user.uid, document.getElementById('verificationCode').value) //writing user data to the appropriate organization verification code
-        redirectadmin();
+        //redirectadmin();
+        if (debugTestNewData ==true) {
+        var userTopLevelDomain = user.email.lastIndexOf(".");
+        var userAtSymbol = user.email.lastIndexOf("@");
+        var userEmailFront = user.email.substring(0, userAtSymbol);
+        var userMidLevelDomain = user.email.substring(userAtSymbol+1, userTopLevelDomain)
+        var userEmailBack = user.email.substring(userTopLevelDomain+1);
+        var userInfo = {
+          uid: user.uid,
+          email: user.email,
+          updateSuccess: true
+        }
+        baseRef.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).set(userInfo).then(function() {
+          redirectadmin();
+        });
+      }
       } else {
         function createUser() {
           console.log('starting user create');
