@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="Tank Status Control">
     <meta name="author" content="Conner Everett">
-    <title>Admin - Dashboard</title>
+    <title>Admin - Options</title>
     <!-- Icons-->
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@1.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@1.0.0/css/free.min.css">
@@ -35,7 +35,7 @@
 
   </head>
   <body id=appHeader class="app footer-fixed header-fixed sidebar-fixed sidebar-lg-show">
-    <a hidden id=pageView value="accounts"></a>
+      <a hidden id=pageView value="options"></a>
     <!--Firebase JavaScript libraries-->
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
@@ -131,11 +131,11 @@
                   </a>
                 </li>
                 <li id=optionsNavLink class="nav-item">
-                  <a class="nav-link" href="options.html"> 
-                    <i class="nav-icon cil-cog"></i> <div class="text">Organization Options</div>
-                   <!--<span class="badge badge-success">NEW</span>-->
-                  </a>
-                </li>
+                    <a class="nav-link" href="options.html"> 
+                      <i class="nav-icon cil-cog"></i> <div class="text">Organization Options</div>
+                     <!--<span class="badge badge-success">NEW</span>-->
+                    </a>
+                  </li>
                 </li>
                 <!--Removing Temporary Signout Button-->
                 <!--<li class="nav-item">
@@ -154,33 +154,152 @@
           <div class="animated fadeIn">
             <div class="card">
               <div class="card-header">
-                <strong>Account Settings</strong>
+                <strong>Organization Settings</strong>
               </div>
               <div class="card-body">
                 <div>
-                  <div class="alert alert-success" id="ErrorA1014" role="alert">
-                    Password Changed | Code: A1014
+                  <div class="alert alert-success" id="ErrorA1018" role="alert">
+                    Tank Number Changed | Code: A1018
                   </div>
-                  <div class="alert alert-danger" id="ErrorA1015" role="alert">
-                    Password Change Failed | Code: A1015
+                  <div class="alert alert-danger" id="ErrorA1019" role="alert">
+                    Tank Number Change Failed | Code: A1019
                   </div>
                     <h4>NOTICE:</h4>
                     <br>
-                    <h6>Currently, this is password reset only.</h6>
-                    <img src="" id="imgex" class="img-avatar">
+                    <h6>Currently, this is in development.</h6>
                     <br>
+                    Currently, there are <a id="tanksShownCurrently">null</a> tanks shown.
                     <div class="input-group mb-3">
-                      <input id="newPasswordInput" type="password" class="form-control" aria-label="New Password" aria-describedby="basic-addon2">
-                    
-                    <!-- <input id="newPasswordInput" type="password"> -->
+                        <select class="form-control" id="tankNumSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <!-- <option value="13">Dev Test 13</option> -->
+                          </select>
+                          
+                      <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
                     <div class="input-group-append">
-                    <button class="btn btn-primary" onclick="resetPasswordText()">Change Password</button>        
+                    <button class="btn btn-primary" onclick="setTankShown()">Submit</button> <!--onclick="resetPasswordText()">-->       
                   </div>   
                 </div>    
                 </div>
               </div>
             </div>
             <div class="card">
+              <div class="card-header">
+                <strong>Tank Dynamic Color Settings</strong>
+              </div>
+              <div class="card-body">
+                <div>
+                <div id="minMaxAlerts"></div>
+                    <h4>NOTICE:</h4>
+                    <br>
+                    <h6>Currently, this is in development.</h6>
+                    <br>
+                    <!-- Currently, there are <a id="tanksShownCurrently">null</a> tanks shown. -->
+                    Please Select the tank number you wish to alter the minimum and maximum temperature for the dynamic color system.
+                    <br>
+                    WARNING: This currently only affects the color, but will later affect the email alert system.
+                    <br>
+                    WARNING: Please note that this only works for one tank at a time.
+                    <br>
+                    WARNING: Please only edit if you know what you are doing.
+                    <br>
+                    <br>
+                    <br>
+                    <form>
+                      <div class="form-group row">
+                        <div class="col-sm-2">Selected Tank</div>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="tankNumSelect2">
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <!-- <option value="13">Dev Test 13</option> -->
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="minTemp">Minimum Temp:</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="minTemp" name="minTemp">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="maxTemp">Maximum Temp:</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" min=-197 max=255 minlength=1 maxlength=3 id="maxTemp" name="maxTemp">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group row">
+                        <div class="col-sm-10">
+                          <button type="submit" onclick="setTankMinMax()" class="btn btn-primary">Update</button>
+                        </div>
+                      </div>
+                    </form>   
+                </div>
+              </div>
+            </div>
+            <div id=adminChange class="card">
+              <div class="card-header">
+                <strong>Administrator Settings</strong>
+              </div>
+              <div class="card-body">
+                <div>
+                  <div id="adminChangeAlerts"></div>
+                    <h4>NOTICE:</h4>
+                    <br>
+                    <h6>Currently, this is in development.</h6>
+                    <br>
+                    <div id=currentMessageAdmin>Currently, <a id="currentAdminEmail">null@null.com</a> is the organization administrator.</div>
+                    <br>
+                    <div class="input-group mb-3" id=adminEmail>
+                      <input id=adminEmailIn type="text" class="form-control" placeholder="example" aria-label="Admin Email" aria-describedby="basic-addon2">
+                      <div class="input-group-append" id="adminEmailDomainEnable">
+                        <span class="input-group-text" id="adminEmailDomain">@example.com</span>
+                      </div>
+                      <br>
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Old Admin's new role</span>
+                      </div>
+                      <select class="form-control" id="oldAdminRole">
+                        <option value="true">Standard User</option>
+                        <!-- <option value="admin">Administrator</option> -->
+                        <option value="false">Remove from organization</option>
+                        <!-- <option value="13">Dev Test 13</option> -->
+                      </select>
+                      
+                    
+                          
+                      <!-- <input id="newTankTotal" type="password" class="form-control" aria-label="Shown Tanks" aria-describedby="basic-addon2"> -->
+                    <!-- <div class="input-group-append"> -->
+                      <br>
+                    <button class="btn btn-primary" onclick="validateAdmin()">Submit</button> <!--onclick="resetPasswordText()">-->       
+                  <!-- </div>    -->
+                </div>    
+                </div>
+              </div>
+            </div>
+            <!-- <div class="card">
               <div class="card-header">
                 <strong>Change License</strong>
               </div>
@@ -199,7 +318,7 @@
                     <div class="input-group mb-3">
                       <input id="newOrgCode" type="text" class="form-control" aria-label="New Password" aria-describedby="basic-addon2">
                       <div class="input-group-append">
-                    <button class="btn btn-primary" onclick="changeOrg()">Change License</button>
+                    <button class="btn btn-primary" onclick="changeOrg()">Change Organization</button>
                     </div>
                     </div>
                 </div>
@@ -227,7 +346,7 @@ window.location = "/admin/login.html";
                     </script>             
                 </div>
               </div>
-            </div>
+            </div> -->
             
           
       </div>
@@ -270,8 +389,10 @@ window.location = "/admin/login.html";
       <a hidden class="dropdown-item" id=labelTank11></a>
       <a hidden class="dropdown-item" id=labelTank12></a>
       <a hidden class="dropdown-item" id=temps></a>
-      <a hidden class="dropdown-item" id=ErrorA1018></a>
-      <a hidden class="dropdown-item" id=ErrorA1019></a>
+      <a hidden class="dropdown-item" id=ErrorA1012></a>
+      <a hidden class="dropdown-item" id=ErrorA1013></a>
+      <a hidden class="dropdown-item" id=ErrorA1014></a>
+      <a hidden class="dropdown-item" id=ErrorA1015></a>
       <a hidden class="dropdown-item" id=orgTank01></a>
       <a hidden class="dropdown-item" id=orgTank02></a>
       <a hidden class="dropdown-item" id=orgTank03></a>
@@ -301,9 +422,12 @@ window.location = "/admin/login.html";
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
       <script src="/firebase/userallowed4.js"></script>
-      <script src="/firebase/changePhoto.js"></script>
-      <script src="/firebase/changePassword.js"></script>
-      <script src="/firebase/orgVerificationCodejs"></script>
+      <!-- <script src="/firebase/changePhoto.js"></script> -->
+      <!-- <script src="/firebase/changePassword.js"></script> -->
+      <!-- <script src="/firebase/orgVerificationCodejs"></script> -->
+      <script>
+        window.onload(page("options"));
+    </script>
     </footer>
     <!-- Necessary plugins-->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -6,6 +6,7 @@ var pageLocation = "/admin/dashboard_dev.html"
 var userRef = firebase.database().ref("user"); //Reference for the "/user" directory in the database
 var baseRef = firebase.database().ref("/"); //Reference for the "/" directory in the database
 var usersRef = firebase.database().ref("users"); //Reference for the "/users" directory in the database
+var orgRef = firebase.database().ref("orgCodes");
 
 //redirect function (for when user account is logged in)
 function redirectAdmin() {
@@ -14,10 +15,15 @@ function redirectAdmin() {
 
 var orgCodeMaster;
 
+function changeOrg() {
+  var orgCodeIn = document.getElementById('newOrgCode').value;
+  getOrgCode(orgCodeIn);
+};
+
 function getOrgCode(orgCode) {
   console.log("recieved!")
   console.log("orgCode: "+orgCode);
-  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
+   //checking the code against the database
   console.log("checking the database");
 
   // ref.once("value", function(debugInfo) {
@@ -26,7 +32,7 @@ function getOrgCode(orgCode) {
   // console.log(orgCodeMaster);
 
 
-  ref.once("value", function(snapshot) {
+  orgRef.once("value", function(snapshot) {
   console.log("now in the database check!");
   console.log("orgCode2: "+orgCode);
   var orgCodeValid = snapshot.child(orgCode).val();
@@ -63,8 +69,7 @@ function getOrgCode(orgCode) {
 };
 
 function writeUserData(userId, orgCode2) {
-  var ref = firebase.database().ref("orgCodes"); //checking the code against the database
-  ref.on("value", function(snapshot) {
+  orgRef.on("value", function(snapshot) {
   var orgCodeValid2 = snapshot.child(orgCode2).val();
   var orgCodeCheck2 = "/" + orgCodeValid2;
   firebase.database().ref('user/' + userId).set(orgCodeValid2);

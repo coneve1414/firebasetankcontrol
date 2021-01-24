@@ -32,7 +32,8 @@
   --success: #4dbd74;
   --info: #63c2de;
   --warning: #ffc107;
-  --danger: #f86c6b;
+  --danger2: #f86c6b;
+  --danger:#ED001C;
   --light: #f0f3f5;
   --dark: #2f353a;
   --breakpoint-xs: 0;
@@ -6577,7 +6578,9 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-  background-color: #f86c6b !important;
+  /* background-color: #f86c6b !important; */
+  /* background-color: #ED001C !important; */
+  background-color: #dc3545 !important;
 }
 
 a.bg-danger:hover, a.bg-danger:focus,
@@ -11876,12 +11879,16 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .card.bg-danger {
-  border-color: #f5302e;
+  /* border-color: #f5302e; */
+  /* border-color: #ED001C; */
+  border-color: #b52835;
 }
 
 .card.bg-danger .card-header {
-  background-color: #f75d5c;
-  border-color: #f5302e;
+  /* background-color: #f75d5c; */
+  background-color: #ED001C;
+  /* border-color: #f5302e; */
+  border-color: #b52835
 }
 
 .card.bg-light {

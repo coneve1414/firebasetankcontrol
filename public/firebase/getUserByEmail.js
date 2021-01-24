@@ -1,6 +1,6 @@
 
 function getUserUidByEmail() {
-var emailUser = firebase.auth().getUserByEmail(emailAdd);
+var emailUser = firebase.auth().getUserByEmail("ceverett@namf.com");
 
 if (emailUser != null) {
     emailUserEmail = emailUser.email;

@@ -36,12 +36,13 @@
 </script>
     
   </head>
-  <body class="app header-fixed sidebar-fixed sidebar-lg-show">
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-remote-config.js"></script>
+  <body id="appHeader" class="app footer-fixed header-fixed sidebar-fixed sidebar-lg-show">
+    <a hidden id=pageView value="dashboard"></a>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-remote-config.js"></script>
 
   
     <header class="app-header navbar">
@@ -55,9 +56,9 @@
             <div class="dropdown-header bg-light py-2">
               <strong>Organizations</strong>
             </div>
-            <a class="dropdown-item" id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</a>
-            <a class="dropdown-item" id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</a>
-            <a class="dropdown-item" id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</a>
+            <a class="dropdown-item" id=subOrg1Mobile><div id=subOrg1NameMobile onclick="setSubOrg(1)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg2Mobile><div id=subOrg2NameMobile onclick="setSubOrg(2)">Loading...</div></a>
+            <a class="dropdown-item" id=subOrg3Mobile><div id=subOrg3NameMobile onclick="setSubOrg(3)">Loading...</div></a>
             <!-- <a class="dropdown-item" href="accounts.html">Accounts</a>  -->
           </div>
         </li>
@@ -71,6 +72,8 @@
       <button disabled class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-show" id="quickstart-sign-in">
         <!-- <span class="navbar-toggler-icon"></span>-->
       </button>
+      <!-- Hidden due to code limitations -->
+      
       <!--contemplating removing the top bar with options-->
       <ul class="nav navbar-nav d-md-down-none">
         <!--removing top nav bar-->
@@ -131,6 +134,12 @@
                <!--<span class="badge badge-success">NEW</span>-->
               </a>
             </li>
+            <li id=optionsNavLink class="nav-item">
+              <a class="nav-link" href="options.html"> 
+                <i class="nav-icon cil-cog"></i> <div class="text">Organization Options</div>
+               <!--<span class="badge badge-success">NEW</span>-->
+              </a>
+            </li>
             </li>
             <!--Removing Temporary Signout Button-->
             <!--<li class="nav-item">
@@ -141,7 +150,8 @@
             <li class="divider"></li>
           </ul>
         </nav>
-        <button disabled class="sidebar-minimizer brand-minimizer" type="button"></button>
+        <button class="sidebar-minimizer brand-minimizer" onclick="setSidebar()" type="button"></button>
+        <!-- <button class="sidebar-minimizer brand-minimizer c-class-toggler" type="button" data-target="_parent" data-class="sidebar-minimized"></button> -->
       </div>
       <main class="main">
         <br>
@@ -158,7 +168,16 @@
               <div id=orgTank01 class="col-sm-6 col-lg-3">
           <div id=tank01Color class="card text-white bg-primary">
               <div class="card-body pb-0">
-                <div class="btn-group float-right">         
+                <div class="btn-group float-right"> 
+                  <!-- <div id=tank01Button class="dropdown">
+                    <a class="btn btn-transparent dropdown-toggle p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#">Set Minimum Temperature</a>
+                      <a class="dropdown-item" href="#">Set Maximum Temperature</a>
+                    </div>
+                  </div>         -->
                 </div>
                 <div class="text-value" id="tank01">
                   Loading...
@@ -174,6 +193,18 @@
           <div id=orgTank02 class="col-sm-6 col-lg-3">
             <div id=tank02Color class="card text-white bg-success">
               <div class="card-body pb-0">
+                <div class="btn-group float-right"> 
+                  <!-- <div hidden id=tank02Button class="dropdown">
+                    <a class="btn btn-transparent dropdown-toggle p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#">Item</a>
+                      <a class="dropdown-item" href="#">Another Item</a>
+                      <a class="dropdown-item" href="#">One more item</a>
+                    </div>
+                  </div>         -->
+                </div>
                 <div class="text-value" id="tank02">Loading...</div>
                 <div id="labelTank02">Tank 2</div>
               </div>
@@ -305,6 +336,13 @@
 
 </div>
       </div> <!--Temperatures End-->
+      <!-- Due to Code Limitations, this is a hotfix jerry rig solution -->
+
+      <a hidden class="dropdown-item" id=ErrorA1012></a>
+      <a hidden class="dropdown-item" id=ErrorA1013></a>
+      <a hidden class="dropdown-item" id=ErrorA1014></a>
+      <a hidden class="dropdown-item" id=ErrorA1015></a>
+
       </main>
     </div>
     <footer class="app-footer">
@@ -322,10 +360,11 @@
       <script src="/firebase/userallowed4.js"></script>
     </footer>
     <!-- Necessary plugins-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/node_modules/pace-progress/pace.min.js"></script>
     <script src="/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.min.js"></script> -->
+    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
   </body>
 </html>
