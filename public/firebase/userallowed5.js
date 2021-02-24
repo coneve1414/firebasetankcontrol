@@ -292,7 +292,7 @@ function showTank(tankNumberIn2) {
   inDiv4.id='tank'+tankNumberIn;
   var inDiv5 = document.createElement('div');
   inDiv5.id = 'labelTank'+tankNumberIn;
-  inDiv5.innerHTML= 'Loading Test...';
+  inDiv5.innerHTML= ' Tank '+tankNumberIn;
   inDiv2.appendChild(inDiv3);
   inDiv2.appendChild(inDiv4);
   inDiv2.appendChild(inDiv5);
@@ -430,7 +430,7 @@ function setTankShown() {
   var tankNumSelectIn = parseInt(tankNumSelectIn2);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn).then(function() {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("number").set(tankNumSelectIn).then(function() {
         showTankNumChangeSuccess();
         setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
@@ -559,116 +559,7 @@ function setSubOrg(subOrgNumber) {
 
 //page specific functions - account.html
 
-function changeOrg() {
-  var orgCodeIn = document.getElementById('newOrgCode').value;
-  getOrgCode(orgCodeIn);
-}
 
-function setSubOrgPermission(orgCodeValid2, subOrgNum, subOrgPermSet) {
-  baseRef.once("value", function(debugInfo) {
-    var subOrg1b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org1").val();
-    var subOrg2b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org2").val();
-    var subOrg3b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org3").val();
-    if (subOrgNum==1) {
-      baseRef.child(orgCodeValid2).child(subOrg1b).child(userIdMaster).set(subOrgPermSet);
-    } else if (subOrgNum==2) {
-      baseRef.child(orgCodeValid2).child(subOrg2b).child(userIdMaster).set(subOrgPermSet);
-    } else if (subOrgNum==3) {
-      baseRef.child(orgCodeValid2).child(subOrg3b).child(userIdMaster).set(subOrgPermSet);
-    } else {
-      console.log("error");
-    }
-    });
-  
-}
-
-function getOrgCode(orgCode) {
-  console.log("recieved!")
-  console.log("orgCode: "+orgCode);
-   //checking the code against the database
-  console.log("checking the database");
-  orgRef.once("value", function(snapshot) {
-  console.log("now in the database check!");
-  console.log("NewOrgCode: "+orgCode);
-  var orgCodeValid3 = snapshot.child(orgCode).val();
-  console.log(orgCodeValid3);
-  var orgCodeValid = orgCodeValid3+"";
-  console.log(userIdMaster);
-  if (roleMaster=="admin") {
-    roleMaster="admin";
-  } else if (roleMaster=="superadmin"){
-    roleMaster="superadmin";
-  } else if (roleMaster=="systemadmin") {
-    roleMaster="systemadmin";
-  } else {
-    roleMaster="true";
-  }
-  if (orgCodeValid3!=null) {
-    var userTopLevelDomain = userMaster.email.lastIndexOf(".");
-        var userAtSymbol = userMaster.email.lastIndexOf("@");
-        var userEmailFront = userMaster.email.substring(0, userAtSymbol);
-        var userMidLevelDomain = userMaster.email.substring(userAtSymbol+1, userTopLevelDomain)
-        var userEmailBack = userMaster.email.substring(userTopLevelDomain+1);
-        var userInfo = {
-          uid: userMaster.uid,
-          email: userMaster.email,
-          updateSuccess: true,
-          role: {
-            org: orgCodeValid,
-            role: roleMaster
-          }
-        }
-        baseRef.child("users2").child(userEmailBack).child(userMidLevelDomain).child(userEmailFront).set(userInfo).then(function() {
-          redirectadmin();
-        });
-    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
-    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
-    baseRef.once("value", function(debugInfo333) {
-    var multiOrgTrueb = debugInfo333.child("multiViewOrgs").child(orgCodeValid).val();
-    var multiOrgSubOrgNumbb = debugInfo333.child(orgCodeValid).child("subOrgNumber").val(); //Currently, Hard Limit on Sub Views is 3
-    multiOrgTrueMasterb = multiOrgTrueb;
-    console.log(multiOrgTrueMaster);
-    
-    if (multiOrgTrueMasterb == "true") {
-      //window.alert("MULTI ORG TRUE");
-      var subOrgId1bb;
-      var subOrgId2bb;
-      var subOrgId3bb;
-      console.log(multiOrgSubOrgNumbb);
-      if (multiOrgSubOrgNumbb == "3") {
-        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
-        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
-        subOrgId3bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org3").val();
-        console.log(subOrgId1bb);
-        console.log(subOrgId2bb);
-        console.log(subOrgId3bb);
-        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId3bb).child(userIdMaster).set("true");
-      } else {
-        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
-        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
-        console.log(subOrgId1bb);
-        console.log(subOrgId2bb);
-        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
-      }
-      showOrgCodeChange();
-      setTimeout(redirectDashboard(), 100);
-    } else {
-    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
-    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
-    console.log("success");
-    showOrgCodeChange();
-    setTimeout(redirectDashboard(), 100);
-    }});
-  } else {
-    console.log("error");
-    showOrgCodeNotValid();
-  }
-});
-
-};
 
 
 //main function
@@ -954,7 +845,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 tankOrgIdMaster = orgid2;
                 console.log(tankOrgIdMaster);
               }
-              var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
+              var tankNumFetch = debugInfo.child(orgid2).child("tanks").child("number").val();  // gets info of the total number of values that should be displayed.
               console.log(tankNumFetch);
               tankNum=tankNumFetch;
               master.tankNumberShown = tankNumFetch;
@@ -1073,11 +964,11 @@ firebase.auth().onAuthStateChanged((user) => {
                 } else {
                   var i2 = master.tankNumberShown;
                   // var i4 = i2;
-                  console.log(i2);
+                  // console.log(i2);
                   for (i2 = 13; i2 < master.tankNumberShown+1; i2++) {
                     // if (i2<12) {
                     //   // var i3 = ""+i2;
-                      console.log(i2);
+                      // console.log(i2);
                       showTank(i2);
                       // i2--;
                     // } else {
@@ -1154,126 +1045,14 @@ firebase.auth().onAuthStateChanged((user) => {
           });
 //        };
 
-function getLogo(orgLogo) {
-  if (orgLogo == "namhf"){ // temporary fix for the shitty code
-    document.getElementById("brandFull").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
-    document.getElementById("brandMini").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
-  } else {
-    var logoUrl = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2F" + orgLogo + ".png?alt=media";
-    document.getElementById("brandFull").src = logoUrl;
-    document.getElementById("brandMini").src = logoUrl;
-    return;
-  }
-}
+
 }
 
-    function hideTank01() {
-      var hideTank01Var = document.getElementById("orgTank01");
-      if (hideTank01Var.style.display === "none") {
-        hideTank01Var.style.display = "block";
-      } else {
-        hideTank01Var.style.display = "none";
-      }
-    };
+function getTanks(getTanksIn) {
+  getTanks2(getTanksIn);
+}
 
-    function hideTank02() {
-      var hideTank02Var = document.getElementById("orgTank02");
-      if (hideTank02Var.style.display === "none") {
-        hideTank02Var.style.display = "block";
-      } else {
-        hideTank02Var.style.display = "none";
-      }
-    };
-
-    function hideTank03() {
-      var hideTank03Var = document.getElementById("orgTank03");
-      if (hideTank03Var.style.display === "none") {
-        hideTank03Var.style.display = "block";
-      } else {
-        hideTank03Var.style.display = "none";
-      }
-    };
-
-    function hideTank04() {
-      var hideTank04Var = document.getElementById("orgTank04");
-      if (hideTank04Var.style.display === "none") {
-        hideTank04Var.style.display = "block";
-      } else {
-        hideTank04Var.style.display = "none";
-      }
-    };
-
-    function hideTank05() {
-      var hideTank05Var = document.getElementById("orgTank05");
-      if (hideTank05Var.style.display === "none") {
-        hideTank05Var.style.display = "block";
-      } else {
-        hideTank05Var.style.display = "none";
-      }
-    };
-    
-    function hideTank06() {
-      var hideTank06Var = document.getElementById("orgTank06");
-      if (hideTank06Var.style.display === "none") {
-        hideTank06Var.style.display = "block";
-      } else {
-        hideTank06Var.style.display = "none";
-      }
-    };
-
-    function hideTank07() {
-      var hideTank07Var = document.getElementById("orgTank07");
-      if (hideTank07Var.style.display === "none") {
-        hideTank07Var.style.display = "block";
-      } else {
-        hideTank07Var.style.display = "none";
-      }
-    };
-
-    function hideTank08() {
-      var hideTank08Var = document.getElementById("orgTank08");
-      if (hideTank08Var.style.display === "none") {
-        hideTank08Var.style.display = "block";
-      } else {
-        hideTank08Var.style.display = "none";
-      }
-    };
-
-    function hideTank09() {
-      var hideTank09Var = document.getElementById("orgTank09");
-      if (hideTank09Var.style.display === "none") {
-        hideTank09Var.style.display = "block";
-      } else {
-        hideTank09Var.style.display = "none";
-      }
-    };
-
-    function hideTank10() {
-      var hideTank10Var = document.getElementById("orgTank10");
-      if (hideTank10Var.style.display === "none") {
-        hideTank10Var.style.display = "block";
-      } else {
-        hideTank10Var.style.display = "none";
-      }
-    };
-
-    function hideTank11() {
-      var hideTank11Var = document.getElementById("orgTank11");
-      if (hideTank11Var.style.display === "none") {
-        hideTank11Var.style.display = "block";
-      } else {
-        hideTank11Var.style.display = "none";
-      }
-    };
-
-    function hideTank12() {
-      var hideTank12Var = document.getElementById("orgTank12");
-      if (hideTank12Var.style.display === "none") {
-        hideTank12Var.style.display = "block";
-      } else {
-        hideTank12Var.style.display = "none";
-      }
-    };
+   
 
   })}});
 }
