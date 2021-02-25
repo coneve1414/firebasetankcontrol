@@ -14,6 +14,6 @@ var config = {
   var database = firebase.database();
   var analytics = firebase.analytics();
   const remoteConfig = firebase.remoteConfig();
-  var functions = firebase.functions();
+  // var functions = firebase.functions();
 
  // var storage = firebase.storage();
