@@ -21,7 +21,21 @@ function toggleSignIn() {
         firebase.auth().signOut();
         // [END signout]
       } else {
-        var email = document.getElementById('email').value;
+        var email2 = document.getElementById('email').value;
+        var email = emailFormatter(email2);
+        //var email=email2;
+        // var userTopLevelDomain = email2.lastIndexOf(".");
+        // var userAtSymbol = email2.lastIndexOf("@");
+        // var userEmailFront2 = email2.substring(0, userAtSymbol);
+        // var userEmailFrontLength = userEmailFront2.length;
+        // var userEMailFrontAfterPeriod = userEmailFront2.substring(userEmailFront2.lastIndexOf(".")+1, userEmailFrontLength)
+        // var userEmailFrontPeriod = userEmailFront2.substring(0, userEmailFront2.lastIndexOf("."))
+        // var userEmailFront = userEmailFrontPeriod+userEMailFrontAfterPeriod;
+        // var userMidLevelDomain = email2.substring(userAtSymbol+1, userTopLevelDomain)
+        // var userEmailBack = email2.substring(userTopLevelDomain+1);
+        // var email = userEmailFront+"@"+userMidLevelDomain+"."+email2.substring(userTopLevelDomain+1);
+
+
         var password = document.getElementById('password').value;
         if (email.length < 4) {
           alert('Please enter an email address.');

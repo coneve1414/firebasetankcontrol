@@ -37,11 +37,13 @@
   <body id=appHeader class="app footer-fixed header-fixed sidebar-fixed sidebar-lg-show">
       <a hidden id=pageView value="options"></a>
     <!--Firebase JavaScript libraries-->
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-remote-config.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-remote-config.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-functions.js"></script>
+
       <header class="app-header navbar">
         <!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="dropdown"> -->
           <!-- <li class="nav-item dropdown"> -->
@@ -183,6 +185,10 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
                             <!-- <option value="13">Dev Test 13</option> -->
                           </select>
                           
@@ -233,6 +239,10 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
                             <!-- <option value="13">Dev Test 13</option> -->
                           </select>
                         </div>
@@ -351,7 +361,7 @@ window.location = "/admin/login.html";
           
       </div>
       <!-- Hidden Attributes so that the code works as intended. -->
-
+      <div id=hiddenTankId>
       <a hidden class="dropdown-item" id=tank01Color></a>
       <a hidden class="dropdown-item" id=tank02Color></a>
       <a hidden class="dropdown-item" id=tank03Color></a>
@@ -405,7 +415,22 @@ window.location = "/admin/login.html";
       <a hidden class="dropdown-item" id=orgTank10></a>
       <a hidden class="dropdown-item" id=orgTank11></a>
       <a hidden class="dropdown-item" id=orgTank12></a>
+      <a hidden class="dropdown-item" id=tankCard01></a>
+      <a hidden class="dropdown-item" id=tankCard02></a>
+      <a hidden class="dropdown-item" id=tankCard03></a>
+      <a hidden class="dropdown-item" id=tankCard04></a>
+      <a hidden class="dropdown-item" id=tankCard05></a>
+      <a hidden class="dropdown-item" id=tankCard06></a>
+      <a hidden class="dropdown-item" id=tankCard07></a>
+      <a hidden class="dropdown-item" id=tankCard08></a>
+      <a hidden class="dropdown-item" id=tankCard09></a>
+      <a hidden class="dropdown-item" id=tankCard10></a>
+      <a hidden class="dropdown-item" id=tankCard11></a>
+      <a hidden class="dropdown-item" id=tankCard12></a>
+      <div hidden id="temps">
 
+      </div>
+    </div>
 
       </main>
     </div>
@@ -422,6 +447,23 @@ window.location = "/admin/login.html";
       <script src="/firebase/login.js" type="text/javascript"></script>
       <script defer src="/firebase/admin.js" type="text/javascript"></script>
       <script src="/firebase/userallowed4.js"></script>
+      <script src="/firebase/core/emailFormatter.js"></script>
+
+      <!-- Custom Dependency Modules -->
+      <script src="/firebase/modules/dynamicColor.js"></script>
+      <script src="/firebase/modules/dynamicLabel.js"></script>
+
+      <!-- Custom Modules -->
+      <!-- <script src="/firebase/modules/getTanks.js"></script> -->
+      <script src="/firebase/modules/getLogo.js"></script>
+      <!-- <script src="/firebase/modules/hideTanks.js"></script> -->
+      
+      <script>
+        function getTanks2(inputxxxx) {
+          return inputxxxx;
+        }
+      </script>
+
       <!-- <script src="/firebase/changePhoto.js"></script> -->
       <!-- <script src="/firebase/changePassword.js"></script> -->
       <!-- <script src="/firebase/orgVerificationCodejs"></script> -->

@@ -109,7 +109,20 @@ function toggleSignIn() {
     if (firebase.auth().currentUser) {
       firebase.auth().signOut();
     } else {
-      var email = document.getElementById('email').value;
+      // var email = document.getElementById('email').value;
+
+      var email2 = document.getElementById('email').value;
+      var email = emailFormatter(email2);
+        // var userTopLevelDomain = email2.lastIndexOf(".");
+        // var userAtSymbol = email2.lastIndexOf("@");
+        // var userEmailFront2 = email2.substring(0, userAtSymbol);
+        // var userEmailFrontLength = userEmailFront2.length;
+        // var userEMailFrontAfterPeriod = userEmailFront2.substring(userEmailFront2.lastIndexOf(".")+1, userEmailFrontLength)
+        // var userEmailFrontPeriod = userEmailFront2.substring(0, userEmailFront2.lastIndexOf("."))
+        // var userEmailFront = userEmailFrontPeriod+userEMailFrontAfterPeriod;
+        // var userMidLevelDomain = email2.substring(userAtSymbol+1, userTopLevelDomain)
+        // var userEmailBack = email2.substring(userTopLevelDomain+1);
+        // var email = userEmailFront+"@"+userMidLevelDomain+"."+email2.substring(userTopLevelDomain+1);
       var password = document.getElementById('password').value;
       if (email.length < 4) {
         showEmailEmpty();
@@ -119,7 +132,7 @@ function toggleSignIn() {
         showPasswordEmpty();
         return;
       }
-      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().signInWithEmailAndPassword(email, document.getElementById('password').value).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {

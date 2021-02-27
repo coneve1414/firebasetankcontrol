@@ -136,49 +136,7 @@ function setSidebar() {
   }
 }
 
-function showTank(tankNumberIn) {
-  var iDiv = document.createElement('div');
-  iDiv.id = 'orgTank'+tankNumberIn;
-  iDiv.className = "col-sm-6 col-lg-3";
-  var inDiv1 = document.createElement('div');
-  inDiv1.className = 'card text-white bg-primary';
-  inDiv1.id = 'tank'+tankNumberIn+'Color'
-  var inDiv2 = document.createElement('div');
-  inDiv2.className = 'card-body pb-0';
-  var inDiv3 = document.createElement('div');
-  inDiv3.className = 'btn-group float-right';
-  var inDiv4 = document.createElement('div');
-  inDiv4.className = 'text-value';
-  inDiv4.innerHTML = 'Loading Test...';
-  inDiv4.id='tank'+tankNumberIn;
-  var inDiv5 = document.createElement('div');
-  inDiv5.id = 'labelTank'+tankNumberIn;
-  inDiv5.innerHTML= 'Loading Test...';
-  var inDiv6 = document.createElement('div');
-  inDiv6.className = 'chart-wrapper mt-3 mx-3';
-  // inDiv6.style.height=70;
-  var inDiv7 = document.createElement('canvas');
-  inDiv7.className = 'chart';
-  inDiv7.id="card-chart13";
-  inDiv7.style.height="70px";
-  inDiv6.appendChild(inDiv7);
-  inDiv2.appendChild(inDiv3);
-  inDiv2.appendChild(inDiv4);
-  inDiv2.appendChild(inDiv5);
-  inDiv1.appendChild(inDiv2);
-  inDiv1.appendChild(inDiv6);
-  iDiv.appendChild(inDiv1);
-  document.getElementById('temps').appendChild(iDiv);
-  // iDiv.innerHTML = 'block';
-  //var innerDiv = document.createElement('button');
-  //innerDiv.className = 'close';
-  // innerDiv.data.dismiss='alert';
-  // innerDiv.aria.label='Close';
-  // innerDiv.data-dismiss="alert";
-  // innerDiv.aria-label="Close";
-  //iDiv.appendChild("<button class='close' type='button' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button>");
-  //document.getElementById('alerts').appendChild(iDiv);
-  }
+
 
 function showAdminOptions() {
 
@@ -219,6 +177,18 @@ function showAdminOptions() {
   //   adminOptions06.style.display = "none";
   // }
   //console.log("test");
+}
+
+function enableHumidity(tankNumHIn) {
+  var HDiv = document.createElement('div');
+  HDiv.className = 'text-value';
+  HDiv.innerHTML = 'Loading Test...';
+  HDiv.id='tank'+tankNumHIn+'H';
+  var HDiv2 = document.createElement('div');
+  HDiv2.id = 'labelTank'+tankNumHIn;
+  HDiv2.innerHTML= 'Tank '+tankNumHIn+' Humidity';
+  document.getElementById('tankCard'+tankNumHIn).appendChild(HDiv);
+  document.getElementById('tankCard'+tankNumHIn).appendChild(HDiv2);
 }
 
 function redirectDashboard() {
@@ -287,10 +257,63 @@ var domainMaster;
 var domainLock;
 var domainLockMaster;
 var domainHideMaster;
+var userMaster;
+var master = {
+  subOrg1: null,
+  subOrg2: null,
+  subOrg3: null,
+  tankNumberShown: null
+}
 
 function page(pageSetIn) {
   pageVar = pageSetIn;
 }
+
+function showTank(tankNumberIn2) {
+  console.log(tankNumberIn2);
+  var tankNumberIn = tankNumberIn2+"";
+  console.log(tankNumberIn2);
+  if (document.getElementById("pageView").getAttribute("value")=="dashboard") {
+  var iDiv = document.createElement('div');
+  iDiv.id = 'orgTank'+tankNumberIn;
+  iDiv.className = "col-sm-6 col-lg-3";
+  var inDiv1 = document.createElement('div');
+  inDiv1.className = 'card text-white bg-primary';
+  inDiv1.id = 'tank'+tankNumberIn+'Color'
+  var inDiv2 = document.createElement('div');
+  inDiv2.className = 'card-body pb-0';
+  inDiv2.style='height:160px;';
+  inDiv2.id='tankCard'+tankNumberIn;
+  var inDiv3 = document.createElement('div');
+  inDiv3.className = 'btn-group float-right';
+  var inDiv4 = document.createElement('div');
+  inDiv4.className = 'text-value';
+  inDiv4.innerHTML = 'Loading Test...';
+  inDiv4.id='tank'+tankNumberIn;
+  var inDiv5 = document.createElement('div');
+  inDiv5.id = 'labelTank'+tankNumberIn;
+  inDiv5.innerHTML= ' Tank '+tankNumberIn;
+  inDiv2.appendChild(inDiv3);
+  inDiv2.appendChild(inDiv4);
+  inDiv2.appendChild(inDiv5);
+  inDiv1.appendChild(inDiv2);
+  iDiv.appendChild(inDiv1);
+  document.getElementById('temps').appendChild(iDiv);
+} else {
+  var iDiv2 = document.createElement('div');
+  iDiv2.id = 'tank'+tankNumberIn;
+  var iDiv3 = document.createElement('div');
+  iDiv3.id = 'tankCard'+tankNumberIn;
+  var iDiv4 = document.createElement('div');
+  iDiv4.id = 'labelTank'+tankNumberIn;
+  var iDiv5 = document.createElement('div');
+  iDiv5.id = 'orgTank'+tankNumberIn;
+  document.getElementById('hiddenTankId').appendChild(iDiv2);
+  document.getElementById('hiddenTankId').appendChild(iDiv3);
+  document.getElementById('hiddenTankId').appendChild(iDiv4);
+  document.getElementById('hiddenTankId').appendChild(iDiv5);
+}
+  }
 
 function validateAdmin() {
   //Regex for Valid Characters i.e. Alphabets, Numbers and Space.
@@ -403,10 +426,11 @@ function setAdminUser() {
 }
 
 function setTankShown() {
-  var tankNumSelectIn = document.getElementById("tankNumSelect").value;
+  var tankNumSelectIn2 = document.getElementById("tankNumSelect").value;
+  var tankNumSelectIn = parseInt(tankNumSelectIn2);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn).then(function() {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("number").set(tankNumSelectIn).then(function() {
         showTankNumChangeSuccess();
         setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
@@ -535,99 +559,7 @@ function setSubOrg(subOrgNumber) {
 
 //page specific functions - account.html
 
-function changeOrg() {
-  var orgCodeIn = document.getElementById('newOrgCode').value;
-  getOrgCode(orgCodeIn);
-}
 
-function setSubOrgPermission(orgCodeValid2, subOrgNum, subOrgPermSet) {
-  baseRef.once("value", function(debugInfo) {
-    var subOrg1b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org1").val();
-    var subOrg2b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org2").val();
-    var subOrg3b = debugInfo.child(orgCodeValid2).child("subOrgs").child("org3").val();
-    if (subOrgNum==1) {
-      baseRef.child(orgCodeValid2).child(subOrg1b).child(userIdMaster).set(subOrgPermSet);
-    } else if (subOrgNum==2) {
-      baseRef.child(orgCodeValid2).child(subOrg2b).child(userIdMaster).set(subOrgPermSet);
-    } else if (subOrgNum==3) {
-      baseRef.child(orgCodeValid2).child(subOrg3b).child(userIdMaster).set(subOrgPermSet);
-    } else {
-      console.log("error");
-    }
-    });
-  
-}
-
-function getOrgCode(orgCode) {
-  console.log("recieved!")
-  console.log("orgCode: "+orgCode);
-   //checking the code against the database
-  console.log("checking the database");
-  orgRef.once("value", function(snapshot) {
-  console.log("now in the database check!");
-  console.log("NewOrgCode: "+orgCode);
-  var orgCodeValid3 = snapshot.child(orgCode).val();
-  console.log(orgCodeValid3);
-  var orgCodeValid = orgCodeValid3+"";
-  console.log(userIdMaster);
-  if (roleMaster=="admin") {
-    roleMaster="admin";
-  } else if (roleMaster=="superadmin"){
-    roleMaster="superadmin";
-  } else if (roleMaster=="systemadmin") {
-    roleMaster="systemadmin";
-  } else {
-    roleMaster="true";
-  }
-  if (orgCodeValid3!=null) {
-    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
-    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
-    baseRef.once("value", function(debugInfo333) {
-    var multiOrgTrueb = debugInfo333.child("multiViewOrgs").child(orgCodeValid).val();
-    var multiOrgSubOrgNumbb = debugInfo333.child(orgCodeValid).child("subOrgNumber").val(); //Currently, Hard Limit on Sub Views is 3
-    multiOrgTrueMasterb = multiOrgTrueb;
-    console.log(multiOrgTrueMaster);
-    
-    if (multiOrgTrueMasterb == "true") {
-      //window.alert("MULTI ORG TRUE");
-      var subOrgId1bb;
-      var subOrgId2bb;
-      var subOrgId3bb;
-      console.log(multiOrgSubOrgNumbb);
-      if (multiOrgSubOrgNumbb == "3") {
-        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
-        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
-        subOrgId3bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org3").val();
-        console.log(subOrgId1bb);
-        console.log(subOrgId2bb);
-        console.log(subOrgId3bb);
-        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId3bb).child(userIdMaster).set("true");
-      } else {
-        subOrgId1bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org1").val();
-        subOrgId2bb = debugInfo333.child(orgCodeValid).child("subOrgs").child("org2").val();
-        console.log(subOrgId1bb);
-        console.log(subOrgId2bb);
-        baseRef.child(orgCodeValid3).child(subOrgId1bb).child(userIdMaster).set("true");
-        baseRef.child(orgCodeValid3).child(subOrgId2bb).child(userIdMaster).set("true");
-      }
-      showOrgCodeChange();
-      setTimeout(redirectDashboard(), 100);
-    } else {
-    baseRef.child("user").child(userIdMaster).set(orgCodeValid);
-    baseRef.child("users").child(orgCodeValid).child(userIdMaster).set(roleMaster);
-    console.log("success");
-    showOrgCodeChange();
-    setTimeout(redirectDashboard(), 100);
-    }});
-  } else {
-    console.log("error");
-    showOrgCodeNotValid();
-  }
-});
-
-};
 
 
 //main function
@@ -658,6 +590,7 @@ showAdminChange();
 //showOrgViewDropDown();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      userMaster = user;
       // User logged in already or has just logged in.
       console.log(user.uid);
       userRef.once("value", function(userSnapshot) {
@@ -912,9 +845,13 @@ firebase.auth().onAuthStateChanged((user) => {
                 tankOrgIdMaster = orgid2;
                 console.log(tankOrgIdMaster);
               }
-              var tankNumFetch = debugInfo.child(orgid2).child("tankNumber").val();  // gets info of the total number of values that should be displayed.
+              var tankNumFetch = debugInfo.child(orgid2).child("tanks").child("number").val();  // gets info of the total number of values that should be displayed.
               console.log(tankNumFetch);
               tankNum=tankNumFetch;
+              master.tankNumberShown = tankNumFetch;
+              // if (master.tankNumberShown >15) {
+              //   master.tankNumberShown = 15;
+              // }
               if (pageVar=="options") {
                 document.getElementById("tanksShownCurrently").innerHTML= tankNumFetch;
               }
@@ -1018,11 +955,27 @@ firebase.auth().onAuthStateChanged((user) => {
                   hideTank12();
                 } else if (tankNum=="11") {
                   hideTank12();
+                } else if (tankNum=="12") {
+
                 } else if (tankNum=="13") {
                   
                   showTank("13");
 
                 } else {
+                  var i2 = master.tankNumberShown;
+                  // var i4 = i2;
+                  // console.log(i2);
+                  for (i2 = 13; i2 < master.tankNumberShown+1; i2++) {
+                    // if (i2<12) {
+                    //   // var i3 = ""+i2;
+                      // console.log(i2);
+                      showTank(i2);
+                      // i2--;
+                    // } else {
+                      console.log("success");
+                    // }
+                    
+                  } 
                   console.log("all values shown")
                 }
                 roleMasterVar = useruid2;
@@ -1092,447 +1045,15 @@ firebase.auth().onAuthStateChanged((user) => {
           });
 //        };
 
-function getLogo(orgLogo) {
-  if (orgLogo == "namhf"){ // temporary fix for the shitty code
-    document.getElementById("brandFull").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
-    document.getElementById("brandMini").src = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2Fnamf.png?alt=media&token=299be2d2-d421-45b4-97ae-4012ece3de1d";
-  } else {
-    var logoUrl = "https://firebasestorage.googleapis.com/v0/b/tankstatuscontrol-ce.appspot.com/o/brand%2F" + orgLogo + ".png?alt=media";
-    document.getElementById("brandFull").src = logoUrl;
-    document.getElementById("brandMini").src = logoUrl;
-    return;
-  }
+
 }
 
-      function getTanks(orgid3) {
-          var ref = firebase.database().ref(orgid3);
-// tank 01
-      ref.on("value", function(snapshot) {
-        var tank01val = snapshot.child("tanks").child("tank01").child("temp").val(); // Example: 120 and will be formatted to 120°
-        //var tank01time = snapshot.child("tanks").child("tank01").child("timestamp").val();
-        var tankDyn = snapshot.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-        var tank01min = snapshot.child("tanks").child("tank01").child("minTemp").val(); // min temperature
-        var tank01max = snapshot.child("tanks").child("tank01").child("maxTemp").val(); // max temperature
-        var tank01label = snapshot.child("tanks").child("tank01").child("label").val(); // value label
-        var tank01labelDyn = snapshot.child("tanks").child("tank01").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-        if (tankDyn=="true") {
-        if (tank01val >=tank01max) {
-          document.getElementById("tank01Color").className = "card text-white bg-danger";
-        } else if (tank01val<=tank01min) {
-          document.getElementById("tank01Color").className = "card text-white bg-warning";
-        } else if (tank01val>=tank01min && tank01val<=tank01max) {
-          document.getElementById("tank01Color").className = "card text-white bg-success";
-        } else {
-          document.getElementById("tank01Color").className = "card text-white bg-primary";
-        }}
-        var tank01 = " " + tank01val;
-        document.getElementById("tank01").innerHTML =tank01 + "°F";
-        if (tank01labelDyn=="true") {
-          document.getElementById("labelTank01").innerHTML =tank01label;
-        }
-      });
+function getTanks(getTanksIn) {
+  getTanks2(getTanksIn);
+}
 
-// tank02
-      ref.on("value", function(snapshot2) {
-        var tank02val = snapshot2.child("tanks").child("tank02").child("temp").val(); // Example: 120 and will be formatted to 120°
-        //var tank02time = snapshot2.child("tanks").child("tank02").child("timestamp").val();
-        var tankDyn = snapshot2.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-        var tank02min = snapshot2.child("tanks").child("tank02").child("minTemp").val(); // min temperature
-        var tank02max = snapshot2.child("tanks").child("tank02").child("maxTemp").val(); // max temperature
-        var tank02label = snapshot2.child("tanks").child("tank02").child("label").val(); // value label
-        var tank02labelDyn = snapshot2.child("tanks").child("tank02").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-        if (tankDyn=="true"){
-        if (tank02val >=tank02max) {
-          document.getElementById("tank02Color").className = "card text-white bg-danger";
-        } else if (tank02val<=tank02min) {
-          document.getElementById("tank02Color").className = "card text-white bg-warning";
-        } else if (tank02val>=tank02min && tank02val<=tank02max) {
-          document.getElementById("tank02Color").className = "card text-white bg-success";
-        } else {
-          document.getElementById("tank02Color").className = "card text-white bg-primary";
-        }}
-        var tank02 = " " + tank02val;
-        document.getElementById("tank02").innerHTML =tank02 + "°F";
-        if (tank02labelDyn=="true") {
-          document.getElementById("labelTank02").innerHTML =tank03label;
-        }
-      });
-
-// tank03
-      ref.on("value", function(snapshot3) {
-        var tank03val = snapshot3.child("tanks").child("tank03").child("temp").val(); // Example: 120 and will be formatted to 120°
-      // var tank03time = snapshot3.child("tanks").child("tank03").child("timestamp").val();
-        var tankDyn = snapshot3.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-        var tank03min = snapshot3.child("tanks").child("tank03").child("minTemp").val(); // min temperature
-        var tank03max = snapshot3.child("tanks").child("tank03").child("maxTemp").val(); // max temperature
-        var tank03label = snapshot3.child("tanks").child("tank03").child("label").val(); // value label
-        var tank03labelDyn = snapshot3.child("tanks").child("tank03").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-        if (tankDyn=="true") {
-        if (tank03val >=tank03max) {
-          document.getElementById("tank03Color").className = "card text-white bg-danger";
-        } else if (tank03val<=tank03min) {
-          document.getElementById("tank03Color").className = "card text-white bg-warning";
-        } else if (tank03val>=tank03min && tank03val<=tank03max) {
-          document.getElementById("tank03Color").className = "card text-white bg-success";
-        } else {
-          document.getElementById("tank03Color").className = "card text-white bg-primary";
-        }}
-        var tank03 = " " + tank03val;
-        document.getElementById("tank03").innerHTML =tank03 + "°F";
-        if (tank03labelDyn=="true") {
-          document.getElementById("labelTank03").innerHTML =tank03label;
-        }
-      });
-
-// tank04
-      ref.on("value", function(snapshot4) {
-          var tank04val = snapshot4.child("tanks").child("tank04").child("temp").val(); // Example: 120 and will be formatted to 120°
-        //  var tank04time = snapshot4.child("tanks").child("tank04").child("timestamp").val();
-          var tankDyn = snapshot4.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank04min = snapshot4.child("tanks").child("tank04").child("minTemp").val(); // min temperature
-          var tank04max = snapshot4.child("tanks").child("tank04").child("maxTemp").val(); // max temperature
-          var tank04label = snapshot4.child("tanks").child("tank04").child("label").val(); // value label
-          var tank04labelDyn = snapshot4.child("tanks").child("tank04").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank04val >=tank04max) {
-            document.getElementById("tank04Color").className = "card text-white bg-danger";
-          } else if (tank04val<=tank04min) {
-            document.getElementById("tank04Color").className = "card text-white bg-warning";
-          } else if (tank04val>=tank04min && tank04val<=tank04max) {
-            document.getElementById("tank04Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank04Color").className = "card text-white bg-primary";
-          }}
-          var tank04 = " " + tank04val;
-          document.getElementById("tank04").innerHTML =tank04 + "°F";
-          if (tank04labelDyn=="true") {
-            document.getElementById("labelTank04").innerHTML =tank04label;
-          }
-        });
-
-// tank05
-      ref.on("value", function(snapshot5) {
-          var tank05val = snapshot5.child("tanks").child("tank05").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank05time = snapshot5.child("tanks").child("tank05").child("timestamp").val();
-          var tankDyn = snapshot5.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank05min = snapshot5.child("tanks").child("tank05").child("minTemp").val(); // min temperature
-          var tank05max = snapshot5.child("tanks").child("tank05").child("maxTemp").val(); // max temperature
-          var tank05label = snapshot5.child("tanks").child("tank05").child("label").val(); // value label
-          var tank05labelDyn = snapshot5.child("tanks").child("tank05").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank05val >=tank05max) {
-            document.getElementById("tank05Color").className = "card text-white bg-danger";
-          } else if (tank05val<=tank05min) {
-            document.getElementById("tank05Color").className = "card text-white bg-warning";
-          } else if (tank05val>tank05min && tank05val<tank05max) {
-            document.getElementById("tank05Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank05Color").className = "card text-white bg-primary";
-          }}
-          var tank05 = " " + tank05val;
-          document.getElementById("tank05").innerHTML =tank05 + "°F";
-          if (tank05labelDyn=="true") {
-            document.getElementById("labelTank05").innerHTML =tank05label;
-          }
-        });
-
-// tank06
-      ref.on("value", function(snapshot6) {
-          var tank06val = snapshot6.child("tanks").child("tank06").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank06time = snapshot6.child("tanks").child("tank06").child("timestamp").val();
-          var tankDyn = snapshot6.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank06min = snapshot6.child("tanks").child("tank06").child("minTemp").val(); // min temperature
-          var tank06max = snapshot6.child("tanks").child("tank06").child("maxTemp").val(); // max temperature
-          var tank06label = snapshot6.child("tanks").child("tank06").child("label").val(); // value label
-          var tank06labelDyn = snapshot6.child("tanks").child("tank06").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank06val >=tank06max) {
-            document.getElementById("tank06Color").className = "card text-white bg-danger";
-          } else if (tank06val<=tank06min) {
-            document.getElementById("tank06Color").className = "card text-white bg-warning";
-          } else if (tank06val>tank06min && tank06val<tank06max) {
-            document.getElementById("tank06Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank06Color").className = "card text-white bg-primary";
-          }}
-          var tank06 = " " + tank06val;
-          document.getElementById("tank06").innerHTML =tank06 + "°F";
-          if (tank06labelDyn=="true") {
-            document.getElementById("labelTank06").innerHTML =tank06label;
-          }
-        });
-
-// tank07
-      ref.on("value", function(snapshot7) {
-          var tank07val = snapshot7.child("tanks").child("tank07").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank07time = snapshot7.child("tanks").child("tank07").child("timestamp").val();
-          var tankDyn = snapshot7.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank07min = snapshot7.child("tanks").child("tank07").child("minTemp").val(); // min temperature
-          var tank07max = snapshot7.child("tanks").child("tank07").child("maxTemp").val(); // max temperature
-          var tank07label = snapshot7.child("tanks").child("tank07").child("label").val(); // value label
-          var tank07labelDyn = snapshot7.child("tanks").child("tank07").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank07val >=tank07max) {
-            document.getElementById("tank07Color").className = "card text-white bg-danger";
-          } else if (tank07val<=tank07min) {
-            document.getElementById("tank07Color").className = "card text-white bg-warning";
-          } else if (tank07val>tank07min && tank07val<tank07max) {
-            document.getElementById("tank07Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank07Color").className = "card text-white bg-primary";
-          }}
-          var tank07 = " " + tank07val;
-          document.getElementById("tank07").innerHTML =tank07 + "°F";
-          if (tank07labelDyn=="true") {
-            document.getElementById("labelTank07").innerHTML =tank07label;
-          }
-        });
-
-// tank08        
-      ref.on("value", function(snapshot8) {
-          var tank08val = snapshot8.child("tanks").child("tank08").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank08time = snapshot8.child("tanks").child("tank08").child("timestamp").val();
-          var tankDyn = snapshot8.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank08min = snapshot8.child("tanks").child("tank08").child("minTemp").val(); // min temperature
-          var tank08max = snapshot8.child("tanks").child("tank08").child("maxTemp").val(); // max temperature
-          var tank08label = snapshot8.child("tanks").child("tank08").child("label").val(); // value label
-          var tank08labelDyn = snapshot8.child("tanks").child("tank08").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank08val >=tank08max) {
-            document.getElementById("tank08Color").className = "card text-white bg-danger";
-          } else if (tank08val<=tank08min) {
-            document.getElementById("tank08Color").className = "card text-white bg-warning";
-          } else if (tank08val>tank08min && tank08val<tank08max) {
-            document.getElementById("tank08Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank08Color").className = "card text-white bg-primary";
-          }}
-          var tank08 = " " + tank08val;
-          document.getElementById("tank08").innerHTML =tank08 + "°F";
-          if (tank08labelDyn=="true") {
-            document.getElementById("labelTank08").innerHTML =tank08label;
-          }
-        });
-
-// tank09
-      ref.on("value", function(snapshot9) {
-          var tank09val = snapshot9.child("tanks").child("tank09").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank09time = snapshot9.child("tanks").child("tank09").child("timestamp").val();
-          var tankDyn = snapshot9.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank09min = snapshot9.child("tanks").child("tank09").child("minTemp").val(); // min temperature
-          var tank09max = snapshot9.child("tanks").child("tank09").child("maxTemp").val(); // max temperature
-          var tank09label = snapshot9.child("tanks").child("tank09").child("label").val(); // value label
-          var tank09labelDyn = snapshot9.child("tanks").child("tank09").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank09val >=tank09max) {
-            document.getElementById("tank09Color").className = "card text-white bg-danger";
-          } else if (tank09val<=tank09min) {
-            document.getElementById("tank09Color").className = "card text-white bg-warning";
-          } else if (tank09val>tank09min && tank09val<tank09max) {
-            document.getElementById("tank09Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank09Color").className = "card text-white bg-primary";
-          }}
-          var tank09 = " " + tank09val;
-          document.getElementById("tank09").innerHTML =tank09 + "°F";
-          if (tank09labelDyn=="true") {
-            document.getElementById("labelTank09").innerHTML =tank09label;
-          }
-        });
-
-// tank10
-      ref.on("value", function(snapshot10) {
-          var tank10val = snapshot10.child("tanks").child("tank10").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank10time = snapshot10.child("tanks").child("tank10").child("timestamp").val();
-          var tankDyn = snapshot10.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank10min = snapshot10.child("tanks").child("tank10").child("minTemp").val(); // min temperature
-          var tank10max = snapshot10.child("tanks").child("tank10").child("maxTemp").val(); // max temperature
-          var tank10label = snapshot10.child("tanks").child("tank10").child("label").val(); // value label
-          var tank10labelDyn = snapshot10.child("tanks").child("tank10").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank10val >=tank10max) {
-            document.getElementById("tank10Color").className = "card text-white bg-danger";
-          } else if (tank10val<=tank10min) {
-            document.getElementById("tank10Color").className = "card text-white bg-warning";
-          } else if (tank10val>tank10min && tank10val<tank10max) {
-            document.getElementById("tank10Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank10Color").className = "card text-white bg-primary";
-          }} else {
-          }
-          var tank10 = " " + tank10val;
-          document.getElementById("tank10").innerHTML =tank10 + "°F";
-          if (tank10labelDyn=="true") {
-            document.getElementById("labelTank10").innerHTML =tank10label;
-          }
-        });
- 
-// tank11
-      ref.on("value", function(snapshot11) {
-          var tank11val = snapshot11.child("tanks").child("tank11").child("temp").val(); // Example: 120 and will be formatted to 120°
-          var tank11time = snapshot11.child("tanks").child("tank11").child("timestamp").val();
-          var tankDyn = snapshot11.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-          var tank11min = snapshot11.child("tanks").child("tank11").child("minTemp").val(); // min temperature
-          var tank11max = snapshot11.child("tanks").child("tank11").child("maxTemp").val(); // max temperature
-          var tank11label = snapshot11.child("tanks").child("tank11").child("label").val(); // value label
-          var tank11labelDyn = snapshot11.child("tanks").child("tank11").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-          if (tankDyn=="true") {
-          if (tank11val >=tank11max) {
-            document.getElementById("tank11Color").className = "card text-white bg-danger";
-          } else if (tank11val<=tank11min) {
-            document.getElementById("tank11Color").className = "card text-white bg-warning";
-          } else if (tank11val>tank11min && tank11val<tank11max) {
-            document.getElementById("tank11Color").className = "card text-white bg-success";
-          } else {
-            document.getElementById("tank11Color").className = "card text-white bg-primary";
-          }}
-          var tank11 = " " + tank11val;
-          document.getElementById("tank11").innerHTML =tank11 + "°F";
-          if (tank11labelDyn=="true") {
-            document.getElementById("labelTank11").innerHTML =tank11label;
-          }
-        });
-
-// tank12
-      ref.on("value", function(snapshot12) {
-        var tank12val = snapshot12.child("tanks").child("tank12").child("temp").val(); // Example: 120 and will be formatted to 120°
-        var tank12time = snapshot12.child("tanks").child("tank12").child("timestamp").val();
-        var tank12min = snapshot12.child("tanks").child("tank12").child("minTemp").val(); // min temperature
-        var tankDyn = snapshot12.child("tanks").child("isDynamicColor").val(); // isDynamicColor=true or false
-        var tank12max = snapshot12.child("tanks").child("tank12").child("maxTemp").val(); // max temperature
-        var tank12label = snapshot12.child("tanks").child("tank12").child("label").val(); // value label
-        var tank12labelDyn = snapshot12.child("tanks").child("tank12").child("isDynamicLabel").val(); // isDynamicLabel = true or false
-        if (tankDyn=="true") {
-        if (tank12val >=tank12max) {
-          document.getElementById("tank12Color").className = "card text-white bg-danger";
-        } else if (tank12val<=tank12min) {
-          document.getElementById("tank12Color").className = "card text-white bg-warning";
-        } else if (tank12val>tank12min && tank12val<tank12max) {
-          document.getElementById("tank12Color").className = "card text-white bg-success";
-        } else {
-          document.getElementById("tank12Color").className = "card text-white bg-primary";
-        }}
-        var tank12 = " " + tank12val;
-        document.getElementById("tank12").innerHTML =tank12 + "°F";
-        if (tank12labelDyn=="true") {
-          document.getElementById("labelTank12").innerHTML =tank12label;
-        }
-      });
-
-        
-
-
-      }
-
-    };
-
-    function hideTank01() {
-      var hideTank01Var = document.getElementById("orgTank01");
-      if (hideTank01Var.style.display === "none") {
-        hideTank01Var.style.display = "block";
-      } else {
-        hideTank01Var.style.display = "none";
-      }
-    };
-
-    function hideTank02() {
-      var hideTank02Var = document.getElementById("orgTank02");
-      if (hideTank02Var.style.display === "none") {
-        hideTank02Var.style.display = "block";
-      } else {
-        hideTank02Var.style.display = "none";
-      }
-    };
-
-    function hideTank03() {
-      var hideTank03Var = document.getElementById("orgTank03");
-      if (hideTank03Var.style.display === "none") {
-        hideTank03Var.style.display = "block";
-      } else {
-        hideTank03Var.style.display = "none";
-      }
-    };
-
-    function hideTank04() {
-      var hideTank04Var = document.getElementById("orgTank04");
-      if (hideTank04Var.style.display === "none") {
-        hideTank04Var.style.display = "block";
-      } else {
-        hideTank04Var.style.display = "none";
-      }
-    };
-
-    function hideTank05() {
-      var hideTank05Var = document.getElementById("orgTank05");
-      if (hideTank05Var.style.display === "none") {
-        hideTank05Var.style.display = "block";
-      } else {
-        hideTank05Var.style.display = "none";
-      }
-    };
-    
-    function hideTank06() {
-      var hideTank06Var = document.getElementById("orgTank06");
-      if (hideTank06Var.style.display === "none") {
-        hideTank06Var.style.display = "block";
-      } else {
-        hideTank06Var.style.display = "none";
-      }
-    };
-
-    function hideTank07() {
-      var hideTank07Var = document.getElementById("orgTank07");
-      if (hideTank07Var.style.display === "none") {
-        hideTank07Var.style.display = "block";
-      } else {
-        hideTank07Var.style.display = "none";
-      }
-    };
-
-    function hideTank08() {
-      var hideTank08Var = document.getElementById("orgTank08");
-      if (hideTank08Var.style.display === "none") {
-        hideTank08Var.style.display = "block";
-      } else {
-        hideTank08Var.style.display = "none";
-      }
-    };
-
-    function hideTank09() {
-      var hideTank09Var = document.getElementById("orgTank09");
-      if (hideTank09Var.style.display === "none") {
-        hideTank09Var.style.display = "block";
-      } else {
-        hideTank09Var.style.display = "none";
-      }
-    };
-
-    function hideTank10() {
-      var hideTank10Var = document.getElementById("orgTank10");
-      if (hideTank10Var.style.display === "none") {
-        hideTank10Var.style.display = "block";
-      } else {
-        hideTank10Var.style.display = "none";
-      }
-    };
-
-    function hideTank11() {
-      var hideTank11Var = document.getElementById("orgTank11");
-      if (hideTank11Var.style.display === "none") {
-        hideTank11Var.style.display = "block";
-      } else {
-        hideTank11Var.style.display = "none";
-      }
-    };
-
-    function hideTank12() {
-      var hideTank12Var = document.getElementById("orgTank12");
-      if (hideTank12Var.style.display === "none") {
-        hideTank12Var.style.display = "block";
-      } else {
-        hideTank12Var.style.display = "none";
-      }
-    };
+   
 
   })}});
 }
+
