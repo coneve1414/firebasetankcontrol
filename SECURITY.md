@@ -12,4 +12,4 @@ Currently all versions are in beta
 
 ## Reporting a Vulnerability
 
-Please report any vunerability to [tankstatuscontrol.ce@gmail.com] (tankstatuscontrol.ce@gmail.com). Thanks!
+Please report any vunerability to [tankstatuscontrol.ce@gmail.com]. Thanks!
