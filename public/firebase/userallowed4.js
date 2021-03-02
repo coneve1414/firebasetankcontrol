@@ -430,7 +430,7 @@ function setTankShown() {
   var tankNumSelectIn = parseInt(tankNumSelectIn2);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      baseRef.child(tankOrgIdMaster).child("tankNumber").set(tankNumSelectIn).then(function() {
+      baseRef.child(tankOrgIdMaster).child("tanks").child("Number").set(tankNumSelectIn).then(function() {
         showTankNumChangeSuccess();
         setTimeout(redirectDashboard(), 100);
       }).catch(function(error) {
